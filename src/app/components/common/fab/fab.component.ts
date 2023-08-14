@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-fab',
+  selector: 'common-fab',
   templateUrl: './fab.component.html',
   styleUrls: ['./fab.component.scss']
 })

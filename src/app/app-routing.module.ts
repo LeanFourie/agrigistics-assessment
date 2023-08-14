@@ -1,10 +1,29 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+// Core Imports
+import {
+    RouterModule,
+    Routes
+} from '@angular/router'
 
-const routes: Routes = [];
+// Module Imports
+import { NgModule } from '@angular/core'
+
+// Component Imports
+import { AreaManagerComponent } from './pages/area-manager/area-manager.component'
+
+const routes: Routes = [
+    {
+        path: '',
+        component: AreaManagerComponent
+    }
+]
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [
+        RouterModule.forRoot( routes )
+    ],
+    exports: [
+        RouterModule
+    ]
 })
-export class AppRoutingModule { }
+
+export class AppRoutingModule {}

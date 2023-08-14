@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-icon',
+  selector: 'base-icon',
   templateUrl: './icon.component.html',
   styleUrls: ['./icon.component.scss']
 })

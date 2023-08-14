@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-chip',
+  selector: 'base-chip',
   templateUrl: './chip.component.html',
   styleUrls: ['./chip.component.scss']
 })
