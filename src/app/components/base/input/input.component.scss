@@ -1,0 +1,33 @@
+.input {
+    // Children
+    &__label {
+        &-asterisk {}
+    }
+
+    &__element {}
+
+    &__helper {}
+
+    // Variant
+    &--variant {
+        &-filled {}
+
+        &-outline {}
+    }
+
+    // Has...
+    &--has {
+        &-error {}
+
+        &-value {}
+    }
+
+    // Is...
+    &--is {
+        &-disabled {}
+
+        &-focussed {}
+
+        &-readOnly {}
+    }
+}

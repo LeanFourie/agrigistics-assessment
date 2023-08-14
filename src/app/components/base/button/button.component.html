@@ -1,13 +1,38 @@
-<button class="button">
-    <!-- Icon -->
-    <span class="button__icon">
-        <base-icon></base-icon>
-    </span>
-    <!-- ./Icon -->
+<button
+    (click)="handleClick"
+    [ngClass]="returnClassNames"
+    [attr.aria-label]="label"
+>
+    <!-- Icon Left -->
+    <ng-container *ngIf="icons && icons.length > 0 && icons[ 0 ]">
+        <span class="button__icon button__icon--left">
+            <base-icon
+                [name]="icons[ 0 ]"
+            ></base-icon>
+        </span>
+    </ng-container>
+    <!-- ./Icon Left -->
 
     <!-- Label -->
-    <span class="button__label">
-        <base-text></base-text>
-    </span>
+    <ng-container *ngIf="showLabel">
+        <span class="button__label">
+            <base-text
+                [renderAsSpan]="true"
+                [variant]="labelVariant"
+            >
+                {{ label }}
+            </base-text>
+        </span>
+    </ng-container>
     <!-- ./Label -->
+
+    <!-- Icon Right -->
+    <ng-container *ngIf="icons && icons.length > 0 && icons[ 1 ]">
+        <span class="button__icon button__icon--right">
+            <base-icon
+                [name]="icons[ 1 ]"
+            ></base-icon>
+        </span>
+    </ng-container>
+    <!-- ./Icon Right -->
 </button>

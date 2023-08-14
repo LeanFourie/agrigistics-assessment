@@ -1,13 +1,23 @@
-<div class="chip">
+<div [ngClass]="returnClassNames">
     <!-- Label -->
     <span class="chip__label">
-        <base-text></base-text>
+        <base-text
+            [renderAsSpan]="true"
+            variant="label sm"
+        >
+            {{ label }}
+        </base-text>
     </span>
     <!-- ./Label -->
 
     <!-- Remove -->
-    <button class="chip__remove">
-        <base-icon></base-icon>
+    <button
+        (click)="handleClick"
+        class="chip__remove"
+    >
+        <base-icon
+            name="close"
+        ></base-icon>
     </button>
     <!-- ./Remove -->
 </div>

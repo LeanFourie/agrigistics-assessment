@@ -1,4 +1,5 @@
 // Module Imports
+import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 
 // Component Imports
@@ -21,6 +22,7 @@ import { TableComponent } from './common/table/table.component'
 import { TableLineItemComponent } from './common/table-line-item/table-line-item.component';
 import { DashboardComponent } from './layout/dashboard/dashboard.component'
 import { NavComponent } from './layout/nav/nav.component';
+import { HelperTextComponent } from './base/helper-text/helper-text.component';
 
 @NgModule({
     declarations: [
@@ -47,7 +49,11 @@ import { NavComponent } from './layout/nav/nav.component';
 
         // Layout
         DashboardComponent,
-        NavComponent
+        NavComponent,
+        HelperTextComponent
+    ],
+    imports: [
+        CommonModule
     ],
     exports: [
         // Base

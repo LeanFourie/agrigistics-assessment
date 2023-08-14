@@ -1,0 +1,66 @@
+.text {
+    &__element {
+        // Variant
+        &--variant {
+            &-heading {
+                &-sm {}
+    
+                &-md {}
+    
+                &-lg {}
+            }
+    
+            &-sub-heading {
+                &-sm {}
+    
+                &-md {}
+    
+                &-lg {}
+            }
+    
+            &-paragraph {
+                &-sm {}
+    
+                &-md {}
+    
+                &-lg {}
+            }
+    
+            &-label {
+                &-sm {}
+    
+                &-md {}
+    
+                &-lg {}
+            }
+        }
+
+        // Weight
+        &--weight {
+            &-thin {}
+
+            &-extra-light {}
+
+            &-light {}
+
+            &-regular {}
+
+            &-medium {}
+
+            &-semi-bold {}
+
+            &-bold {}
+
+            &-extra-bold {}
+
+            &-black {}
+        }
+
+        // Style
+        &--style {
+            &-regular {}
+
+            &-italic {}
+        }
+    }
+}

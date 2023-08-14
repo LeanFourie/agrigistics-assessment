@@ -1,0 +1,11 @@
+.image {
+    // Children
+    &__element {}
+
+    // Fit
+    &--fit {
+        &-contain {}
+
+        &-cover {}
+    }
+}

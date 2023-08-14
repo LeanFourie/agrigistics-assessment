@@ -1,0 +1,25 @@
+<span
+    [class]="'helper--state-' + state"
+    class="helper"
+>
+    <!-- Icon -->
+    <ng-container *ngIf="icon">
+        <span class="helper__icon">
+            <base-icon
+                [name]="icon"
+            ></base-icon>
+        </span>
+    </ng-container>
+    <!-- ./Icon -->
+
+    <!-- Label -->
+    <span class="helper__label">
+        <base-text
+            [renderAsSpan]="true"
+            variat="pargraph sm"
+        >
+            {{ label }}
+        </base-text>
+    </span>
+    <!-- ./Label -->
+</span>

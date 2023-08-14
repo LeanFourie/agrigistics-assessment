@@ -1,9 +1,11 @@
 <span class="icon">
-    <!-- Image -->
-    <img
-        alt=""
-        class="icon__image"
-        src=""
-    />
-    <!-- ./Image -->
+    <!-- Material Icon -->
+    <span
+        [ngClass]="{ 'icon__element--filled': filled }"
+        [class]="materialSymbolRenderClass"
+        class="icon__element"
+    >
+        {{ name }}
+    </span>
+    <!-- ./Material Icon -->
 </span>

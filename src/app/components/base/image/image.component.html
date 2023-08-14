@@ -1,9 +1,13 @@
-<div class="image">
+<div
+    [class]="'image--fit-' + fit"
+    class="image"
+>
     <!-- Image Element -->
     <img
-        alt=""
+        [alt]="alt"
+        [src]="src"
         class="image__element"
-        src=""
+        loading="lazy"
     />
     <!-- ./Image Element -->
 </div>

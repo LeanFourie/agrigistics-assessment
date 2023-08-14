@@ -1,0 +1,56 @@
+.button {
+    // Children
+    &__label {}
+
+    &__icon {
+        &--left {}
+
+        &--right {}
+    }
+
+    // Variant
+    &--variant {
+        &-filled {}
+
+        &-outlined {}
+
+        &-ghost {}
+    }
+
+    // Color
+    &--color {
+        &-primary {}
+
+        &-secondary {}
+
+        &-danger {}
+    }
+
+    // Shade
+    &--shade {
+        &-dark {}
+
+        &-light {}
+    }
+
+    // Size
+    &--size {
+        &-sm {}
+
+        &-md {}
+
+        &-lg {}
+    }
+
+    // Is...
+    &--is {
+        &-disabled {}
+
+        &-loading {}
+    }
+
+    // Show
+    &--show {
+        &-label {}
+    }
+}

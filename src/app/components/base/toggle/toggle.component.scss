@@ -1,0 +1,18 @@
+.toggle {
+    // Children
+    &__button {}
+
+    &__label {}
+
+    // State
+    &--state {
+        &-on {}
+
+        &-off {}
+    }
+
+    // Is...
+    &--is {
+        &-disabled {}
+    }
+}

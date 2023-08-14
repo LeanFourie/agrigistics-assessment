@@ -1,0 +1,22 @@
+.chip {
+    // Children
+    &__label {}
+
+    &__remove {}
+
+    // Color
+    &--color {
+        &-primary {}
+
+        &-secondary {}
+
+        &-danger {}
+    }
+
+    // Shade
+    &--shade {
+        &-dark {}
+
+        &-light {}
+    }
+}

@@ -1,31 +1,39 @@
-<label class="input">
+<label [ngClass]="returnClassNames">
     <!-- Label -->
     <span class="input__label">
-        <base-text>
-            <span class="input__label-asterisk"></span>
+        <base-text
+            [renderAsSpan]="true"
+            variant="label md"
+        >
+            {{ label }}
+            <ng-container *ngIf="isRequired">
+                <sup class="input__label-asterisk">*</sup>
+            </ng-container>
         </base-text>
     </span>
     <!-- ./Label -->
 
     <!-- Input Element -->
     <input
+        (blur)="handleBlur"
+        (change)="handleChange"
+        (focus)="handleFocus"
+        [readOnly]="isReadOnly"
+        [type]="type"
+        [value]="value"
         class="input__element"
-        type="text"
     />
     <!-- ./Input Element -->
 
     <!-- Helper Text -->
-    <span class="input__helper">
-        <!-- Icon -->
-        <span class="input__helper-icon">
-            <base-icon></base-icon>
+    <ng-container *ngIf="helperText">
+        <span class="input__helper">
+            <base-helper-text
+                [icon]="helperText.icon"
+                [label]="helperText.label"
+                [state]="helperText.state"
+            ></base-helper-text>
         </span>
-        <!-- ./Icon -->
-        <!-- Text -->
-        <div class="input__helper-text">
-            <base-text></base-text>
-        </div>
-        <!-- ./Text -->
-    </span>
+    </ng-container>
     <!-- ./Helper Text -->
 </label>
