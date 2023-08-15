@@ -1,0 +1,24 @@
+/*** IMPORTS ***/
+// Use
+@use './../../../styles/utils/functions' as func;
+@use './../../../styles/utils/mixins' as mixin;
+
+/*** STYLES ***/
+// Component
+.page {
+    // Mixins
+    @include mixin.fullWidth();
+
+    // Styles
+    min-height: 100vh;
+    background: func.color( baseColor-25 );
+
+    &__nav {
+        position: sticky;
+        top: 0;
+    }
+
+    &__content {
+
+    }
+}

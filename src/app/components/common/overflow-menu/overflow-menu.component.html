@@ -1,0 +1,24 @@
+<div class="overflow">
+    <!-- Trigger -->
+    <button
+        (click)="handleTriggerClick()"
+        class="overflow__trigger"
+    >
+        <base-icon
+            name="more_vert"
+        ></base-icon>
+    </button>
+    <!-- ./Trigger -->
+
+    <!-- Menu -->
+    <div
+        [ngClass]="{ 'overflow__menu--is-visible': showMenu }"
+        class="overflow__menu"
+    >
+        <common-actions-list
+            (onActionClick)="handleActionClick()"
+            [actions]="actions.slice(1)"
+        ></common-actions-list>
+    </div>
+    <!-- ./Menu -->
+</div>

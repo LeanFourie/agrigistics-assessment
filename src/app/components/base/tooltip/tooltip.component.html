@@ -1,7 +1,14 @@
-<div class="tooltip">
+<div
+    [ngClass]="{ 'tooltip--is-visible': isVisible }"
+    class="tooltip"
+>
     <!-- Label -->
     <div class="tooltip__label">
-        <base-text varinat="paragraph sm">
+        <base-text
+            [renderAsSpan]="true"
+            fontWeight="medium"
+            variant="label xs"
+        >
             {{ label }}
         </base-text>
     </div>

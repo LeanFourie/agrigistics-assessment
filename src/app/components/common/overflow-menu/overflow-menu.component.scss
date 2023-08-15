@@ -10,24 +10,17 @@
 }
 
 // Component
-.nav-item {
-    // Mixins
-    @include mixin.borderRadiusRound();
-
-    // Styles
-    width: func.pxToRem( 40 );
-    height: func.pxToRem( 40 );
+.overflow {
     position: relative;
 
-    // Children
-    &__button {
+    &__trigger {
         // Mixins
         @include mixin.borderRadiusRound();
         @include mixin.flexCenter();
     
         // Styles
-        width: 100%;
-        height: 100%;
+        width: func.pxToRem( 40 );
+        height: func.pxToRem( 40 );
         background: transparent;
         border: none;
         color: func.color( whiteColor );
@@ -49,7 +42,32 @@
         }
     }
 
-    &__icon {}
+    &__menu {
+        // Mixins
+        @include mixin.transform( translateY( func.pxToRem( 8 ) ) scale( .95 ) );
+        @include mixin.transition(
+            all
+            func.duration( fast )
+            func.easing( easeOutQuint )
+        );
 
-    &__tooltip {}
+        // Styles
+        position: absolute;
+        top: calc( 100% + #{ func.pxToRem( 4 ) } );
+        right: 0;
+        transform-origin: top right;
+        opacity: 0;
+        pointer-events: none;
+
+        &--is {
+            &-visible {
+                // Mixins
+                @include mixin.transform( none );
+        
+                // Styles
+                opacity: 1;
+                pointer-events: all;
+            }
+        }
+    }
 }

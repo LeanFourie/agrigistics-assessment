@@ -1,0 +1,408 @@
+// Imports
+@use 'sass:meta';
+@use './functions' as func;
+@use './../variables/static' as var;
+
+/*
+*   transition
+**  Creates a transition css property
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  transitions - The css transition properties to action
+*/
+@mixin transition( $transitions... ) {
+    transition: $transitions;
+    -webkit-transition: $transitions;
+    -moz-transition: $transitions;
+    -o-transition: $transitions;
+}
+
+/*
+*   transform
+**  Applies a css transform to an html element
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  property - The property to animate, e.g. scale() / transform() / rotate()
+*/
+@mixin transform( $property ) {
+    transform: $property;
+    -webkit-transform: $property;
+    -o-transform: $property;
+}
+
+/*
+*   animation
+**  Applies a css animation to an html element
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  animation - The animation shorthand values
+*/
+@mixin animation( $animation ) {
+    animation: $animation;
+    -webkit-animation: $animation;
+    -moz-animation: $animation;
+    -o-animation: $animation;
+}
+
+/*
+*   boxShadow
+**  Adds a box show to the selected element
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  shadowProps - The css box-shadow properties to action
+*/
+@mixin boxShadow( $shadows... ) {
+    box-shadow: $shadows;
+    -webkit-box-shadow: $shadows;
+    -moz-box-shadow: $shadows;
+    -o-box-shadow: $shadows;
+}
+
+/*
+*   fitImage
+**  Sizes an image inside a container
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  size - The size of the, either cover or contain
+*/
+@mixin fitImage( $size ) {
+    width: 100%;
+    height: 100%;
+    object-fit: $size;
+    display: block;
+}
+
+/*
+*   borderRadiusRound
+**  Sets the border radius of the element to 50%
+*/
+@mixin borderRadiusRound {
+    border-radius: 50%;
+}
+
+/*
+*   fontWeight
+**  Sets the font weight for both static and variable fonts
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  weight - The font weight as a number, e.g. 400 / 500 / 600
+*/
+@mixin fontWeight( $weight ) {
+    font-weight: $weight;
+    font-variation-settings: 'wght' $weight;
+}
+
+/*
+*   skeletonLoader
+**  Adds a skeleton loader animation to the component
+*/
+@mixin skeletonLoader {
+    position: relative;
+    background-color: func.color( baseColor-50 );
+    overflow: hidden;
+
+    @keyframes shimmer {
+        100% {
+            transform: translateX( 100% );
+        }
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(
+            90deg,
+            func.alphaColor( baseColor-50, 0 ) 0,
+            func.alphaColor( baseColor-50, .2 ) 20%,
+            func.alphaColor( baseColor-50, .5 ) 60%,
+            func.alphaColor( baseColor-50, 0 )
+        );
+        transform: translateX( -100% );
+        animation: shimmer 2s infinite;
+    }
+}
+
+/*
+*   skeletonSraric
+**  Adds a static skeleton effect to the applied component.
+*/
+@mixin skeletonStatic(
+    $borderRadius: 8,
+    $minWidth: 0,
+    $maxWidth: 100%,
+    $minHeight: 0,
+    $maxHeight: 100%
+) {
+    width: auto;
+    min-width: $minWidth;
+    max-width: $maxWidth;
+    min-height: $minHeight;
+    max-height: $maxHeight;
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: func.pxToRem( $borderRadius );
+        background: func.color( baseColor-50 );
+    }
+}
+
+/*
+*   placeholderStyle
+**  Generates styles for all placeholders
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  fontWeight - The font weight as a number, e.g. 400 / 500 / 600
+**  color - The color of the placeholder as a variable
+**  opacity - The opacity of the placeholder
+*/
+@mixin placeholderStyle(
+    $fontWeight,
+    $color,
+    $opacity
+) {
+    &::placeholder {
+        // Mixins
+        @include fontWeight( $fontWeight );
+        @include transition(
+            all
+            map-get( var.$transition-durations, 'fast' )
+            map-get( var.$transition-easing, 'easeInOutCubic' )
+        );
+
+        // Styles
+        color: $color;
+        opacity: $opacity;
+        transform-origin: center left;
+    }
+
+    &::-webkit-input-placeholder {
+        // Mixins
+        @include fontWeight( $fontWeight );
+        @include transition(
+            all
+            map-get( var.$transition-durations, 'fast' )
+            map-get( var.$transition-easing, 'easeInOutCubic' )
+        );
+
+        // Styles
+        color: $color;
+        opacity: $opacity;
+        transform-origin: center left;
+    }
+
+    &:-moz-placeholder {
+        // Mixins
+        @include fontWeight( $fontWeight );
+        @include transition(
+            all
+            map-get( var.$transition-durations, 'fast' )
+            map-get( var.$transition-easing, 'easeInOutCubic' )
+        );
+
+        // Styles
+        color: $color;
+        opacity: $opacity;
+        transform-origin: center left;
+    }
+
+    &::-moz-placeholder {
+        // Mixins
+        @include fontWeight( $fontWeight );
+        @include transition(
+            all
+            map-get( var.$transition-durations, 'fast' )
+            map-get( var.$transition-easing, 'easeInOutCubic' )
+        );
+
+        // Styles
+        color: $color;
+        opacity: $opacity;
+        transform-origin: center left;
+    }
+
+    &:-ms-input-placeholder {
+        // Mixins
+        @include fontWeight( $fontWeight );
+        @include transition(
+            all
+            map-get( var.$transition-durations, 'fast' )
+            map-get( var.$transition-easing, 'easeInOutCubic' )
+        );
+
+        // Styles
+        color: $color;
+        opacity: $opacity;
+        transform-origin: center left;
+    }
+}
+
+/*
+*   scrollbar
+**  Styles the container the mixin is applied to with a custom scrollbar
+*/
+@mixin scrollbar {
+    // Width
+    &::-webkit-scrollbar {
+        width: func.pxToRem( 10 );
+    }
+
+    // Track
+    &::-webkit-scrollbar-track {
+        border-radius: func.pxToRem( 12 );
+        box-shadow: none;
+    }
+
+    // Handle
+    &::-webkit-scrollbar-thumb {
+        background: func.color( greyColor-300 );
+        background-clip: padding-box;
+        border: solid func.color( transparentColor );
+        border-radius: func.pxToRem( 12 );
+        border-width:   func.pxToRem( 8 )
+                        func.pxToRem( 4 )
+                        func.pxToRem( 8 )
+                        func.pxToRem( 2 );
+    }
+}
+
+/*
+*   maxWidth
+**  Creates a media query for max-width based on a specific size
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  size - The size as a string, e.g. xl
+*/
+@mixin maxWidth( $size ) {
+    @media screen and ( max-width: #{ map-get( var.$responsive-sizes, $size ) } ) {
+        @content;
+    }
+}
+
+/*
+*   minWidth
+**  Creates a media query for min-width based on a specific size
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  size - The size as a string, e.g. xl
+*/
+@mixin minWidth( $size ) {
+    @media screen and ( min-width: #{ map-get( var.$responsive-sizes, $size ) } ) {
+        @content;
+    }
+}
+
+/*
+*   flexCenter
+**  Adds display flex to the container and aligns all items center.
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  justify-content - An optional argument that overwrites the `justify-content` property value
+*/
+@mixin flexCenter( $justifyContent: center ) {
+    display: flex;
+    align-items: center;
+    justify-content: $justifyContent;
+}
+
+/*
+*   hostStyles
+**  Adds basic styling to the host element.
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  display - An optional argument that overwrites the `display` property value
+*/
+@mixin hostStyles( $display: inline-block ) {
+    display: $display;
+    position: relative;
+
+    &--disabled,
+    &--loading,
+    &--skeleton {
+        cursor: not-allowed;
+
+        > * {
+            pointer-events: none
+        }
+    }
+}
+
+/*
+*   decorativeCircle
+**  Styles the yellow decorative circle
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  size - The size of the circle
+**  xPositionProp - The x positiion value to set
+**  xPositionValue - The x position value
+**  yPositionProp - The y positiion value to set
+**  yPositionValue - The y position value
+*/
+@mixin decorativeCircle(
+    $size,
+    $xPositionProp,
+    $xPositionValue,
+    $yPositionProp,
+    $yPositionValue
+) {
+    // Mixins
+    @include borderRadiusRound;
+    @include transition(
+        all
+        func.duration( extraFast )
+        func.easing( easeInOutCubic )
+    );
+
+    // Styles
+    width: func.pxToRem( $size );
+    height: func.pxToRem( $size );
+    position: absolute;
+    #{ $yPositionProp }: $yPositionValue;
+    #{ $xPositionProp }: $xPositionValue;
+    background: func.color( yellowColor-500 );
+}
+
+/*
+*   customGrid
+**  Sets the required styles for the base munch grid system
+*/
+@mixin customGrid() {
+    display: grid;
+    grid-template-columns: repeat( 12, 1fr );
+
+    @include maxWidth( lg ) {
+        grid-template-columns: repeat( 8, 1fr );
+    }
+
+    @include maxWidth( md ) {
+        grid-template-columns: repeat( 6, 1fr );
+    }
+}
+
+/*
+*   pagePadding
+**  Sets inline padding on the apllied element to specific values
+*/
+@mixin pagePadding() {
+    @include maxWidth( md ) {
+        padding: 0 func.pxToRem( 24 );
+    }
+}
+
+/*
+*   fullWidth
+**  Sets the applied container to 100vw taking scrollbars into consideration
+*/
+@mixin fullWidth() {
+    width: calc( 100vw - ( 100vw - 100% ) )
+}

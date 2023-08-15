@@ -1,28 +1,85 @@
 <div class="nav">
     <!-- Left Content -->
     <div class="nav__left">
+        <!-- Menu -->
         <div class="nav__menu">
-            <common-nav-item></common-nav-item>
+            <common-nav-item
+                (onClick)="handleNavItemClick()"
+                icon="menu"
+                label="Menu"
+            ></common-nav-item>
         </div>
-        <div class="nav__logo">
-            <base-image></base-image>
-        </div>
+        <!-- ./Menu -->
+        <!-- Logo -->
+        <ng-container *ngIf="windowSize.width >= tabletBrakpoint">
+            <div class="nav__logo">
+                <base-image
+                    [src]="logoUri"
+                    alt="Agrigistics logo"
+                ></base-image>
+            </div>
+        </ng-container>
+        <!-- ./Logo -->
     </div>
     <!-- ./Left Content -->
 
     <!-- Center Content -->
     <div class="nav__center">
         <div class="nav__title">
-            <base-text></base-text>
+            <base-text
+                fontWeight="semi bold"
+                variant="sub-heading md"
+            >
+                Crownhill
+            </base-text>
         </div>
     </div>
     <!-- ./Center Content -->
 
     <!-- Right Content -->
     <div class="nav__right">
-        <div class="nav__items">
-            <common-nav-item></common-nav-item>
-        </div>
+        <!-- Desktop -->
+        <ng-container *ngIf="windowSize.width >= tabletBrakpoint; else navItemsMobile">
+            <div class="nav__items">
+                <div
+                    *ngFor="let item of navItems"
+                    class="nav__item"
+                >
+                    <common-nav-item
+                        (onClick)="handleNavItemClick()"
+                        [filledIcon]="item.filledIcon"
+                        [icon]="item.icon"
+                        [label]="item.label"
+                    ></common-nav-item>
+                </div>
+            </div>
+        </ng-container>
+        <!-- ./Desktop -->
+        <!-- Mobile -->
+        <ng-template #navItemsMobile>
+            <div class="nav__items">
+                <!-- Notifications -->
+                <div class="nav__item">
+                    <common-nav-item
+                        (onClick)="handleNavItemClick()"
+                        [filledIcon]="navItems[ 0 ].filledIcon"
+                        [icon]="navItems[ 0 ].icon"
+                        [label]="navItems[ 0 ].label"
+                    ></common-nav-item>
+                </div>
+                <!-- ./Notifications -->
+                <!-- Overflow Menu -->
+                <div class="nav__item">
+                    <common-overflow-menu
+                        (onActionClick)="handleNavItemClick()"
+                        [actions]="navItems"
+                        color="white"
+                    ></common-overflow-menu>
+                </div>
+                <!-- ./Overflow Menu -->
+            </div>
+        </ng-template>
+        <!-- ./Mobile -->
     </div>
     <!-- ./Right Content -->
 </div>

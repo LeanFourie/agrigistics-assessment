@@ -1,0 +1,92 @@
+
+/*
+  IMPORTS
+*/
+@use './../utils/base' as base;
+
+/*
+  SCSS VARIABLES
+*/
+/*** COLORS ***/
+// Transparent Color
+$transparentColor:          #FFFFFF00;
+
+// Transparent HEX Values
+$opacity-values: (
+    10:                     1a,
+    20:                     33,
+    30:                     4d,
+    40:                     66,
+    50:                     80,
+    60:                     99,
+    70:                     b3,
+    80:                     cc,
+    90:                     e6
+);
+
+/*** SIZING ***/
+// Spacial Size
+$spacialSize:               .25rem;
+
+// Responsive Size
+$responsive-sizes: (
+    xs:                     base.pxToRem( 360 ),
+    sm:                     base.pxToRem( 400 ),
+    md:                     base.pxToRem( 768 ),
+    lg:                     base.pxToRem( 1200 ),
+    xl:                     base.pxToRem( 1440 )
+);
+
+/*** FONTS ***/
+$primaryFontFamily:         'Poppins', 'Roboto Flex',
+                            'Roboto', -apple-system,
+                            BlinkMaxSystemFont, 'Segoe UI',
+                            Roboto, Oxygen, Ubuntu,
+                            Cantarell, 'Open Sans',
+                            'Helvetica Neue', sans-serif;
+
+/*** TRANSITIONS ***/
+// Durations
+$transition-durations: (
+    extraFast:              140ms,
+    fast:                   240ms,
+    medium:                 440ms,
+    slow:                   640ms,
+    extraSlow:              1000ms
+);
+
+// Timing ( Easing )
+$transition-easing: (
+    easeInOutCubic:         cubic-bezier( .65, 0, .35, 1 ),
+    easeOutQuint:           cubic-bezier( .22, 1, .36, 1 ),
+    easeInOutCirc:          cubic-bezier( .85, 0, .15, 1 ),
+    linear:                 linear
+);
+
+/*** BOX SHADOW ***/
+// Size
+$boxShadow-sizes: (
+    shadowSizeExtraSmall:   calc( #{ $spacialSize } * 1 ),
+    shadowSizeSmall:        calc( #{ $spacialSize } * 2 ),
+    shadowSizeMedium:       calc( #{ $spacialSize } * 3 ),
+    shadowSizeLarge:        calc( #{ $spacialSize } * 4 ),
+    shadowSizeExtraLarge:   calc( #{ $spacialSize } * 5 )
+);
+
+// Blur
+$boxShadow-blur: (
+    shadowBlurExtraSmall:   calc( #{ $spacialSize } * 2 ),
+    shadowBlurSmall:        calc( #{ $spacialSize } * 4 ),
+    shadowBlurMedium:       calc( #{ $spacialSize } * 6 ),
+    shadowBlurLarge:        calc( #{ $spacialSize } * 8 ),
+    shadowBlurExtraLarge:   calc( #{ $spacialSize } * 10 )
+);
+
+// Props
+$boxShadow-props: (
+    shadowPropsExtraSmall:  0 map-get( $boxShadow-sizes, shadowSizeExtraSmall ) map-get( $boxShadow-blur, shadowBlurExtraSmall ),
+    shadowPropsSmall:       0 map-get( $boxShadow-sizes, shadowSizeSmall ) map-get( $boxShadow-blur, shadowBlurSmall ),
+    shadowPropsMedium:      0 map-get( $boxShadow-sizes, shadowSizeMedium ) map-get( $boxShadow-blur, shadowBlurMedium ),
+    shadowPropsLarge:       0 map-get( $boxShadow-sizes, shadowSizeLarge ) map-get( $boxShadow-blur, shadowBlurLarge ),
+    shadowPropsExtraLarge:  0 map-get( $boxShadow-sizes, shadowSizeExtraLarge ) map-get( $boxShadow-blur, shadowBlurExtraLarge )
+);

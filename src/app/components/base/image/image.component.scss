@@ -1,11 +1,30 @@
+/*** IMPORTS ***/
+// Use
+@use './../../../styles/utils/functions' as func;
+@use './../../../styles/utils/mixins' as mixin;
+
+/*** STYLES ***/
+// Host
+:host {
+    display: contents;
+}
+
+// Component
 .image {
+    width: 100%;
+    height: 100%;
+
     // Children
     &__element {}
 
     // Fit
     &--fit {
-        &-contain {}
+        &-contain {
+            @include mixin.fitImage( contain );
+        }
 
-        &-cover {}
+        &-cover {
+            @include mixin.fitImage( cover );
+        }
     }
 }

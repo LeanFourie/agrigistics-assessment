@@ -2,11 +2,15 @@
 import { EventEmitter } from '@angular/core'
 
 // Interfaces
-interface CommonNavItem {
+interface CommonNavItemInterface {
+    // Required
     icon: string
     label: string
     onClick: EventEmitter< void >
+
+    // Optional
+    filledIcon?: boolean
 }
 
 // Exports
-export type { CommonNavItem }
+export type { CommonNavItemInterface }

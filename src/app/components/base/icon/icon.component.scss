@@ -1,5 +1,31 @@
+/*** IMPORTS ***/
+// Use
+@use './../../../styles/utils/mixins' as mixin;
+
+/*** STYLES ***/
+// Host
+:host {
+    display: contents;
+}
+
+// Component
 .icon {
+    // Mixins
+    @include mixin.flexCenter();
+
+    // Styles
+    width: 100%;
+    height: 100%;
+
+    // Children
     &__element {
+        // Mixins
+        @include mixin.flexCenter();
+
+        // Styles
+        width: 100%;
+        height: 100%;
+
         &--filled {
             font-variation-settings: 'FILL' 1;
         }

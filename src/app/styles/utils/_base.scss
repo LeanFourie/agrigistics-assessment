@@ -1,0 +1,88 @@
+// Imports
+@use 'sass:math';
+
+// Functions
+/*
+*   pxToRem
+**  Converts px values to rem values
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  pxSize - The numerical pixel value that should be converted
+*/
+@function pxToRem( $pxSize ) {
+    @return math.div( $pxSize, 16 ) * 1rem;
+}
+
+/*
+*   string-trimStart
+**  Removes empty spaces at the start of the string
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  string - The string to be trimmed
+*/
+@function string-trimStart( $string ) {
+    @if ( str-slice( $string, 1, 1 ) == ' ' ) {
+        @return string-trimStart(
+            str-slice( $string, 2 )
+        );
+    } @else {
+        @return $string;
+    }
+}
+
+/*
+*   string-trimEnd
+**  Removes empty spaces at the end of the string
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  string - The string to be trimmed
+*/
+@function string-trimEnd( $string ) {
+    @if ( str-slice( $string, str-length( $string ), -1 ) == ' ' ) {
+        @return string-trimEnd(
+            str-slice( $string, 1, -2 )
+        );
+    } @else {
+        @return $string;
+    }
+}
+
+/*
+*   string-trim
+**  Removes empty spaces at the start and end of the string
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  string - The string to be trimmed
+*/
+@function string-trim( $string ) {
+    @return string-trimStart(
+        string-trimEnd( $string )
+    );
+}
+
+/*
+*   removeKey
+**  Removes the key from a css list
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  string - The key value paring to be modified
+*/
+@function removeKey( $string ) {
+  @return #{ string-trim( str-slice( $string + '', 3, 5 ) ) };
+}
+
+// Mixins
+/*
+*   generateColorRGB
+**  Creates `r`, `g` and `b` values for a hex color value
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  color - The name of the color to save as a CSS variable
+**  hex - The HEX color code of the variable
+*/
+@mixin generateColorRGB( $color, $hex ) {
+  --#{ $color }: #{ $hex };
+  --#{ $color }-r: #{ red( $hex ) };
+  --#{ $color }-g: #{ green( $hex ) };
+  --#{ $color }-b: #{ blue( $hex ) };
+}

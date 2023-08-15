@@ -1,5 +1,5 @@
 // Imports
-import type { SizeType } from './../../../definitions/types'
+import type { SizeExtendedType } from './../../../definitions/types'
 
 // Types
 type BaseTextFontStyleType = 'regular' | 'italic'
@@ -7,9 +7,11 @@ type BaseTextFontStyleType = 'regular' | 'italic'
 type BaseTextFontWeightType =   'thin' | 'extra light' | 'light' | 'regular' |
                                 'medium' | 'semi bold' | 'bold' | 'extra bold' | 'black'
 
+type BaseTextSizesType = Exclude< SizeExtendedType, 'xl' >
+
 type BaseTextVariantOptionsType = 'heading' | 'sub-heading' | 'paragraph' | 'label'
 
-type BaseTextVariantType = `${ BaseTextVariantOptionsType } ${ SizeType }`
+type BaseTextVariantType = `${ BaseTextVariantOptionsType } ${ BaseTextSizesType }`
 
 // Interfaces
 interface BaseTextInterface {

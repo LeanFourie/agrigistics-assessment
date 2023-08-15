@@ -1,0 +1,76 @@
+/*** IMPORTS ***/
+// Use
+@use './../../../styles/utils/functions' as func;
+@use './../../../styles/utils/mixins' as mixin;
+
+/*** STYLES ***/
+// Host
+:host {
+    display: contents;
+}
+
+// Component
+.nav {
+    // Mixins
+    @include mixin.boxShadow(
+        func.shadowProp( shadowPropsSmall )
+        func.alphaColor( invertColor-25, .16 )
+    );
+    @include mixin.flexCenter( space-between );
+
+    // Styles
+    padding: func.pxToRem( 12 ) func.pxToRem( 80 );
+    background: func.color( primaryColor-500 );
+
+    // Media Queries
+    @include mixin.maxWidth( lg ) {
+        padding: func.pxToRem( 12 ) func.pxToRem( 16 );
+    }
+
+    // Children
+    &__left {
+        @include mixin.flexCenter( flex-start );
+    }
+
+    &__menu {
+        margin: 0 func.pxToRem( 24 ) 0 0;
+    }
+
+    &__logo {
+        height: func.pxToRem( 32 );
+    }
+
+    &__center {
+        // Mixins
+        @include mixin.transform( translate( -50%, -50% ) );
+
+        // Styles
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        // Media Queries
+        @include mixin.maxWidth( lg ) {
+            // Mixins
+            @include mixin.transform( none );
+    
+            // Styles
+            position: relative;
+            top: unset;
+            left: unset;
+            margin: 0 auto 0 0;
+        }
+    }
+
+    &__title {
+        color: func.color( whiteColor );
+    }
+
+    &__right {}
+
+    &__items {
+        @include mixin.flexCenter();
+
+        flex-direction: row;
+    }
+}

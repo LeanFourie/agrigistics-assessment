@@ -1,0 +1,59 @@
+/*
+  IMPORTS
+*/
+@use './dark-theme' as darkMode;
+@use './light-theme' as lightMode;
+@use './static' as staticVar;
+@use './../utils/base' as base;
+
+/*
+  CSS VARIABLES
+*/
+:root {
+    /*** COLORS ***/
+    --transparentColor:     #{ staticVar.$transparentColor };
+
+    /*** SIZING ***/
+    // Spacial Size
+    --spacialSize:          #{ staticVar.$spacialSize };
+
+    // Responsive Sizes
+    @each $size, $value in staticVar.$responsive-sizes {
+        --#{ $size }: #{ $value };
+    }
+
+    /*** FONT ***/
+    --primaryFontFamily:    #{ staticVar.$primaryFontFamily };
+
+    /*** TRANSITIONS ***/
+    // Durations
+    @each $duration, $value in staticVar.$transition-durations {
+        --#{ $duration }: #{ $value };
+    }
+
+    // Timing ( Easing )
+    @each $easing, $value in staticVar.$transition-easing {
+        --#{ $easing }: #{ $value };
+    }
+
+    /*** BOX SHADOW ***/
+    @each $prop, $value in staticVar.$boxShadow-props {
+        --#{ $prop }: #{ $value };
+    }
+}
+
+.mode {
+    &--light {
+        /*** COLORS ***/
+        @each $color, $value in lightMode.$theme-colors {
+            @include base.generateColorRGB( #{ $color }, $value );
+        }
+    }
+
+    &--dark {
+        /*** COLORS ***/
+        @each $color, $value in darkMode.$theme-colors {
+            @include base.generateColorRGB( #{ $color }, $value );
+        }
+    }
+}

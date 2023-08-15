@@ -1,0 +1,142 @@
+// Imports
+@use 'sass:color';
+@use 'sass:math';
+@use './base' as base;
+@use './../variables/light-theme' as lightTheme;
+@use './../variables/dark-theme' as darkTheme;
+@use './../variables/static' as var;
+
+/*
+*   pxToRem
+**  Converts px values to rem values
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  pxSize - The numerical pixel value that should be converted
+*/
+@function pxToRem( $pxSize ) {
+    @return base.pxToRem( $pxSize );
+}
+
+/*
+*   color
+**  Get the specified color from an array of colors
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  name - The name of the color to be used
+*/
+@function color( $name ) {
+    @return var( --#{ unquote( $name ) } );
+}
+
+/*
+*   alphaColor
+**  Generate a RGBA color with an alpha value
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  name - The name of the color to be used
+**  alpha - The alpha value required ( between 0 and 1 )
+*/
+@function alphaColor(
+    $name,
+    $alpha
+) {
+    @return rgba(
+        var( --#{ unquote( $name ) }-r ),
+        var( --#{ unquote( $name ) }-g ),
+        var( --#{ unquote( $name ) }-b ),
+        $alpha
+    );
+}
+
+/*
+*   screenSize
+**  Get the specified breakpoint size from an array of sizes
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  name - The name of the size to be used
+*/
+@function screenSize( $name ) {
+  @if not map-get( var.$responsive-sizes, $name + '' ) {
+    @error 'Size `#{ $name }` not found in map $responsive-sizes';
+  }
+
+  @return var( --#{ unquote($name) } );
+}
+
+/*
+*   easing
+**  Get the specified transition easing from an array of easing items
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  name - The name of the easing to be used
+*/
+@function easing( $name ) {
+  @if not map-get( var.$transition-easing, $name + '' ) {
+    @error 'Easing `#{ $name }` not found in map $transition-easing';
+  }
+
+  @return var( --#{ unquote($name) } );
+}
+
+/*
+*   duration
+**  Get the specified transition duration from an array of durations
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  name - The name of the easing to be used
+*/
+@function duration( $name ) {
+  @if not map-get( var.$transition-durations, $name + '' ) {
+    @error 'Duration `#{ $name }` not found in map $transition-durations';
+  }
+
+  @return var( --#{ unquote($name) } );
+}
+
+/*
+*   shadowProp
+**  Get the specified shadowProp from an array of shadowProps
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  name - The name of the shadow prop to be used
+*/
+@function shadowProp( $name ) {
+    @if not map-get( var.$boxShadow-props, $name + '' ) {
+        @error 'Show Props `#{ $name }` not found in map $boxShadow-prop';
+    }
+
+    @return var( --#{ unquote( $name ) } );
+}
+
+/*
+*   timing
+**  Get the specified transition timing from an array of timings
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  name - The name of the timing to be used
+*/
+@function timing( $name ) {
+  @return var( --#{ unquote( $name ) } );
+}
+
+/*
+*   font
+**  Get the specified font family to render
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  font - The name of the font to be used
+*/
+@function font( $font ) {
+    @return var( --#{ unquote( $font ) } );
+}
+
+/*
+*   customVar
+**  Get the custom variable value
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  var - The name of the variable to return
+*/
+@function customVar( $var ) {
+    @return var( --#{ unquote( $var ) } );
+}

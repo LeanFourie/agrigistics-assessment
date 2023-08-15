@@ -1,5 +1,6 @@
 // Interfaces
 interface BaseTooltipInterface {
+    isVisible: boolean
     label: string
 }
 

@@ -1,0 +1,125 @@
+/*** COLORS ***/
+$theme-colors: (
+    /*** Primary Colors ***/
+    // Primary Color
+    primaryColor-25:        #F2F6F6,
+    primaryColor-50:        #E5ECED,
+    primaryColor-100:       #CCD9DB,
+    primaryColor-200:       #99B4B7,
+    primaryColor-300:       #668E93,
+    primaryColor-400:       #33696F,
+    primaryColor-500:       #00434B,
+    primaryColor-600:       #00363C,
+    primaryColor-700:       #00282D,
+    primaryColor-800:       #001B1E,
+    primaryColor-900:       #000D0F,
+
+    // Secondary Color
+    secondaryColor-25:      #FCFDF9,
+    secondaryColor-50:      #F8FBF3,
+    secondaryColor-100:     #F2F8E6,
+    secondaryColor-200:     #E4F0CE,
+    secondaryColor-300:     #D7E9B5,
+    secondaryColor-400:     #C9E19D,
+    secondaryColor-500:     #BCDA84,
+    secondaryColor-600:     #96AE6A,
+    secondaryColor-700:     #71834F,
+    secondaryColor-800:     #4B5735,
+    secondaryColor-900:     #262C1A,
+    
+    // Tertiary Color
+    tertiaryColor-25:       #F2FBFC,
+    tertiaryColor-50:       #E5F6FA,
+    tertiaryColor-100:      #CCEEF4,
+    tertiaryColor-200:      #99DDE9,
+    tertiaryColor-300:      #66CBDF,
+    tertiaryColor-400:      #33BAD4,
+    tertiaryColor-500:      #00A9C9,
+    tertiaryColor-600:      #0087A1,
+    tertiaryColor-700:      #006579,
+    tertiaryColor-800:      #004450,
+    tertiaryColor-900:      #002228,
+
+    /*** Semantic Colors ***/
+    // Info Color
+    infoColor-25:           #F2F9FD,
+    infoColor-50:           #E5F3FA,
+    infoColor-100:          #CCE8F6,
+    infoColor-200:          #99D1EC,
+    infoColor-300:          #66B9E3,
+    infoColor-400:          #33A2D9,
+    infoColor-500:          #008BD0,
+    infoColor-600:          #006FA6,
+    infoColor-700:          #00537D,
+    infoColor-800:          #003853,
+    infoColor-900:          #001C2A,
+    
+    // Success Color
+    successColor-25:        #F9FBF4,
+    successColor-50:        #F3F7EA,
+    successColor-100:       #E6EFD5,
+    successColor-200:       #CEDFAA,
+    successColor-300:       #B5CE80,
+    successColor-400:       #9DBE55,
+    successColor-500:       #84AE2B,
+    successColor-600:       #6A8B22,
+    successColor-700:       #4F681A,
+    successColor-800:       #354611,
+    successColor-900:       #1A2309,
+
+    // Warning Color
+    warningColor-25:        #FFF9F4,
+    warningColor-50:        #FEF3E8,
+    warningColor-100:       #FEE7D1,
+    warningColor-200:       #FDCFA4,
+    warningColor-300:       #FBB776,
+    warningColor-400:       #FA9F49,
+    warningColor-500:       #F9871B,
+    warningColor-600:       #C76C16,
+    warningColor-700:       #955110,
+    warningColor-800:       #64360B,
+    warningColor-900:       #321B05,
+    
+    // Danger Color
+    dangerColor-25:         #FDF3F4,
+    dangerColor-50:         #FCE7E8,
+    dangerColor-100:        #F8CED2,
+    dangerColor-200:        #F29DA4,
+    dangerColor-300:        #EB6D77,
+    dangerColor-400:        #E53C49,
+    dangerColor-500:        #DE0B1C,
+    dangerColor-600:        #B20916,
+    dangerColor-700:        #850711,
+    dangerColor-800:        #59040B,
+    dangerColor-900:        #2C0206,
+
+    /*** Neutral Colors ***/
+    // Grey Color
+    greyColor-25:           #F8F8F8,
+    greyColor-50:           #F1F1F1,
+    greyColor-100:          #E4E4E4,
+    greyColor-200:          #C8C8C8,
+    greyColor-300:          #ADADAD,
+    greyColor-400:          #919191,
+    greyColor-500:          #767676,
+    greyColor-600:          #5E5E5E,
+    greyColor-700:          #474747,
+    greyColor-800:          #2F2F2F,
+    greyColor-900:          #181818,
+
+    // Base
+    baseColor-25:           #F6F6F6,
+    baseColor-50:           #E8EBEC,
+    baseColor-100:          #D4D9DB,
+
+    // Invert
+    invertColor-25:         #212121,
+    invertColor-50:         #363636,
+    invertColor-100:        #454545,
+
+    // White
+    whiteColor:             #FFFFFF,
+
+    // Black
+    blackColor:             #000000
+);

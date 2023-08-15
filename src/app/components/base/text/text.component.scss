@@ -1,66 +1,144 @@
+/*** IMPORTS ***/
+// Use
+@use './../../../styles/utils/functions' as func;
+
+/*** MIXINS ***/
+// Font size and line height
+@mixin fontSizes-scoped(
+    $xsSize,
+    $smSize,
+    $mdSize,
+    $lgSize,
+    $lineHeight
+) {
+    &-xs,
+    &-sm,
+    &-md,
+    &-lg {
+        line-height: $lineHeight;
+    }
+
+    &-xs {
+        font-size: func.pxToRem( $xsSize );
+    }
+
+    &-sm {
+        font-size: func.pxToRem( $smSize );
+    }
+
+    &-md {
+        font-size: func.pxToRem( $mdSize );
+    }
+
+    &-lg {
+        font-size: func.pxToRem( $lgSize );
+    }
+}
+
+/*** STYLES ***/
+// Host
+:host {
+    display: contents;
+}
+
+// Component
 .text {
+    display: contents;
+
     &__element {
+        margin: 0;
+
         // Variant
         &--variant {
             &-heading {
-                &-sm {}
-    
-                &-md {}
-    
-                &-lg {}
+                @include fontSizes-scoped(
+                    24,
+                    28,
+                    36,
+                    48,
+                    1.2
+                )
             }
     
             &-sub-heading {
-                &-sm {}
-    
-                &-md {}
-    
-                &-lg {}
+                @include fontSizes-scoped(
+                    16,
+                    18,
+                    20,
+                    24,
+                    1.2
+                )
             }
     
             &-paragraph {
-                &-sm {}
-    
-                &-md {}
-    
-                &-lg {}
+                @include fontSizes-scoped(
+                    12,
+                    14,
+                    16,
+                    18,
+                    1.6
+                )
             }
     
             &-label {
-                &-sm {}
-    
-                &-md {}
-    
-                &-lg {}
+                @include fontSizes-scoped(
+                    10,
+                    12,
+                    14,
+                    16,
+                    1
+                )
             }
         }
 
         // Weight
         &--weight {
-            &-thin {}
+            &-thin {
+                font-weight: 100;
+            }
 
-            &-extra-light {}
+            &-extra-light {
+                font-weight: 200;
+            }
 
-            &-light {}
+            &-light {
+                font-weight: 300;
+            }
 
-            &-regular {}
+            &-regular {
+                font-weight: 400;
+            }
 
-            &-medium {}
+            &-medium {
+                font-weight: 500;
+            }
 
-            &-semi-bold {}
+            &-semi-bold {
+                font-weight: 600;
+            }
 
-            &-bold {}
+            &-bold {
+                font-weight: 700;
+            }
 
-            &-extra-bold {}
+            &-extra-bold {
+                font-weight: 800;
+            }
 
-            &-black {}
+            &-black {
+                font-weight: 900;
+            }
         }
 
         // Style
         &--style {
-            &-regular {}
+            &-regular {
+                font-style: normal;
+            }
 
-            &-italic {}
+            &-italic {
+                font-style: italic;
+            }
         }
     }
 }

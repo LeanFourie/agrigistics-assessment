@@ -1,3 +1,52 @@
+/*** IMPORTS ***/
+// Use
+@use './../../../styles/utils/functions' as func;
+@use './../../../styles/utils/mixins' as mixin;
+
+/*** STYLES ***/
+// Host
+:host {
+    display: contents;
+}
+
+// Component
 .tooltip {
-    &__label {}
+    @include mixin.transform(
+        translate( -50%, func.pxToRem( 8 ) )
+        scale( .9 )
+    );
+    @include mixin.transition(
+        all
+        func.duration( fast )
+        func.easing( easeOutQuint )
+    );
+
+    // Styles
+    position: absolute;
+    top: calc( 100% + #{ func.pxToRem( 4 ) } );
+    left: 50%;
+    padding: func.pxToRem( 4 ) func.pxToRem( 8 ) func.pxToRem( 6 );
+    background: func.color( primaryColor-600 );
+    border-radius: func.pxToRem( 4 );
+    opacity: 0;
+    pointer-events: none;
+
+    // Children
+    &__label {
+        color: func.color( whiteColor );
+        line-height: 1.2;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    // Is...
+    &--is {
+        &-visible {
+            // Mixins
+            @include mixin.transform( translateX( -50% ) );
+
+            // Styles
+            opacity: 1;
+        }
+    }
 }

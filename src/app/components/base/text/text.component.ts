@@ -1,9 +1,10 @@
 // Core Imports
 import {
-  Component,
-  Input,
-  OnInit,
-  ViewChild
+    AfterViewInit,
+    Component,
+    Input,
+    ViewChild,
+    ViewEncapsulation
 } from '@angular/core'
 import { generateSnakeCase } from './../../../utils/utils'
 
@@ -15,9 +16,10 @@ import type { BaseTextInterface } from './text.definitions'
     templateUrl: './text.component.html',
     styleUrls: [
         './text.component.scss'
-    ]
+    ],
+    encapsulation: ViewEncapsulation.None
 })
-export class TextComponent implements OnInit {
+export class TextComponent implements AfterViewInit {
     // VIEW CHILD
     @ViewChild(
         'textContainer',
@@ -50,7 +52,7 @@ export class TextComponent implements OnInit {
 
     // PUBLIC VARIABLES
     public defaultTag: string = 'p'
-    public textContent?: string
+    public innerText: string = ''
 
     // METHODS
     /**
@@ -73,7 +75,8 @@ export class TextComponent implements OnInit {
             case this.variant === 'heading md':
                 htmlTag = 'h2'
                 break
-            case this.variant === 'heading sm':
+            case this.variant === 'heading sm' ||
+                 this.variant === 'heading xs':
                 htmlTag = 'h3'
                 break
             case this.variant === 'sub-heading lg':
@@ -82,12 +85,14 @@ export class TextComponent implements OnInit {
             case this.variant === 'sub-heading md':
                 htmlTag = 'h5'
                 break
-            case this.variant === 'sub-heading sm':
+            case this.variant === 'sub-heading sm' ||
+                 this.variant === 'sub-heading xs':
                 htmlTag = 'h6'
                 break
             case this.variant === 'label lg' ||
                  this.variant === 'label md' ||
-                 this.variant === 'label sm':
+                 this.variant === 'label sm' ||
+                 this.variant === 'label xs':
                 htmlTag = 'label'
                 break
             default:
@@ -106,11 +111,14 @@ export class TextComponent implements OnInit {
         // Get the HTML Tag to render
         const tag = this.generateHtmlTag()
 
+        // Get the text container native element
+        const element: HTMLElement = this.textContainer.nativeElement
+
         // Get the content of the text element
-        const innerText: string = this.textContainer.nativeElement.innerText
+        this.innerText = element.innerText
 
         // Create the text element to render
-        this.textContent = `
+        element.innerHTML = `
             <${ tag }
                 class="
                     text__element
@@ -119,14 +127,13 @@ export class TextComponent implements OnInit {
                     text__element--weight-${ generateSnakeCase( this.fontWeight! ) }
                 "
             >
-                ${ innerText }
+                ${ this.innerText }
             </${ tag }>
         `
     }
 
     // LIFECYLE METHODS
-    public ngOnInit(): void {
-        // Generate the text component HTML
+    public ngAfterViewInit(): void {
         this.generateInnerHtml()
     }
 }

@@ -1,5 +1,99 @@
+/*** IMPORTS ***/
+// Use
+@use './../../../styles/utils/functions' as func;
+@use './../../../styles/utils/mixins' as mixin;
+
+/*** STYLES ***/
+// Host
+:host {
+    display: contents;
+
+    ::ng-deep {
+        .icon__element {
+            font-size: func.pxToRem( 20 );
+        }
+    }
+}
+
+// Component
 .list-item {
-    &__icon {}
+    // Mixins
+    @include mixin.flexCenter( flex-start );
+
+    // Styles
+    width: 100%;
+    flex-wrap: wrap;
+    position: relative;
+    padding: func.pxToRem( 8 ) func.pxToRem( 16 );
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+
+    &::before {
+        // Mixins
+        @include mixin.transform(
+            translate( -50%, -50% )
+            scale( .9 )
+        );
+        @include mixin.transition(
+            all
+            func.duration( fast )
+            func.easing( easeOutQuint )
+        );
+
+        // Styles
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border-radius: func.pxToRem( 6 );
+        background: func.color( baseColor-50 );
+        opacity: 0;
+        z-index: -1;
+    }
+
+    &:hover {
+        // Media Queries
+        @include mixin.minWidth( md ) {
+            &::before {
+                // Mixins
+                @include mixin.transform( translate( -50%, -50% ) );
+        
+                // Styles
+                opacity: 1;
+            }
+        }
+    }
+
+    &:active {
+        // Media Queries
+        @include mixin.minWidth( md ) {
+            &::before {
+                background: func.color( secondaryColor-200 );
+            }
+
+            .list-item {
+                &__icon,
+                &__label {
+                    color: func.color( secondaryColor-800 );
+                }
+            }
+        }
+    }
+
+    &__icon,
+    &__label {
+        color: func.color( invertColor-25 );
+    }
+
+    &__icon {
+        width: func.pxToRem( 20 );
+        height: func.pxToRem( 20 );
+        margin: 0 func.pxToRem( 16 ) 0 0;
+    }
 
     &__label {}
 

@@ -1,0 +1,23 @@
+/*** IMPORTS ***/
+@use '../utils/functions' as func;
+
+/*** STYLES ***/
+* {
+    box-sizing: border-box;
+    font-family: func.font( primaryFontFamily ), 'sans-serif';
+    -webkit-font-smoothing: antialiased;
+
+    &::selection {
+        color: func.color( secondaryColor-700 );
+        background: func.color( secondaryColor-100 );
+    }
+
+    &::-moz-selection {
+        color: func.color( secondaryColor-700 );
+        background: func.color( secondaryColor-100 );
+    }
+}
+
+body {
+    margin: 0;
+}

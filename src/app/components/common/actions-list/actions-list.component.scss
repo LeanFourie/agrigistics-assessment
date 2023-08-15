@@ -1,4 +1,29 @@
+/*** IMPORTS ***/
+// Use
+@use './../../../styles/utils/functions' as func;
+@use './../../../styles/utils/mixins' as mixin;
+
+/*** STYLES ***/
+// Host
+:host {
+    display: contents;
+}
+
+// Component
 .list {
+    // Mixins
+    @include mixin.boxShadow(
+        func.shadowProp( shadowPropsSmall )
+        func.alphaColor( invertColor-25, .16 )
+    );
+
+    // Styles
+    width: 240px;
+    padding: func.pxToRem( 4 );
+    background: func.color( baseColor-25 );
+    border-radius: func.pxToRem( 8 );
+
+    // Children
     &__items {}
 
     &__item {}

@@ -1,19 +1,28 @@
 <div class="nav-item">
     <!-- Button -->
-    <div class="nav-item__button">
+    <button
+        (click)="handleClick()"
+        (mouseenter)="toggleTooltipVisibility()"
+        (mouseleave)="toggleTooltipVisibility()"
+        class="nav-item__button"
+    >
         <div class="nav-item__icon">
             <base-icon
+                [filled]="filledIcon"
                 [name]="icon"
             ></base-icon>
         </div>
-    </div>
+    </button>
     <!-- ./Button -->
 
     <!-- Tooltip -->
-    <div class="nav-item__tooltip">
-        <base-tooltip
-            [label]="label"
-        ></base-tooltip>
-    </div>
+    <ng-container *ngIf="windowSize.width >= tabletBrakpoint">
+        <div class="nav-item__tooltip">
+            <base-tooltip
+                [isVisible]="showTooltip"
+                [label]="label"
+            ></base-tooltip>
+        </div>
+    </ng-container>
     <!-- ./Tooltip -->
 </div>
