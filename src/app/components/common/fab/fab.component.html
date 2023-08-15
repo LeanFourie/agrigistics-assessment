@@ -1,22 +1,36 @@
-<div class="fab">
+<div [ngClass]="returnClassNames">
     <!-- Trigger -->
-    <button class="fab__trigger">
+    <button
+        (click)="handleClick"
+        class="fab__trigger"
+    >
         <!-- Icon -->
         <span class="fab__trigger-icon">
-            <base-icon></base-icon>
+            <base-icon
+                [name]="icon"
+            ></base-icon>
         </span>
         <!-- ./Icon -->
         <!-- Label -->
         <span class="fab__trigger-label">
-            <base-text></base-text>
+            <base-text
+                [renderAsSpan]="true"
+                variant="label lg"
+            >
+                {{ label }}
+            </base-text>
         </span>
         <!-- ./Label -->
     </button>
     <!-- ./Trigger -->
 
     <!-- Options -->
-    <div class="fab__options">
-        <common-actions-list></common-actions-list>
-    </div>
+    <ng-container *ngIf="actions && actions.length > 0">
+        <div class="fab__options">
+            <common-actions-list
+                [actions]="actions"
+            ></common-actions-list>
+        </div>
+    </ng-container>
     <!-- ./Options -->
 </div>

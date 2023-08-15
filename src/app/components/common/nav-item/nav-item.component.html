@@ -1,13 +1,19 @@
-<button class="nav-item">
-    <!-- Icon -->
-    <div class="nav-item__icon">
-        <base-icon></base-icon>
+<div class="nav-item">
+    <!-- Button -->
+    <div class="nav-item__button">
+        <div class="nav-item__icon">
+            <base-icon
+                [name]="icon"
+            ></base-icon>
+        </div>
     </div>
-    <!-- ./Icon -->
+    <!-- ./Button -->
 
     <!-- Tooltip -->
     <div class="nav-item__tooltip">
-        <base-tooltip></base-tooltip>
+        <base-tooltip
+            [label]="label"
+        ></base-tooltip>
     </div>
     <!-- ./Tooltip -->
-</button>
+</div>

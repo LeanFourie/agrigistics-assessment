@@ -1,13 +1,26 @@
 <div class="search">
     <!-- Input -->
     <div class="search__input">
-        <base-input></base-input>
+        <!-- (onFocus)="handleFocus()" -->
+        <base-input
+            (onChange)="handleChange"
+            [placeholder]="placeholder"
+            [value]="value!"
+            [variant]="variant"
+            icon="search"
+            label="Search"
+            type="search"
+        ></base-input>
     </div>
     <!-- ./Input -->
 
     <!-- Options -->
-    <div class="search__options">
-        <common-actions-list></common-actions-list>
-    </div>
+    <ng-container *ngIf="searchResults">
+        <div class="search__options">
+            <common-actions-list
+                [actions]="searchResults"
+            ></common-actions-list>
+        </div>
+    </ng-container>
     <!-- ./Options -->
 </div>

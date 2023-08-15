@@ -4,11 +4,11 @@ import { EventEmitter } from '@angular/core'
 // Interfaces
 interface BaseActionsListItemInterface {
     // Required
-    icon: string
     label: string
     onClick: EventEmitter< void >
 
     // Optional
+    icon?: string
     showArrow?: boolean
 }
 

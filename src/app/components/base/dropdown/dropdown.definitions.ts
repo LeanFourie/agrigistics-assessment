@@ -2,34 +2,26 @@
 import { EventEmitter } from '@angular/core'
 
 // Definition Imports
+import type { CommonActionsListInterface } from './../../common/actions-list/actions-list.definitions'
 import type { BaseHelperTextInterface } from './../helper-text/helper-text.definitions'
 import type { FormFieldVariantType } from './../../../definitions/types'
 
-// Types
-type BaseInputEventType = EventEmitter<{ value: BaseInputInterface[ 'value' ] }>
-
-type BaseInputTypeType = 'text' | 'email' | 'tel' | 'search'
-
 // Interfaces
-interface BaseInputInterface {
+interface BaseDropdownInterface {
     // Required
+    onChange: EventEmitter<{ value: string }>
     label: string
-    value: string
-    onChange: BaseInputEventType
+    options: CommonActionsListInterface[ 'actions' ]
 
     // Optional
     hasError?: boolean
     helperText?: BaseHelperTextInterface
-    icon?: string
     isDisabled?: boolean
-    isReadOnly?: boolean
     isRequired?: boolean
-    onBlur?: BaseInputEventType
-    onFocus?: BaseInputEventType
     placeholder?: string
-    type?: BaseInputTypeType
+    value?: string
     variant?: FormFieldVariantType
 }
 
 // Exports
-export type { BaseInputInterface }
+export type { BaseDropdownInterface }

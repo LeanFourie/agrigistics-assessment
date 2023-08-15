@@ -3,11 +3,13 @@
     class="list-item"
 >
     <!-- Icon -->
-    <span class="list-item__icon">
-        <base-icon
-            [name]="icon"
-        ></base-icon>
-    </span>
+    <ng-container *ngIf="icon">
+        <span class="list-item__icon">
+            <base-icon
+                [name]="icon"
+            ></base-icon>
+        </span>
+    </ng-container>
     <!-- ./Icon -->
 
     <!-- Label -->

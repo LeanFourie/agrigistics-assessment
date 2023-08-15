@@ -1,5 +1,15 @@
 <div class="list">
     <div class="list__items">
-        <base-actions-list-item></base-actions-list-item>
+        <div
+            *ngFor="let action of actions"
+            class="list__item"
+        >
+            <base-actions-list-item
+                (onClick)="handleActionClick"
+                [icon]="action.icon"
+                [label]="action.label"
+                [showArrow]="showArrow"
+            ></base-actions-list-item>
+        </div>
     </div>
 </div>

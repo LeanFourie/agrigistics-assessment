@@ -1,21 +1,45 @@
 <div class="pagination">
     <!-- Items Per Page -->
     <div class="pagination__per-page">
-        <base-text></base-text>
-        <base-dropdown></base-dropdown>
+        <base-text>
+            Items per page:
+        </base-text>
+        <base-dropdown
+            (onChange)="setItemsPerPage"
+            [options]="itemsPerPageOptions"
+            [value]="itemsPerPage.toString()"
+            label="Items per page"
+            variant="outlined"
+        ></base-dropdown>
     </div>
     <!-- ./Items Per Page -->
 
     <!-- Current Page -->
     <div class="pagination__current">
-        <base-text></base-text>
+        <base-text variant="paragraph sm">
+            <ng-container *ngIf="visibleItems <= 0">1 -</ng-container> {{ visibleItems }} of {{ itemsCount }}
+        </base-text>
     </div>
     <!-- ./Current Page -->
 
     <!-- Navigation -->
     <div class="pagination__navigate">
-        <base-button></base-button>
-        <base-button></base-button>
+        <base-button
+            (onClick)="handlePageChange( -1 )"
+            [isDisabled]="currentPage === 1"
+            [showLabel]="false"
+            icon="chevron_left" 
+            label="Navigate to previous page"
+            variant="ghost"
+        ></base-button>
+        <base-button
+            (onClick)="handlePageChange( 1 )"
+            [isDisabled]="currentPage === pagesCount"
+            [showLabel]="false"
+            icon="chevron_right" 
+            label="Navigate to next page"
+            variant="ghost"
+        ></base-button>
     </div>
     <!-- ./Navigation -->
 </div>

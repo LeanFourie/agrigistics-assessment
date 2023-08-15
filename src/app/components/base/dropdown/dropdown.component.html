@@ -1,14 +1,27 @@
 <div class="dropdown">
     <!-- Input -->
     <div class="dropdown__input">
+        <!-- (onFocus)="handleFocus()" -->
         <base-input
+            (onChange)="handleChange($event)"
+            [hasError]="hasError"
+            [helperText]="helperText"
+            [isDisabled]="isDisabled"
+            [isReadOnly]="true"
+            [isRequired]="isRequired"
+            [label]="label"
+            [value]="value!"
+            [variant]="variant"
+            type="text"
         ></base-input>
     </div>
     <!-- ./Input -->
 
     <!-- Options -->
     <div class="dropdown__options">
-        <common-actions-list></common-actions-list>
+        <common-actions-list
+            [actions]="options"
+        ></common-actions-list>
     </div>
     <!-- ./Options -->
 </div>

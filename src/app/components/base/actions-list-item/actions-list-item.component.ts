@@ -20,13 +20,6 @@ import type { BaseActionsListItemInterface } from './actions-list-item.definitio
 export class ActionsListItemComponent {
     // REQUIRED INPUTS
     /**
-     * Determines the icon to render
-     * 
-     * @default ``
-     */
-    @Input() public icon: BaseActionsListItemInterface[ 'icon' ] = ''
-
-    /**
      * Sets the label for the action item
      * 
      * @default ``
@@ -35,11 +28,18 @@ export class ActionsListItemComponent {
 
     // OPTIONAL INPUTS
     /**
+     * Determines the icon to render
+     * 
+     * @default ``
+     */
+    @Input() public icon?: BaseActionsListItemInterface[ 'icon' ]
+
+    /**
      * Determines whether the actions item arrow should be visible or not
      * 
      * @default false
      */
-    @Input() public showArrow: BaseActionsListItemInterface[ 'showArrow' ] = false
+    @Input() public showArrow?: BaseActionsListItemInterface[ 'showArrow' ] = false
 
     // REQUIRED OUTPUTS
     /**

@@ -20,7 +20,7 @@ import type { BaseInputInterface } from './input.definitions'
 export class InputComponent {
     // REQUIRED INPUTS
     /**
-     * Determines the labe; of the input
+     * Determines the label of the input
      * 
      * @default ``
      */
@@ -39,49 +39,63 @@ export class InputComponent {
      * 
      * @default false
      */
-    @Input() public hasError: BaseInputInterface[ 'hasError' ] = false
+    @Input() public hasError?: BaseInputInterface[ 'hasError' ] = false
 
     /**
      * Adds optional helper text to the input
      * 
      * @default undefined
      */
-    @Input() public helperText: BaseInputInterface[ 'helperText' ]
+    @Input() public helperText?: BaseInputInterface[ 'helperText' ]
+
+    /**
+     * Adds optional leading icon to the input
+     * 
+     * @default undefined
+     */
+    @Input() public icon?: BaseInputInterface[ 'icon' ]
 
     /**
      * Determines whether the input is disabled or not
      * 
      * @default false
      */
-    @Input() public isDisabled: BaseInputInterface[ 'isDisabled' ] = false
+    @Input() public isDisabled?: BaseInputInterface[ 'isDisabled' ] = false
 
     /**
      * Determines whether the input is read oonly or not
      * 
      * @default false
      */
-    @Input() public isReadOnly: BaseInputInterface[ 'isReadOnly' ] = false
+    @Input() public isReadOnly?: BaseInputInterface[ 'isReadOnly' ] = false
 
     /**
      * Determines whether the input is required or not
      * 
      * @default false
      */
-    @Input() public isRequired: BaseInputInterface[ 'isRequired' ] = false
+    @Input() public isRequired?: BaseInputInterface[ 'isRequired' ] = false
+
+    /**
+     * Determines the placeholder text to be rendered
+     * 
+     * @default undefined
+     */
+    @Input() public placeholder?: BaseInputInterface[ 'placeholder' ]
 
     /**
      * Determines the type of input element to render
      * 
      * @default `text`
      */
-    @Input() public type: BaseInputInterface[ 'type' ] = 'text'
+    @Input() public type?: BaseInputInterface[ 'type' ] = 'text'
 
     /**
      * Determines the variant of input to render
      * 
      * @default `filled`
      */
-    @Input() public variant: BaseInputInterface[ 'variant' ] = 'filled'
+    @Input() public variant?: BaseInputInterface[ 'variant' ] = 'filled'
 
     // REQUIRED OUTPUTS
     /**
@@ -93,12 +107,12 @@ export class InputComponent {
     /**
      * Emits the blur event form the input element
      */
-    @Output() public onBlur?: BaseInputInterface[ 'onChange' ] = new EventEmitter()
+    @Output() public onBlur?: BaseInputInterface[ 'onBlur' ] = new EventEmitter()
 
     /**
      * Emits the focus event form the input element
      */
-    @Output() public onFocus?: BaseInputInterface[ 'onChange' ] = new EventEmitter()
+    @Output() public onFocus?: BaseInputInterface[ 'onFocus' ] = new EventEmitter()
 
     // PUBLIC VARIABLES
     public className: string = 'input'

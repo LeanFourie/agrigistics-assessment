@@ -13,9 +13,12 @@ type SizeType = 'sm' | 'md' | 'lg'
 
 type SizeExtendedType = 'xs' | SizeType | 'xl'
 
+type FormFieldVariantType = 'filled' | 'outlined'
+
 // Exports
 export type {
     ColorType,
+    FormFieldVariantType,
     NeutralColorType,
     SemanticColorType,
     ShadeType,

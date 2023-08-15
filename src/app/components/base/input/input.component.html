@@ -1,26 +1,40 @@
 <label [ngClass]="returnClassNames">
     <!-- Label -->
-    <span class="input__label">
-        <base-text
-            [renderAsSpan]="true"
-            variant="label md"
-        >
-            {{ label }}
-            <ng-container *ngIf="isRequired">
-                <sup class="input__label-asterisk">*</sup>
-            </ng-container>
-        </base-text>
-    </span>
+    <ng-container *ngIf="type !== 'search'">
+        <span class="input__label">
+            <base-text
+                [renderAsSpan]="true"
+                variant="label md"
+            >
+                {{ label }}
+                <ng-container *ngIf="isRequired">
+                    <sup class="input__label-asterisk">*</sup>
+                </ng-container>
+            </base-text>
+        </span>
+    </ng-container>
     <!-- ./Label -->
+
+    <!-- Icon -->
+    <ng-container *ngIf="icon">
+        <span class="input__icon">
+            <base-icon
+                [name]="icon"
+            ></base-icon>
+        </span>
+    </ng-container>
+    <!-- ./Icon -->
 
     <!-- Input Element -->
     <input
         (blur)="handleBlur"
         (change)="handleChange"
         (focus)="handleFocus"
+        [placeholder]="placeholder ? placeholder : ''"
         [readOnly]="isReadOnly"
         [type]="type"
         [value]="value"
+        [attr.aria-label]="label"
         class="input__element"
     />
     <!-- ./Input Element -->
