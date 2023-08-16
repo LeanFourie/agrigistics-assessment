@@ -100,6 +100,7 @@
                     // Styles
                     color: func.color( primaryColor-500 );
                     font-size: func.pxToRem( 11 );
+                    font-weight: 300;
                 }
             }
         }
@@ -110,17 +111,17 @@
         @include mixin.transform( translateY( -20% ) );
 
         // Styles
-        width: func.pxToRem( 20 );
-        height: func.pxToRem( 20 );
+        width: func.pxToRem( 22 );
+        height: func.pxToRem( 22 );
         position: absolute;
         top: 50%;
-        left: func.pxToRem( 16 );
-        color: func.color( greyColor-300 );
+        left: func.pxToRem( 14 );
+        color: func.color( greyColor-100 );
 
         ::ng-deep {
             .icon {
                 &__element {
-                    font-size: func.pxToRem( 20 );
+                    font-size: func.pxToRem( 22 );
                 }
             }
         }
@@ -182,9 +183,11 @@
         border-top-color: transparent;
         border-radius: func.pxToRem( 4 );
         color: func.color( invertColor-25 );
+        font-weight: 300;
         caret-color: func.color( invertColor-25 );
 
         &::placeholder {
+            color: func.color( greyColor-500 );
             opacity: 0;
         }
 
@@ -277,14 +280,14 @@
         &-icon {
             .input {
                 &__element {
-                    padding-left: 40px;
+                    padding-left: 44px;
 
                     &:not( :focus ) {
                         &:placeholder-shown {
                             & + .input__label {
                                 ::ng-deep {
                                     base-text {
-                                        @include mixin.transform( translate( func.pxToRem( 24 ), func.pxToRem( 24 ) ) );
+                                        @include mixin.transform( translate( func.pxToRem( 28 ), func.pxToRem( 24 ) ) );
                                     }
                                 }
                             }

@@ -1,0 +1,181 @@
+/*** IMPORTS ***/
+// Use
+@use './../../../styles/utils/functions' as func;
+@use './../../../styles/utils/mixins' as mixin;
+
+/*** MIXINS ***/
+@mixin cellIconColorStyle-scoped( $iconColor ) {
+    .row {
+        &__column {
+            &-cell {
+                &--icon {
+                    color: func.color( $iconColor );
+                }
+            }
+        }
+    }
+}
+
+/*** STYLES ***/
+// Host
+:host {
+    display: contents;
+
+    &:not( :last-child ) {
+        .row {
+            @include mixin.maxWidth( lg ) {
+                padding: 0 0 func.pxToRem( 40 );
+            }
+        }
+    }
+
+    &:nth-last-child( 2 ) {
+        .row {
+            padding: 0;
+
+            &__column {
+                border-color: func.color( primaryColor-500 );
+
+                @include mixin.maxWidth( lg ) {
+                    &:not( :last-child ) {
+                        border-color: func.color( greyColor-100 );
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Component
+.row {
+    // Media Queries
+    @include mixin.minWidth( lg ) {
+        height: func.pxToRem( 52 );
+        display: table-row;
+    }
+
+    // Children
+    &__column {
+        padding: func.pxToRem( 16 );
+        border-bottom: func.pxToRem( 1 ) solid func.color( greyColor-100 );
+
+        // Media Queries
+        @include mixin.minWidth( lg ) {
+            display: table-cell;
+            vertical-align: middle;
+            padding: 0 func.pxToRem( 16 );
+        }
+
+        &-cell {
+            // Mixins
+            @include mixin.flexCenter( space-between );
+
+            // Variants
+            &--icon {
+                ::ng-deep {
+                    .icon {
+                        width: func.pxToRem( 24 );
+
+                        &__element {
+                            width: func.pxToRem( 24 );
+                            font-size: func.pxToRem( 24 );
+                        }
+                    }
+                }
+            }
+
+            // Media Queries
+            @include mixin.maxWidth( lg ) {
+                &::before {
+                    content: attr( data-title );
+                }
+            }
+        }
+
+        &-action {
+            // Mixins
+            @include mixin.borderRadiusRound();
+            @include mixin.flexCenter();
+            @include mixin.transition(
+                all
+                func.duration( fast )
+                func.easing( easeOutQuint )
+            );
+    
+            // Styles
+            width: func.pxToRem( 36 );
+            height: func.pxToRem( 36 );
+            padding: func.pxToRem( 8 );
+            background: func.color( transparentColor );
+            border: none;
+            color: func.color( greyColor-200 );
+            cursor: pointer;
+    
+            // States
+            &:hover {
+                background: func.alphaColor( primaryColor-500, .1 );
+                color: func.color( primaryColor-500 );
+            }
+
+            &:active {
+                background: func.alphaColor( primaryColor-500, .15 );
+                color: func.color( primaryColor-600 );
+            }
+    
+            ::ng-deep {
+                .icon {
+
+                    &__element {
+                        font-size: func.pxToRem( 20 );
+                    }
+                }
+            }
+
+            &--sort {
+                margin: 0 auto 0 func.pxToRem( 4 );
+            }
+        }
+    }
+
+    // Status
+    &--status {
+        &-in-production {
+            @include cellIconColorStyle-scoped( infoColor-500 );
+        }
+
+        &-active {
+            @include cellIconColorStyle-scoped( secondaryColor-500 );
+        }
+
+        &-removed {
+            @include cellIconColorStyle-scoped( greyColor-600 );
+        }
+    }
+
+    // Is...
+    &--is {
+        // &-focus-row {
+        //     .row {
+        //         &__column {
+        //             border-color: func.color( primaryColor );
+        //         }
+        //     }
+        // }
+
+        &-titles-row {
+            .row {
+                &__column {
+                    color: func.color( greyColor-500 );
+
+                    ::ng-deep {
+                        .text {
+                            &__element {
+                                font-weight: 500;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

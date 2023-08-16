@@ -1,0 +1,32 @@
+/*** IMPORTS ***/
+// Use
+@use './../../../styles/utils/functions' as func;
+@use './../../../styles/utils/mixins' as mixin;
+
+/*** STYLES ***/
+// Host
+:host {
+    display: contents;
+}
+
+// Component
+.table {
+    &__element,
+    &__body {
+        width: 100%;
+    }
+
+    &__element {
+        // Media Queries
+        @include mixin.minWidth( lg ) {
+            display: table;
+        }
+    }
+
+    &__body {
+        // Media Queries
+        @include mixin.minWidth( lg ) {
+            display: table-row-group;
+        }
+    }
+}

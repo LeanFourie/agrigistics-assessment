@@ -1,6 +1,9 @@
 <div class="page">
     <!-- Navigation -->
-    <div class="page__nav">
+    <div
+        [ngClass]="{ 'page__nav--is-hidden': navIsHidden }"
+        class="page__nav"
+    >
         <layout-nav></layout-nav>
     </div>
     <!-- ./Navigation -->

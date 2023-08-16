@@ -62,7 +62,10 @@
 
             <!-- Table -->
             <div class="content__table">
-                <common-table></common-table>
+                <common-table
+                    [rows]="tableRows"
+                    [titles]="tableTitles"
+                ></common-table>
             </div>
             <!-- ./Table -->
         </base-card>

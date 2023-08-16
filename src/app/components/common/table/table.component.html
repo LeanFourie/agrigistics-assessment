@@ -1,10 +1,24 @@
 <div class="table">
     <!-- Table -->
-    <table class="table__element">
-        <tbody class="table__body">
-            <common-table-line-item></common-table-line-item>        
-        </tbody>
-    </table>
+    <div class="table__element">
+        <div class="table__body">
+            <!-- Titles -->
+            <ng-container *ngIf="windowSize.width >= tabletBrakpoint">
+                <common-table-line-item
+                    [cells]="titles"
+                    [isTitlesRow]="true"
+                ></common-table-line-item>
+            </ng-container>
+            <!-- ./Titles -->
+            <!-- Rows -->
+            <common-table-line-item
+                *ngFor="let row of rows"
+                [cells]="row.cells"
+                [titles]="row.titles"
+            ></common-table-line-item>
+            <!-- ./Rows -->
+        </div>
+    </div>
     <!-- ./Table -->
 
     <!-- Pagination -->

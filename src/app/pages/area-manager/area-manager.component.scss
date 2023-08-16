@@ -20,7 +20,7 @@
     }
 
     &__header {
-        margin: 0 0 func.pxToRem( 24 );
+        margin: func.pxToRem( 2 ) 0 func.pxToRem( 24 );
     }
 
     &__actions {
@@ -28,14 +28,31 @@
         @include mixin.flexCenter( space-between );
 
         // Styles
+        margin: 0 0 func.pxToRem( 16 );
         padding: func.pxToRem( 12 ) func.pxToRem( 16 );
         background: func.color( baseColor-25 );
         border-radius: func.pxToRem( 4 );
 
+        // Media Queries
+        @include mixin.maxWidth( lg ) {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 100%;
+            gap: func.pxToRem( 16 );
+        }
+
+        // Children
         &-config {
+            // Styles
             display: grid;
             grid-template-columns: repeat( 2, #{ func.pxToRem( 216 ) } );
             gap: func.pxToRem( 16 );
+
+            // Media Queries
+            @include mixin.maxWidth( lg ) {
+                width: 100%;
+                grid-template-columns: 100%;
+            }
         }
 
         &-filter {

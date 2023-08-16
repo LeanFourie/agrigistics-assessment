@@ -14,11 +14,25 @@
     background: func.color( baseColor-25 );
 
     &__nav {
+        // Mixins
+        @include mixin.transition(
+            all
+            func.duration( slow )
+            func.easing( easeInOutCubic )
+        );
+
+        // Styles
         position: sticky;
         top: 0;
+        z-index: 999;
+
+        // Is...
+        &--is {
+            &-hidden {
+                @include mixin.transform( translateY( -200% ) );
+            }
+        }
     }
 
-    &__content {
-
-    }
+    &__content {}
 }

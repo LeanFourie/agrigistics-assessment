@@ -9,6 +9,7 @@ import { WindowSizeService } from './../../services/window-size.service'
 // Definition Imports
 import type { BaseActionsListItemInterface } from './../../components/base/actions-list-item/actions-list-item.definitions'
 import type { BaseToggleStateType } from './../../components/base/toggle/toggle.definitions'
+import type { CommonTableInterface } from './../../components/common/table/table.defnitions'
 import type { SizeInterface } from './../../definitions/interfaces'
 
 @Component({
@@ -55,6 +56,157 @@ export class AreaManagerComponent implements OnInit, OnDestroy {
     public searchTerm: string = ''
 
     public searchTerms: Array< string > = []
+
+    public tableTitles: CommonTableInterface[ 'titles' ] = [
+        {
+            value: 'Status',
+            isSortable: true
+        },
+        {
+            value: 'Block',
+            isSearchable: true,
+            isSortable: true
+        },
+        {
+            value: 'Farm',
+            isSearchable: true,
+            isSortable: true
+        },
+        {
+            value: 'Variant',
+            isSearchable: true,
+            isSortable: true
+        },
+        {
+            value: 'Ha',
+            isSearchable: true,
+            isSortable: true
+        },
+        {
+            value: 'Created',
+            isSortable: true
+        },
+        {
+            value: 'Removed',
+            isSortable: true
+        }
+    ]
+
+    public tableRows: CommonTableInterface[ 'rows' ] = [
+        {
+            titles: this.tableTitles.map( title => title.value ),
+            cells: [
+                {
+                    value: 'location_on',
+                    type: 'icon'
+                },
+                {
+                    value: 'A2'
+                },
+                {
+                    value: 'Brooklyn'
+                },
+                {
+                    value: 'Durance'
+                },
+                {
+                    value: '10'
+                },
+                {
+                    value: '20/04/2021'
+                },
+                {
+                    value: '20/04/2021'
+                }
+            ]
+        },
+        {
+            titles: this.tableTitles.map( title => title.value ),
+            cells: [
+                {
+                    value: 'location_on',
+                    type: 'icon'
+                },
+                {
+                    value: 'A2'
+                },
+                {
+                    value: 'Brooklyn'
+                },
+                {
+                    value: 'Durance'
+                },
+                {
+                    value: '10'
+                },
+                {
+                    value: '20/04/2021'
+                },
+                {
+                    value: '20/04/2021'
+                }
+            ]
+        },
+        {
+            titles: this.tableTitles.map( title => title.value ),
+            cells: [
+                {
+                    value: 'location_on',
+                    type: 'icon'
+                },
+                {
+                    value: 'A2'
+                },
+                {
+                    value: 'Brooklyn'
+                },
+                {
+                    value: 'Durance'
+                },
+                {
+                    value: '10'
+                },
+                {
+                    value: '20/04/2021'
+                },
+                {
+                    value: '20/04/2021'
+                }
+            ]
+        },
+        {
+            titles: this.tableTitles.map( title => title.value ),
+            cells: [
+                {
+                    value: '',
+                    hideOnMobile: true
+                },
+                {
+                    value: '',
+                    hideOnMobile: true
+                },
+                {
+                    value: '',
+                    hideOnMobile: true
+                },
+                {
+                    value: '',
+                    hideOnMobile: true
+                },
+                {
+                    value: '10'
+                },
+                {
+                    value: '',
+                    hideOnMobile: true
+                },
+                {
+                    value: '',
+                    hideOnMobile: true
+                }
+            ]
+        }
+    ]
 
     // METHODS
     /**

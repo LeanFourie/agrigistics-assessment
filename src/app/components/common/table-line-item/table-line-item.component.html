@@ -1,5 +1,81 @@
-<tr class="row">
+<div [ngClass]="returnClassNames()">
     <!-- Columns -->
-    <td class="row__column"></td>
+    <ng-container
+        *ngFor="let cell of cells; let i = index"
+    >
+        <div
+            *ngIf="windowSize.width >= tabletBrakpoint || ( windowSize.width < tabletBrakpoint && !cell.hideOnMobile)"
+            class="row__column"
+        >
+            <!-- Text Cell -->
+            <ng-container *ngIf="!cell.type || cell.type && cell.type === 'text'; else visualCell">
+                <div
+                    [attr.data-title]="titles[ i ]"
+                    class="row__column-cell row__column-cell--text"
+                >
+                    <!-- Value -->
+                    <base-text
+                        fontWeight="light"
+                        variant="paragraph sm"
+                    >
+                        {{ cell.value }}
+                    </base-text>
+                    <!-- ./Value -->
+                    <!-- Sort -->
+                    <ng-container *ngIf="cellIsSortable( cell )">
+                        <button class="row__column-action row__column-action--sort">
+                            <base-icon
+                                name="arrow_upward"
+                            ></base-icon>
+                        </button>
+                    </ng-container>
+                    <!-- ./Sort -->
+                    <!-- Search -->
+                    <ng-container *ngIf="cellIsSearchable( cell )">
+                        <button class="row__column-action row__column-action--search">
+                            <base-icon
+                                name="search"
+                            ></base-icon>
+                        </button>
+                    </ng-container>
+                    <!-- ./Search -->
+                </div>
+            </ng-container>
+            <!-- ./Text Cell -->
+
+            <!-- Visual Cells -->
+            <ng-template #visualCell>
+                <!-- Icon Cell -->
+                <ng-container *ngIf="cell.type === 'icon'; else imageCell">
+                    <div
+                        [attr.data-title]="titles[ i ]"
+                        class="row__column-cell row__column-cell--icon"
+                    >
+                        <base-icon
+                            [filled]="true"
+                            [name]="cell.value"
+                        >
+                        </base-icon>
+                    </div>
+                </ng-container>
+                <!-- ./Icon Cell -->
+        
+                <!-- Image Cell -->
+                <ng-template #imageCell>
+                    <div
+                        [attr.data-title]="titles[ i ]"
+                        class="row__column-cell row__column-cell--image"
+                    >
+                        <base-image
+                            [src]="cell.value"
+                            alt=""
+                        ></base-image>
+                    </div>
+                </ng-template>
+                <!-- ./Image Cell -->
+            </ng-template>
+            <!-- ./Visual Cells -->
+        </div>
+    </ng-container>
     <!-- ./Columns -->
-</tr>
+</div>
