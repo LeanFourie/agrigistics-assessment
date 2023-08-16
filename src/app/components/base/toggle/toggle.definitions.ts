@@ -6,7 +6,7 @@ type BaseToggleStateType = 'on' | 'off'
 
 // Interfaces
 interface BaseToggleInterface {
-    // required
+    // Required
     label: string
     onClick: EventEmitter<{ state: BaseToggleStateType }>
 
@@ -17,4 +17,10 @@ interface BaseToggleInterface {
 }
 
 // Exports
-export type { BaseToggleInterface }
+export type {
+    // Types
+    BaseToggleStateType,
+
+    // Interfaces
+    BaseToggleInterface
+}

@@ -33,18 +33,27 @@ export class ActionsListComponent {
      */
     @Input() public showArrow?: CommonActionsListInterface[ 'showArrow' ] = false
 
+    /**
+     * Determines whether the list should span the entire width of the parent or not
+     * 
+     * @default false
+     */
+    @Input() public width?: CommonActionsListInterface[ 'width' ] = 'fixed'
+
     // REQUIRED OUTPUTS
     /**
      * Emits click events from the action items
      */
-    @Output() public onActionClick: CommonActionsListInterface[ 'onActionClick' ] = new EventEmitter
+    @Output() public onActionClick: CommonActionsListInterface[ 'onActionClick' ] = new EventEmitter()
 
     // METHODS
     /**
      * Handles click events on the action items
      */
-    public handleActionClick = (): void => {
+    public handleActionClick = ( label: string ): void => {
         // Emit the click event from the action item
-        this.onActionClick.emit()
+        this.onActionClick.emit({
+            selectedAction: label
+        })
     }
 }

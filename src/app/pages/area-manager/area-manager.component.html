@@ -27,21 +27,34 @@
             <div class="content__actions">
                 <!-- Config -->
                 <div class="content__actions-config">
-                    <div class="content__actions-config-farm">
-                        <base-dropdown></base-dropdown>
-                    </div>
-                    <div class="content__actions-config-search">
-                        <common-search></common-search>
-                    </div>
-                    <div class="content__actions-config-chips">
-                        <base-chip></base-chip>
-                    </div>
+                    <base-dropdown
+                        (onChange)="handleFarmSelection( $event )"
+                        [isSearchable]="true"
+                        [options]="farms"
+                        [value]="selectedFarm"
+                        label="Farm"
+                        placeholder="Select or type a farm"
+                    ></base-dropdown>
+                    <common-search
+                        (onChange)="handleSearchValueChange( $event )"
+                        [value]="searchTerm"
+                        placeholder="Search Columns"
+                    ></common-search>
+                    <ng-container *ngIf="searchTerms.length > 0">
+                        <div class="content__actions-config-chips">
+                            <base-chip></base-chip>
+                        </div>
+                    </ng-container>
                 </div>
                 <!-- ./Config -->
 
                 <!-- Filter -->
                 <div class="content__actions-filter">
-                    <base-toggle></base-toggle>
+                    <base-toggle
+                        (onClick)="handleToggleChange( $event )"
+                        [showLabel]="true"
+                        label="Removed blocks"
+                    ></base-toggle>
                 </div>
                 <!-- ./Filter -->
             </div>

@@ -1,16 +1,22 @@
-<div [ngClass]="returnClassNames">
+<div [ngClass]="returnClassNames()">
     <!-- Toggle Button -->
     <button
-        (click)="handleClick"
+        (click)="handleClick()"
         [attr.aria-label]="label"
         class="toggle__button"
-    ></button>
+    >
+        <span class="toggle__button-handle"></span>
+    </button>
     <!-- ./Toggle Button -->
 
     <!-- Label -->
     <ng-container *ngIf="showLabel">
         <span class="toggle__label">
-            <base-text>
+            <base-text
+                [renderAsSpan]="true"
+                fontWeight="light"
+                variant="label md"
+            >
                 {{ label }}
             </base-text>
         </span>

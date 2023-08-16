@@ -1,20 +1,4 @@
-<label [ngClass]="returnClassNames">
-    <!-- Label -->
-    <ng-container *ngIf="type !== 'search'">
-        <span class="input__label">
-            <base-text
-                [renderAsSpan]="true"
-                variant="label md"
-            >
-                {{ label }}
-                <ng-container *ngIf="isRequired">
-                    <sup class="input__label-asterisk">*</sup>
-                </ng-container>
-            </base-text>
-        </span>
-    </ng-container>
-    <!-- ./Label -->
-
+<label [ngClass]="returnClassNames()">
     <!-- Icon -->
     <ng-container *ngIf="icon">
         <span class="input__icon">
@@ -27,10 +11,10 @@
 
     <!-- Input Element -->
     <input
-        (blur)="handleBlur"
-        (change)="handleChange"
-        (focus)="handleFocus"
-        [placeholder]="placeholder ? placeholder : ''"
+        (blur)="handleBlur()"
+        (input)="handleChange( $event )"
+        (focus)="handleFocus()"
+        [placeholder]="placeholder ? placeholder : ' '"
         [readOnly]="isReadOnly"
         [type]="type"
         [value]="value"
@@ -38,6 +22,33 @@
         class="input__element"
     />
     <!-- ./Input Element -->
+
+    <!-- Label -->
+    <span class="input__label">
+        <base-text
+            [renderAsSpan]="true"
+            variant="label md"
+        >
+            {{ label }}
+            <ng-container *ngIf="isRequired">
+                <sup class="input__label-asterisk">*</sup>
+            </ng-container>
+        </base-text>
+    </span>
+    <!-- ./Label -->
+
+    <!-- Clear Search Value -->
+    <ng-container *ngIf="type === 'search' && this.value !== ''">
+        <span
+            (click)="handleValueClear()"
+            class="input__clear"
+        >
+            <base-icon
+                name="close"
+            ></base-icon>
+        </span>
+    </ng-container>
+    <!-- ./Clear Search Value -->
 
     <!-- Helper Text -->
     <ng-container *ngIf="helperText">

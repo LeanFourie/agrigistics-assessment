@@ -1,0 +1,75 @@
+/*** IMPORTS ***/
+// Use
+@use './../../../styles/utils/functions' as func;
+@use './../../../styles/utils/mixins' as mixin;
+
+/*** STYLES ***/
+// Host
+:host {
+    display: contents;
+}
+
+// Component
+.dropdown {
+    display: inline-block;
+    position: relative;
+
+    &__input {
+        @include mixin.flexCenter();
+    }
+
+    &__icon {
+        // Mixins
+        @include mixin.transform( translateY( -50% ) );
+
+        // Styles
+        position: absolute;
+        top: 50%;
+        right: func.pxToRem( 16 );
+        color: func.color( primaryColor-500 );
+
+        // Is...
+        &--is {
+            &-rotated {
+                @include mixin.transform( translateY( -40% ) rotate( 180deg ) );
+            }
+        }
+    }
+
+    &__options {
+        // Mixins
+        @include mixin.transform( translateY( func.pxToRem( 8 ) ) scale( .975 ) );
+        @include mixin.transition(
+            all
+            func.duration( fast )
+            func.easing( easeOutQuint )
+        );
+
+        // Styles
+        width: 100%;
+        position: absolute;
+        top: calc( 100% + #{ func.pxToRem( 4 ) } );
+        right: 0;
+        transform-origin: top center;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 9;
+
+        &--is {
+            &-visible {
+                // Mixins
+                @include mixin.transform( none );
+        
+                // Styles
+                opacity: 1;
+                pointer-events: all;
+            }
+        }
+    }
+
+    // Is...
+    &--is {
+        &-searchable {
+        }
+    }
+}

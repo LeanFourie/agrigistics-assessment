@@ -1,12 +1,148 @@
-.toggle {
-    // Children
-    &__button {}
+/*** IMPORTS ***/
+// Use
+@use './../../../styles/utils/functions' as func;
+@use './../../../styles/utils/mixins' as mixin;
 
-    &__label {}
+/*** STYLES ***/
+// Host
+:host {
+    display: contents;
+}
+
+// Component
+.toggle {
+    @include mixin.inlineFlexCenter();
+
+    // Children
+    &__button {
+        width: func.pxToRem( 34 );
+        height: func.pxToRem( 20 );
+        position: relative;
+        background: func.color( transparentColor );
+        border: none;
+        cursor: pointer;
+
+        &::before {
+            // Mixins
+            @include mixin.transform( translateY( -50% ) );
+
+            // Styles
+            content: '';
+            width: 100%;
+            height: func.pxToRem( 14 );
+            position: absolute;
+            top: 50%;
+            left: 0;
+            background: func.color( greyColor-400 );
+            border-radius: func.pxToRem( 20 );
+        }
+
+        &-handle {
+            // Mixins
+            @include mixin.borderRadiusRound();
+            @include mixin.transform( translateY( -50% ) );
+            @include mixin.transition(
+                all
+                func.duration( fast )
+                func.easing( easeOutQuint )
+            );
+
+            // Styles
+            width: func.pxToRem( 20 );
+            height: func.pxToRem( 20 );
+            position: absolute;
+            top: 50%;
+            left: 0;
+            z-index: 2;
+
+            &::before,
+            &::after {
+                // Mixins
+                @include mixin.borderRadiusRound();
+                @include mixin.transform( translate( -50%, -50% ) );
+                @include mixin.transition(
+                    all
+                    func.duration( fast )
+                    func.easing( easeOutQuint )
+                );
+    
+                // Styles
+                content: '';
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+            }
+
+            &::before {
+                // Styles
+                background: func.alphaColor( primaryColor-500, .1 );
+                z-index: -1;
+            }
+
+            &::after {
+                // Mixins
+                @include mixin.boxShadow(
+                    0 func.pxToRem( 1 ) func.pxToRem( 2 )
+                    func.alphaColor( invertColor-25, .4 )
+                );
+    
+                // Styles
+                background: func.color( baseColor-0 );
+            }
+        }
+
+        &:hover {
+            .toggle {
+                &__button {
+                    &-handle {
+                        &::before {
+                            width: calc( 100% + #{ func.pxToRem( 16 ) } );
+                            height: calc( 100% + #{ func.pxToRem( 16 ) } );
+                        }
+                    }
+                }
+            }
+        }
+
+        &:active {
+            .toggle {
+                &__button {
+                    &-handle {
+                        &::before {
+                            background: func.alphaColor( primaryColor-500, .2 );
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &__label {
+        margin: 0 0 0 func.pxToRem( 16 );
+        color: func.color( greyColor-500 );
+    }
 
     // State
     &--state {
-        &-on {}
+        &-on {
+            .toggle {
+                &__button {
+                    &::before {
+                        background: func.color( primaryColor-300 );
+                    }
+
+                    &-handle {
+                        @include mixin.transform( translate( func.pxToRem( 14 ), -50% ) );
+
+                        &::after {
+                            background: func.color( primaryColor-500 );
+                        }
+                    }
+                }
+            }
+        }
 
         &-off {}
     }

@@ -18,13 +18,24 @@
     );
 
     // Styles
-    width: 240px;
+    width: func.pxToRem( 240 );
     padding: func.pxToRem( 4 );
     background: func.color( baseColor-25 );
     border-radius: func.pxToRem( 8 );
 
     // Children
-    &__items {}
+    &__items {
+        max-height: func.pxToRem( 188 );
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
 
     &__item {}
+
+    // Is...
+    &--is {
+        &-full-width {
+            width: 100%;
+        }
+    }
 }

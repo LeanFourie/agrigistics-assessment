@@ -1,12 +1,265 @@
+/*** IMPORTS ***/
+// Use
+@use './../../../styles/utils/functions' as func;
+@use './../../../styles/utils/mixins' as mixin;
+
+/*** STYLES ***/
+// Host
+:host {
+    display: contents;
+}
+
+// Component
 .input {
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    margin: func.pxToRem( -13.5 ) 0 0;
+    padding: func.pxToRem( 13.5 ) 0 0;
+    overflow: hidden;
+
     // Children
     &__label {
-        &-asterisk {}
+        // Mixins
+        @include mixin.transition(
+            all
+            func.duration( fast )
+            func.easing( easeOutQuint )
+        );
+
+        // Styles
+        width: 100%;
+        max-height: 100%;
+        display: flex;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-color: func.color( greyColor-100 );
+        cursor: text;
+
+        &::before,
+        &::after {
+            // Mixins
+            @include mixin.boxShadow(
+                inset 0 func.pxToRem( 1 )
+                func.color( transparentColor )
+            );
+            @include mixin.transform( translateY( func.pxToRem( 6 ) ) );
+            @include mixin.transition(
+                all
+                func.duration( fast )
+                func.easing( easeOutQuint )
+            );
+
+            // Styles
+            content: '';
+            min-width: func.pxToRem( 12 );
+            height: func.pxToRem( 8 );
+            display: block;
+            border-top: func.pxToRem( 1 ) solid;
+            border-top-color: func.color( greyColor-100 );
+            pointer-events: none;
+        }
+
+        &::before {
+            margin: 0 func.pxToRem( 4 ) 0 0;
+            border-left: func.pxToRem( 1 ) solid func.color( transparentColor );
+            border-radius: func.pxToRem( 4 ) 0;
+        }
+
+        &::after {
+            flex-grow: 1;
+            margin: 0 0 0 func.pxToRem( 4 );
+            border-right: func.pxToRem( 1 ) solid func.color( transparentColor );
+            border-radius: 0 func.pxToRem( 4 );
+        }
+
+        &-asterisk {
+            color: func.color( dangerColor-500 );
+        }
+
+        ::ng-deep {
+            base-text {
+                // Mixins
+                @include mixin.transition(
+                    all
+                    func.duration( fast )
+                    func.easing( easeOutQuint )
+                );
+    
+                // Children
+                .text__element {
+                    // Mixins
+                    @include mixin.transition(
+                        all
+                        func.duration( fast )
+                        func.easing( easeOutQuint )
+                    );
+
+                    // Styles
+                    color: func.color( primaryColor-500 );
+                    font-size: func.pxToRem( 11 );
+                }
+            }
+        }
     }
 
-    &__icon {}
+    &__icon {
+        // Mixins
+        @include mixin.transform( translateY( -20% ) );
 
-    &__element {}
+        // Styles
+        width: func.pxToRem( 20 );
+        height: func.pxToRem( 20 );
+        position: absolute;
+        top: 50%;
+        left: func.pxToRem( 16 );
+        color: func.color( greyColor-300 );
+
+        ::ng-deep {
+            .icon {
+                &__element {
+                    font-size: func.pxToRem( 20 );
+                }
+            }
+        }
+    }
+
+    &__clear {
+        // Mixins
+        @include mixin.borderRadiusRound();
+        @include mixin.flexCenter();
+        @include mixin.transform( translateY( -32.5% ) );
+        @include mixin.transition(
+            all
+            func.duration( fast )
+            func.easing( easeOutQuint )
+        );
+
+        // Styles
+        width: func.pxToRem( 36 );
+        height: func.pxToRem( 36 );
+        position: absolute;
+        top: 50%;
+        right: func.pxToRem( 16 );
+        padding: func.pxToRem( 8 );
+        background: func.color( transparentColor );
+        color: func.color( primaryColor-500 );
+        cursor: pointer;
+
+        // States
+        &:hover {
+            background: func.alphaColor( primaryColor-500, .1 );
+        }
+
+        ::ng-deep {
+            .icon {
+                &__element {
+                    font-size: func.pxToRem( 20 );
+                }
+            }
+        }
+    }
+
+    &__element {
+        // Mixins
+        @include mixin.boxShadow( none );
+        @include mixin.transition(
+            all
+            func.duration( fast )
+            func.easing( easeOutQuint )
+        );
+
+        // Styles
+        width: 100%;
+        height: inherit;
+        margin: 0;
+        padding: func.pxToRem( 14 ) func.pxToRem( 16 ) func.pxToRem( 12 );
+        border: func.pxToRem( 1 ) solid;
+        background: func.color( baseColor-0 );
+        border-color: func.color( greyColor-100 );
+        border-top-color: transparent;
+        border-radius: func.pxToRem( 4 );
+        color: func.color( invertColor-25 );
+        caret-color: func.color( invertColor-25 );
+
+        &::placeholder {
+            opacity: 0;
+        }
+
+        &::-webkit-search-clear-button,
+        &::-webkit-search-decoration,
+        &::-webkit-search-cancel-button,
+        &::-webkit-search-results-button {
+            display: none;
+        }
+
+        &:not( :focus ) {
+            &:placeholder-shown {
+                border-top-color: func.color( greyColor-100 );
+                transition-delay: .1s;
+
+                & + .input__label {
+                    &::before,
+                    &::after {
+                        border-top-color: transparent;
+                        transition-delay: .1s;
+                    }
+
+                    ::ng-deep {
+                        base-text {
+                            // Mixins
+                            @include mixin.transform( translateY( func.pxToRem( 24 ) ) );
+
+                            // Styles
+                            transition-delay: .1s;
+                
+                            // Children
+                            .text__element {
+                                color: func.color( greyColor-500 );
+                                font-size: func.pxToRem( 14 );
+                                transition-delay: .1s;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &:focus {
+            border-color: func.color( primaryColor-500 );
+            border-top-color: func.color( transparentColor );
+            outline: none;
+
+            &::placeholder {
+                // Mixins
+                @include mixin.transition(
+                    all
+                    func.duration( fast )
+                    func.easing( easeOutQuint )
+                );
+
+                // Styles
+                opacity: 1;
+            }
+
+            & + .input__label {
+                &::before,
+                &::after {
+                    border-top-color: func.color( primaryColor-500 );
+                }
+
+                ::ng-deep {
+                    base-text {
+                        .text__element {
+                            color: func.color( primaryColor-500 );
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     &__helper {}
 
@@ -21,7 +274,41 @@
     &--has {
         &-error {}
 
-        &-value {}
+        &-icon {
+            .input {
+                &__element {
+                    padding-left: 40px;
+
+                    &:not( :focus ) {
+                        &:placeholder-shown {
+                            & + .input__label {
+                                ::ng-deep {
+                                    base-text {
+                                        @include mixin.transform( translate( func.pxToRem( 24 ), func.pxToRem( 24 ) ) );
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &-value {
+            .input {
+                &__element {
+                    border-color: func.color( primaryColor-500 );
+                    border-top-color: func.color( transparentColor );
+                }
+
+                &__label {
+                    &::before,
+                    &::after {
+                        border-color: func.color( primaryColor-500 );
+                    }
+                }
+            }
+        }
     }
 
     // Is...

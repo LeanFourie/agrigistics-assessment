@@ -4,6 +4,9 @@ import { EventEmitter } from '@angular/core'
 // Definition Imports
 import type { BaseActionsListItemInterface } from './../../base/actions-list-item/actions-list-item.definitions'
 
+// Types
+type CommonActionsListWidthType = 'full' | 'fixed'
+
 // Interfaces
 interface CommonActionsListInterface {
     // Required
@@ -13,10 +16,11 @@ interface CommonActionsListInterface {
             'onClick' | 'showArrow'
         >
     >
-    onActionClick: EventEmitter< void >
+    onActionClick: EventEmitter<{ selectedAction: string }>
 
     // Optional
     showArrow?: BaseActionsListItemInterface[ 'showArrow' ]
+    width?: CommonActionsListWidthType
 }
 
 // Exports

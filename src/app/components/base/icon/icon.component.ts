@@ -38,7 +38,7 @@ export class IconComponent implements OnInit {
      * 
      * @default `rounded`
      */
-    @Input() public style?: BaseIconInterface[ 'style' ] = 'rounded'
+    @Input() public style?: BaseIconInterface[ 'style' ] = 'sharp'
 
     // PUBLIC VARIABLES
     public materialSymbolRenderClass: string = '';

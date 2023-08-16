@@ -24,8 +24,8 @@ interface BaseInputInterface {
     isDisabled?: boolean
     isReadOnly?: boolean
     isRequired?: boolean
-    onBlur?: BaseInputEventType
-    onFocus?: BaseInputEventType
+    onBlur: BaseInputEventType
+    onFocus: BaseInputEventType
     placeholder?: string
     type?: BaseInputTypeType
     variant?: FormFieldVariantType

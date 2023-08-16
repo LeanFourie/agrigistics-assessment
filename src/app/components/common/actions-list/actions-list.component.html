@@ -1,11 +1,14 @@
-<div class="list">
+<div
+    [ngClass]="{ 'list--is-full-width': width === 'full' }"
+    class="list"
+>
     <div class="list__items">
         <div
             *ngFor="let action of actions"
             class="list__item"
         >
             <base-actions-list-item
-                (onClick)="handleActionClick()"
+                (onClick)="handleActionClick( action.label )"
                 [icon]="action.icon"
                 [label]="action.label"
                 [showArrow]="showArrow"

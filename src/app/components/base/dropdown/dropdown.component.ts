@@ -1,10 +1,15 @@
 // Core Imports
 import {
     Component,
+    ElementRef,
     EventEmitter,
+    HostListener,
     Input,
+    OnInit,
     Output
 } from '@angular/core'
+import { Subject } from 'rxjs'
+import { debounceTime } from 'rxjs/operators'
 
 // Definition Imports
 import type { BaseDropdownInterface } from './dropdown.definitions'
@@ -17,7 +22,10 @@ import type { BaseDropdownInterface } from './dropdown.definitions'
     ]
 })
 
-export class DropdownComponent {
+export class DropdownComponent implements OnInit {
+    // SUBJECTS
+    private _debouncer: Subject< string > = new Subject< string >()
+
     // REQUIRED INPUTS
     /**
      * Determines the label of the dropdown
@@ -63,6 +71,13 @@ export class DropdownComponent {
     @Input() public isRequired?: BaseDropdownInterface[ 'isRequired' ] = false
 
     /**
+     * Determines whether a user can filter the dropdown results or not
+     * 
+     * @default false
+     */
+    @Input() public isSearchable?: BaseDropdownInterface[ 'isSearchable' ] = false
+
+    /**
      * Determines the placeholder text to be rendered
      * 
      * @default undefined
@@ -89,19 +104,53 @@ export class DropdownComponent {
      */
     @Output() public onChange: BaseDropdownInterface[ 'onChange' ] = new EventEmitter()
 
+    // CONSTRUCTOR
+    constructor( private elementRef: ElementRef ) {}
+
     // PUBLIC VARIABLES
     public className: string = 'dropdown'
     public isInFocus: boolean = false
+    public filteredOptions: BaseDropdownInterface[ 'options' ] = []
+    public searchTerm: string = ''
+
+    // HOST LISTENERS
+    /**
+     * Close the menu when a click occurs outside the component
+     */
+    @HostListener( 'document:click', [ '$event' ] )
+    public handleDocumentClick( event: Event ): void {
+        // Detect whether the click event is inside the overflow component
+        const clickedInside: boolean = this.elementRef.nativeElement.contains( event.target )
+
+        // If the click event is outside of the component hide the menu
+        if ( !clickedInside ) this.isInFocus = false
+    }
 
     // METHODS
     /**
-     * Handles change events on the dropdown
+     * Handles value changes on the input
+     * 
+     * @param inputValue 
      */
-    public handleChange = ( event: { value: string } ): void => {
-        // Emit the new value of the dropdown on change
-        this.onChange.emit({
-            value: this.value!
-        })
+    public handleChange = ( inputValue: { value: string } ): void => {
+        // Check if search is NOT allowed THEN...
+        // end the function
+        if ( !this.isSearchable ) return
+
+        // Set the search text valyue to the value of the input
+        const searchText = inputValue.value
+    
+        // Check if we have entered the minimum amount ot characters THEN...
+        if ( searchText.length >= 3 ) {
+            // Debounce the input using a debounce time of 300ms and update the search term
+            this._debouncer.next( searchText )
+        } else {
+            // Clear the filtered options array
+            this.filteredOptions = []
+
+            // Empty the search term value
+            this.searchTerm = ''
+        }
     }
 
     /**
@@ -110,6 +159,17 @@ export class DropdownComponent {
     public handleFocus = (): void => {
         // Set the focus state to true
         this.isInFocus = true
+    }
+
+    public handleOptionSelect = ( option: { selectedAction: string } ): void => {
+        this.value = option.selectedAction
+
+        // Emit the new value of the dropdown on change
+        this.onChange.emit({
+            value: this.value!
+        })
+
+        this.isInFocus = false
     }
 
     /**
@@ -125,6 +185,27 @@ export class DropdownComponent {
             ${ this.value !== '' ? `${ this.className }--has-value` : '' }
             ${ this.isDisabled ? `${ this.className }--is-disabled` : '' }
             ${ this.isInFocus ? `${ this.className }--is-focussed` : '' }
+            ${ this.isSearchable ? `${ this.className }--is-searchable` : '' }
         `
+    }
+
+    // LIFECYCLE METHODS
+    public ngOnInit(): void {
+        // Subscribe on the input value changes with a debounce
+        this._debouncer.pipe(
+            debounceTime( 300 )
+        ).subscribe(( searchText: string ) => {
+            // Check if search is NOT allowed THEN...
+            // end the function
+            if ( !this.isSearchable ) return
+
+            // Update the search term with the new value
+            this.searchTerm = searchText
+
+            // Filter the options using the search term
+            this.filteredOptions = this.options.filter( option =>
+                option.label.toLowerCase().includes( searchText.toLowerCase() )
+            )
+        })
     }
 }

@@ -7,6 +7,8 @@ import { takeUntil } from 'rxjs/operators'
 import { WindowSizeService } from './../../services/window-size.service'
 
 // Definition Imports
+import type { BaseActionsListItemInterface } from './../../components/base/actions-list-item/actions-list-item.definitions'
+import type { BaseToggleStateType } from './../../components/base/toggle/toggle.definitions'
 import type { SizeInterface } from './../../definitions/interfaces'
 
 @Component({
@@ -32,12 +34,46 @@ export class AreaManagerComponent implements OnInit, OnDestroy {
 
     public tabletBrakpoint: number = this.windowSizeService.tabletSize.max
 
+    public farms: Array<
+        Omit<
+            BaseActionsListItemInterface,
+            'onClick'
+        >
+    > = [
+        { label: 'Farm 1' },
+        { label: 'Farm 2' },
+        { label: 'Farm 3' },
+        { label: 'Farm 4' },
+        { label: 'Farm 1' },
+        { label: 'Farm 2' },
+        { label: 'Farm 3' },
+        { label: 'Farm 4' }
+    ]
+
+    public selectedFarm: string = ''
+
+    public searchTerm: string = ''
+
+    public searchTerms: Array< string > = []
+
     // METHODS
     /**
      * Handle generic click events
      */
     public handleGenericClick = (): void => {
         console.log( 'Clicked' )
+    }
+
+    public handleFarmSelection = ( farm: { value: string } ): void => {
+        console.log( farm )
+    }
+
+    public handleSearchValueChange = ( term: { value: string } ): void => {
+        console.log( term )
+    }
+
+    public handleToggleChange = ( toggleState: { state: BaseToggleStateType } ): void => {
+        console.log( toggleState )
     }
 
     // LIFECYCLE METHODS

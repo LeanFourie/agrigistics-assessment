@@ -1,15 +1,16 @@
 <div class="dropdown">
     <!-- Input -->
     <div class="dropdown__input">
-        <!-- (onFocus)="handleFocus()" -->
         <base-input
-            (onChange)="handleChange($event)"
+            (onChange)="handleChange( $event )"
+            (onFocus)="handleFocus()"
             [hasError]="hasError"
             [helperText]="helperText"
             [isDisabled]="isDisabled"
-            [isReadOnly]="true"
+            [isReadOnly]="!isSearchable"
             [isRequired]="isRequired"
             [label]="label"
+            [placeholder]="placeholder"
             [value]="value!"
             [variant]="variant"
             type="text"
@@ -17,10 +18,26 @@
     </div>
     <!-- ./Input -->
 
+    <!-- Icon -->
+    <div
+        [ngClass]="{ 'dropdown__icon--is-rotated': isInFocus }"
+        class="dropdown__icon"
+    >
+        <base-icon
+            name="arrow_drop_down"
+        ></base-icon>
+    </div>
+    <!-- ./Icon -->
+
     <!-- Options -->
-    <div class="dropdown__options">
+    <div
+        [ngClass]="{ 'dropdown__options--is-visible': isInFocus }"
+        class="dropdown__options"
+    >
         <common-actions-list
-            [actions]="options"
+            (onActionClick)="handleOptionSelect( $event )"
+            [actions]="searchTerm && searchTerm !== '' ? filteredOptions : options"
+            width="full"
         ></common-actions-list>
     </div>
     <!-- ./Options -->

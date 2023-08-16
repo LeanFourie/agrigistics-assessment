@@ -107,12 +107,12 @@ export class InputComponent {
     /**
      * Emits the blur event form the input element
      */
-    @Output() public onBlur?: BaseInputInterface[ 'onBlur' ] = new EventEmitter()
+    @Output() public onBlur: BaseInputInterface[ 'onBlur' ] = new EventEmitter()
 
     /**
      * Emits the focus event form the input element
      */
-    @Output() public onFocus?: BaseInputInterface[ 'onFocus' ] = new EventEmitter()
+    @Output() public onFocus: BaseInputInterface[ 'onFocus' ] = new EventEmitter()
 
     // PUBLIC VARIABLES
     public className: string = 'input'
@@ -122,7 +122,16 @@ export class InputComponent {
     /**
      * Handle change events on the input element
      */
-    public handleChange = (): void => {
+    public handleChange = ( event: Event ): void => {
+        // Get the input HTML element
+        const inputElement = event.currentTarget as HTMLInputElement
+
+        // Get the value from the input element
+        const inputValue = inputElement.value
+
+        // Update the current value with the input value
+        this.value = inputValue
+
         // Emit the value on change
         this.onChange.emit({
             value: this.value
@@ -164,6 +173,19 @@ export class InputComponent {
     }
 
     /**
+     * Clears the input value on click
+     */
+    public handleValueClear = (): void => {
+        // Clear the input value
+        this.value = ''
+
+        // Emit the value on clear
+        this.onChange.emit({
+            value: this.value
+        })
+    }
+
+    /**
      * Generates the required class names for the component
      * 
      * @returns A string with relevant class names
@@ -173,6 +195,7 @@ export class InputComponent {
             ${ this.className }
             ${ this.className }--variant-${ this.variant }
             ${ this.hasError ? `${ this.className }--has-error` : '' }
+            ${ this.icon && this.icon !== '' ? `${ this.className }--has-icon` : '' }
             ${ this.value !== '' ? `${ this.className }--has-value` : '' }
             ${ this.isDisabled ? `${ this.className }--is-disabled` : '' }
             ${ this.isInFocus ? `${ this.className }--is-focussed` : '' }

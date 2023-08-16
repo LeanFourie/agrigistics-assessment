@@ -1,0 +1,49 @@
+/*** IMPORTS ***/
+// Use
+@use './../../../styles/utils/functions' as func;
+@use './../../../styles/utils/mixins' as mixin;
+
+/*** STYLES ***/
+// Host
+:host {
+    display: contents;
+}
+
+// Component
+.search {
+    display: inline-block;
+    position: relative;
+
+    &__input {
+        @include mixin.flexCenter();
+    }
+
+    &__options {
+        // Mixins
+        @include mixin.transform( translateY( func.pxToRem( 8 ) ) scale( .95 ) );
+        @include mixin.transition(
+            all
+            func.duration( fast )
+            func.easing( easeOutQuint )
+        );
+
+        // Styles
+        position: absolute;
+        top: calc( 100% + #{ func.pxToRem( 4 ) } );
+        right: 0;
+        transform-origin: top right;
+        opacity: 0;
+        pointer-events: none;
+
+        &--is {
+            &-visible {
+                // Mixins
+                @include mixin.transform( none );
+        
+                // Styles
+                opacity: 1;
+                pointer-events: all;
+            }
+        }
+    }
+}

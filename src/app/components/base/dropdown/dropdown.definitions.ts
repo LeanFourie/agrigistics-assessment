@@ -18,6 +18,7 @@ interface BaseDropdownInterface {
     helperText?: BaseHelperTextInterface
     isDisabled?: boolean
     isRequired?: boolean
+    isSearchable?: boolean
     placeholder?: string
     value?: string
     variant?: FormFieldVariantType

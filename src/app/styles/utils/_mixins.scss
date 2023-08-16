@@ -316,6 +316,19 @@
 }
 
 /*
+*   inlineFlexCenter
+**  Adds display inline-flex to the container and aligns all items center.
+---------------------------------------------------------------------------------------
+*   Arguments:
+**  justify-content - An optional argument that overwrites the `justify-content` property value
+*/
+@mixin inlineFlexCenter( $justifyContent: center ) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: $justifyContent;
+}
+
+/*
 *   hostStyles
 **  Adds basic styling to the host element.
 ---------------------------------------------------------------------------------------
