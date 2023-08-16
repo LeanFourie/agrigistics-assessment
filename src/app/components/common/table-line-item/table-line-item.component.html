@@ -51,11 +51,25 @@
                         [attr.data-title]="titles[ i ]"
                         class="row__column-cell row__column-cell--icon"
                     >
+                        <!-- Icon -->
                         <base-icon
+                            (mouseenter)="toggleTooltipVisibility( i )"
+                            (mouseleave)="toggleTooltipVisibility( undefined )"
                             [filled]="true"
                             [name]="cell.value"
                         >
                         </base-icon>
+                        <!-- ./Icon -->
+                        <!-- Tooltip -->
+                        <ng-container *ngIf="windowSize.width >= tabletBrakpoint">
+                            <div class="row__column-tooltip">
+                                <base-tooltip
+                                    [isVisible]="visibleTooltipCell === i"
+                                    [label]="getTooltipLabel()"
+                                ></base-tooltip>
+                            </div>
+                        </ng-container>
+                        <!-- ./Tooltip -->
                     </div>
                 </ng-container>
                 <!-- ./Icon Cell -->

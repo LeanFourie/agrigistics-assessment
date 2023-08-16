@@ -57,7 +57,7 @@ export class NavItemComponent implements OnInit, OnDestroy {
     @Output() public onClick: CommonNavItemInterface[ 'onClick' ] = new EventEmitter()
 
     // CONSTRUCTOR
-    constructor( private windowSizeService: WindowSizeService ) {}
+    constructor( private _windowSizeService: WindowSizeService ) {}
 
     // PUBLIC VARIABLERS
     public showTooltip: boolean = false
@@ -67,7 +67,7 @@ export class NavItemComponent implements OnInit, OnDestroy {
         height: 0
     }
 
-    public tabletBrakpoint: number = this.windowSizeService.tabletSize.max
+    public tabletBrakpoint: number = this._windowSizeService.tabletSize.max
 
     // METHODS
     /**
@@ -93,7 +93,7 @@ export class NavItemComponent implements OnInit, OnDestroy {
     // LIFECYCLE METHODS
     public ngOnInit(): void {
         // Subscribe to the window size service observable
-        this.windowSizeService.windowSizeSubject.pipe(
+        this._windowSizeService.windowSizeSubject.pipe(
             takeUntil( this._destroy$ )
         ).subscribe( size => {
             // Update the window size value with the current window size

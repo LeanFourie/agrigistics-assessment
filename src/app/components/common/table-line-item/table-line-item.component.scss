@@ -9,7 +9,9 @@
         &__column {
             &-cell {
                 &--icon {
-                    color: func.color( $iconColor );
+                    base-icon {
+                        color: func.color( $iconColor );
+                    }
                 }
             }
         }
@@ -70,6 +72,9 @@
             // Mixins
             @include mixin.flexCenter( space-between );
 
+            // Styles
+            position: relative;
+
             // Variants
             &--icon {
                 ::ng-deep {
@@ -81,12 +86,18 @@
                             font-size: func.pxToRem( 24 );
                         }
                     }
+
+                    .tooltip {
+                        left: func.pxToRem( 12 );
+                        z-index: 9;
+                    }
                 }
             }
 
             // Media Queries
             @include mixin.maxWidth( lg ) {
                 &::before {
+                    font-size: func.pxToRem( 14 );
                     content: attr( data-title );
                 }
             }
@@ -139,29 +150,21 @@
 
     // Status
     &--status {
-        &-in-production {
+        &-production {
             @include cellIconColorStyle-scoped( infoColor-500 );
         }
 
-        &-active {
+        &-area {
             @include cellIconColorStyle-scoped( secondaryColor-500 );
         }
 
-        &-removed {
-            @include cellIconColorStyle-scoped( greyColor-600 );
+        &-complete {
+            @include cellIconColorStyle-scoped( greyColor-500 );
         }
     }
 
     // Is...
     &--is {
-        // &-focus-row {
-        //     .row {
-        //         &__column {
-        //             border-color: func.color( primaryColor );
-        //         }
-        //     }
-        // }
-
         &-titles-row {
             .row {
                 &__column {

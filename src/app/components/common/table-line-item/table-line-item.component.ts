@@ -15,6 +15,7 @@ import type {
     CommonTableLineItemInterface,
     CommonTableLineItemTitleInterface
 } from './table-line-item.definitions'
+import { FarmBlockStatusEnum } from './../../../definitions/enums'
 import type { SizeInterface } from './../../../definitions/interfaces'
 
 @Component({
@@ -54,12 +55,12 @@ export class TableLineItemComponent implements OnInit, OnDestroy {
     /**
      * Determines the status of the row item
      * 
-     * @default `in-production`
+     * @default undefined
      */
-    @Input() public status?: CommonTableLineItemInterface[ 'status' ] = 'in-production'
+    @Input() public status?: CommonTableLineItemInterface[ 'status' ]
 
     // CONSTRUCTOR
-    constructor( private windowSizeService: WindowSizeService ) {}
+    constructor( private _windowSizeService: WindowSizeService ) {}
 
     // PUBLIC VARIABLES
     public className: string = 'row'
@@ -69,7 +70,9 @@ export class TableLineItemComponent implements OnInit, OnDestroy {
         height: 0
     }
 
-    public tabletBrakpoint: number = this.windowSizeService.tabletSize.max
+    public tabletBrakpoint: number = this._windowSizeService.tabletSize.max
+
+    public visibleTooltipCell: number | undefined
 
     // METHODS
     /**
@@ -80,7 +83,7 @@ export class TableLineItemComponent implements OnInit, OnDestroy {
     public returnClassNames = (): string => {
         return `
             ${ this.className }
-            ${ this.className }--status-${ this.status }
+            ${ this.className }--status-${ this.status?.toLowerCase() }
             ${ this.isTitlesRow ? `${ this.className }--is-titles-row` : '' }
         `
     }
@@ -93,15 +96,49 @@ export class TableLineItemComponent implements OnInit, OnDestroy {
         return ( 'isSearchable' in cell ) && cell.isSearchable!
     }
 
+    public getTooltipLabel = (): string => {
+        if ( !this.status ) return 'unknown'
+
+        let rowStatus: string
+
+        switch ( true ) {
+            case this.status === FarmBlockStatusEnum.Area:
+                rowStatus = 'Active'
+                break
+            case this.status === FarmBlockStatusEnum.Complete:
+                rowStatus = 'Removed'
+                break
+            default:
+                rowStatus = 'In Production'
+                break
+        }
+
+        return rowStatus
+    }
+
+    /**
+     * Toggles the visibility of the tooltip
+     */
+    public toggleTooltipVisibility = ( index: number | undefined ): void => {
+        // Check if the current window size is within the range of tablet and mobile THEN...
+        // end the function
+        if ( this.windowSize.width < this.tabletBrakpoint ) return
+
+        // Toggle the tooltip visibility variable
+        this.visibleTooltipCell = index
+    }
+
     // LIFECYCLE METHODS
     public ngOnInit(): void {
         // Subscribe to the window size service observable
-        this.windowSizeService.windowSizeSubject.pipe(
+        this._windowSizeService.windowSizeSubject.pipe(
             takeUntil( this._destroy$ )
         ).subscribe( size => {
             // Update the window size value with the current window size
             this.windowSize = size
         })
+
+        console.log( this )
     }
 
     public ngOnDestroy(): void {

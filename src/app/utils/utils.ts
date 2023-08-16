@@ -1,6 +1,9 @@
 // IMPORTS
 // Definition Imports
+import { FarmBlockStatusEnum } from './../definitions/enums'
+import type { FarmBlockInterface } from './../definitions/interfaces'
 import type { BoxModelType } from './../definitions/types'
+import type { CommonTableInterface } from './../components/common/table/table.defnitions'
 
 // METHODS
 /**
@@ -42,9 +45,53 @@ const returnPaddingValue = ( paddingValue: BoxModelType ): string => {
     return paddingValue.map( pad => `${ calculateRemValue( pad! ) }rem` ).join( ' ' )
 }
 
+const formatDates = ( date: Date ): string => {
+    const day: string = String( date.getDate() ).padStart( 2, '0' )
+    const month: string = String( date.getMonth() + 1 ).padStart( 2, '0' )
+    const year: number = date.getFullYear()
+    
+    return `${ day }/${ month }/${ year }`
+}
+
+const formatTableData = (
+    initialData: Array< FarmBlockInterface >,
+    titles: CommonTableInterface[ 'titles' ]
+): CommonTableInterface[ 'rows' ] => {
+    return initialData.map( entry => ({
+        titles: titles.map( title => title.value ),
+        status: entry.status,
+        cells: [
+            {
+                value: entry.status === FarmBlockStatusEnum.Production ? 'filter_vintage' : 'location_on',
+                type: 'icon'
+            },
+            {
+                value: entry.name
+            },
+            {
+                value: entry.farmName
+            },
+            {
+                value: entry.variant
+            },
+            {
+                value: entry.size.toFixed( 2 ).toString()
+            },
+            {
+                value: formatDates( new Date( entry.createdAt ) )
+            },
+            {
+                value: entry.deletedAt ? formatDates( new Date( entry.deletedAt ) ) : ''
+            }
+        ]
+    }))
+}
+
 // EXPORTS
 export {
     calculateRemValue,
+    formatDates,
+    formatTableData,
     generateSnakeCase,
     returnPaddingValue
 }

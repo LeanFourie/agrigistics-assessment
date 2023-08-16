@@ -59,4 +59,8 @@
             @include mixin.flexCenter( flex-end );
         }
     }
+
+    &__table {
+        margin: 0 0 func.pxToRem( 16 );
+    }
 }

@@ -25,7 +25,7 @@ export class NavComponent implements OnInit, OnDestroy {
     private _destroy$ = new Subject< void >()
 
     // CONSTRUCTOR
-    constructor( private windowSizeService: WindowSizeService ) {}
+    constructor( private _windowSizeService: WindowSizeService ) {}
 
     // PUBLIC VARIABLES
     public navItems: Array<
@@ -61,7 +61,7 @@ export class NavComponent implements OnInit, OnDestroy {
         height: 0
     }
 
-    public tabletBrakpoint: number = this.windowSizeService.tabletSize.max
+    public tabletBrakpoint: number = this._windowSizeService.tabletSize.max
 
     // METHODS
     /**
@@ -75,7 +75,7 @@ export class NavComponent implements OnInit, OnDestroy {
     // LIFECYCLE METHODS
     public ngOnInit(): void {
         // Subscribe to the window size service observable
-        this.windowSizeService.windowSizeSubject.pipe(
+        this._windowSizeService.windowSizeSubject.pipe(
             takeUntil( this._destroy$ )
         ).subscribe( size => {
             // Update the window size value with the current window size

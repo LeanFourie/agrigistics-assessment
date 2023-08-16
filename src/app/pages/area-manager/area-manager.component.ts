@@ -4,7 +4,9 @@ import {
 } from '@angular/core'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
+import { FarmBlocksService } from './../../services/farm-blocks.service'
 import { WindowSizeService } from './../../services/window-size.service'
+import { formatTableData } from './../../utils/utils'
 
 // Definition Imports
 import type { BaseActionsListItemInterface } from './../../components/base/actions-list-item/actions-list-item.definitions'
@@ -25,7 +27,10 @@ export class AreaManagerComponent implements OnInit, OnDestroy {
     private _destroy$ = new Subject< void >()
 
     // CONSTRUCTOR
-    constructor( private windowSizeService: WindowSizeService ) {}
+    constructor(
+        private _farmBlocksService: FarmBlocksService,
+        private _windowSizeService: WindowSizeService
+    ) {}
 
     // PUBLIC VARIABLES
     public windowSize: SizeInterface = {
@@ -33,7 +38,7 @@ export class AreaManagerComponent implements OnInit, OnDestroy {
         height: 0
     }
 
-    public tabletBrakpoint: number = this.windowSizeService.tabletSize.max
+    public tabletBrakpoint: number = this._windowSizeService.tabletSize.max
 
     public farms: Array<
         Omit<
@@ -92,121 +97,7 @@ export class AreaManagerComponent implements OnInit, OnDestroy {
         }
     ]
 
-    public tableRows: CommonTableInterface[ 'rows' ] = [
-        {
-            titles: this.tableTitles.map( title => title.value ),
-            cells: [
-                {
-                    value: 'location_on',
-                    type: 'icon'
-                },
-                {
-                    value: 'A2'
-                },
-                {
-                    value: 'Brooklyn'
-                },
-                {
-                    value: 'Durance'
-                },
-                {
-                    value: '10'
-                },
-                {
-                    value: '20/04/2021'
-                },
-                {
-                    value: '20/04/2021'
-                }
-            ]
-        },
-        {
-            titles: this.tableTitles.map( title => title.value ),
-            cells: [
-                {
-                    value: 'location_on',
-                    type: 'icon'
-                },
-                {
-                    value: 'A2'
-                },
-                {
-                    value: 'Brooklyn'
-                },
-                {
-                    value: 'Durance'
-                },
-                {
-                    value: '10'
-                },
-                {
-                    value: '20/04/2021'
-                },
-                {
-                    value: '20/04/2021'
-                }
-            ]
-        },
-        {
-            titles: this.tableTitles.map( title => title.value ),
-            cells: [
-                {
-                    value: 'location_on',
-                    type: 'icon'
-                },
-                {
-                    value: 'A2'
-                },
-                {
-                    value: 'Brooklyn'
-                },
-                {
-                    value: 'Durance'
-                },
-                {
-                    value: '10'
-                },
-                {
-                    value: '20/04/2021'
-                },
-                {
-                    value: '20/04/2021'
-                }
-            ]
-        },
-        {
-            titles: this.tableTitles.map( title => title.value ),
-            cells: [
-                {
-                    value: '',
-                    hideOnMobile: true
-                },
-                {
-                    value: '',
-                    hideOnMobile: true
-                },
-                {
-                    value: '',
-                    hideOnMobile: true
-                },
-                {
-                    value: '',
-                    hideOnMobile: true
-                },
-                {
-                    value: '10'
-                },
-                {
-                    value: '',
-                    hideOnMobile: true
-                },
-                {
-                    value: '',
-                    hideOnMobile: true
-                }
-            ]
-        }
-    ]
+    public tableRows: CommonTableInterface[ 'rows' ] = []
 
     // METHODS
     /**
@@ -231,11 +122,36 @@ export class AreaManagerComponent implements OnInit, OnDestroy {
     // LIFECYCLE METHODS
     public ngOnInit(): void {
         // Subscribe to the window size service observable
-        this.windowSizeService.windowSizeSubject.pipe(
+        this._windowSizeService.windowSizeSubject.pipe(
             takeUntil( this._destroy$ )
         ).subscribe( size => {
             // Update the window size value with the current window size
             this.windowSize = size
+        })
+
+        this._farmBlocksService.getData().pipe(
+            takeUntil( this._destroy$ )
+        ).subscribe( data => {
+            const tableData: CommonTableInterface[ 'rows' ] = formatTableData( data, this.tableTitles )
+
+            let blocksTotalSize: number = 0
+
+            data.forEach( entry => { blocksTotalSize += entry.size })
+
+            tableData.push({
+                titles: this.tableTitles.map( title => title.value ),
+                cells: [
+                    { value: '' },
+                    { value: '' },
+                    { value: '' },
+                    { value: '' },
+                    { value: blocksTotalSize.toFixed( 2 ).toString() },
+                    { value: '' },
+                    { value: '' }
+                ]
+            })
+
+            this.tableRows = tableData
         })
     }
 

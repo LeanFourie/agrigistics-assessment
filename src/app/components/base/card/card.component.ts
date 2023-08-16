@@ -32,7 +32,7 @@ export class CardComponent implements OnInit, OnDestroy {
     @Input() public shade?: BaseCardInterface[ 'shade' ] = 'light'
 
     // CONSTRUCTOR
-    constructor( private windowSizeService: WindowSizeService ) {}
+    constructor( private _windowSizeService: WindowSizeService ) {}
 
     // PUBLIC VARIABLES
     public className: string = 'card'
@@ -78,12 +78,12 @@ export class CardComponent implements OnInit, OnDestroy {
         // Check which window size we are on...
         switch ( true ) {
             // If we are on mobile
-            case this.windowSize.width < this.windowSizeService.tabletSize.min:
+            case this.windowSize.width < this._windowSizeService.tabletSize.min:
                 // Set the paddingValue to the mobile padding string value
                 paddingValue = returnPaddingValue( this.padding.mobile )
                 break
             // If we are on tablet
-            case this.windowSize.width < this.windowSizeService.desktopSize.min:
+            case this.windowSize.width < this._windowSizeService.desktopSize.min:
                 // Set the paddingValue to the tablet padding string value
                 paddingValue = returnPaddingValue( this.padding.tablet )
                 break
@@ -101,7 +101,7 @@ export class CardComponent implements OnInit, OnDestroy {
     // LIFECYCLE METHODS
     public ngOnInit(): void {
         // Subscribe to the window size service observable
-        this.windowSizeService.windowSizeSubject.pipe(
+        this._windowSizeService.windowSizeSubject.pipe(
             takeUntil( this._destroy$ )
         ).subscribe( size => {
             // Update the window size value with the current window size

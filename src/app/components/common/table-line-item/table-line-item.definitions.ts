@@ -1,7 +1,8 @@
+// Definition Imports
+import { FarmBlockStatusEnum } from './../../../definitions/enums'
+
 // Types
 type CommonTableLineItemCellType = 'text' | 'image' | 'icon'
-
-type CommonTableLineItemStatusType = 'in-production' | 'active' | 'removed'
 
 // Interfaces
 interface CommonTableLineItemInterface {
@@ -14,7 +15,7 @@ interface CommonTableLineItemInterface {
 
     // Optional
     isTitlesRow?: boolean
-    status?: CommonTableLineItemStatusType
+    status?: FarmBlockStatusEnum
 }
 
 interface CommonTableLineItemCellInterface {
