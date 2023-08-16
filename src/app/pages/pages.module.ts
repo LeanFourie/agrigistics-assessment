@@ -1,4 +1,5 @@
 // Module Imports
+import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { ComponentsModule } from './../components/components.module'
 
@@ -10,6 +11,7 @@ import { AreaManagerComponent } from './area-manager/area-manager.component'
         AreaManagerComponent
     ],
     imports: [
+        CommonModule,
         ComponentsModule
     ]
 })

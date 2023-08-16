@@ -102,6 +102,27 @@ export class ButtonComponent {
         this.onClick.emit()
     }
 
+    public getButtonType = (): string => {
+        let buttonType: string
+
+        switch ( true ) {
+            case this.showLabel && ( !this.icons || this.icons && this.icons.length < 1 ):
+                buttonType = 'text'
+                break
+            case this.showLabel && this.icons && this.icons.length >= 1:
+                buttonType = 'text-icon'
+                break
+            case !this.showLabel && this.icons && this.icons.length >= 1:
+                buttonType = 'icon'
+                break
+            default:
+                buttonType = 'text'
+                break
+        }
+
+        return buttonType
+    }
+
     /**
      * Generates the required class names for the component
      * 
@@ -113,6 +134,7 @@ export class ButtonComponent {
             ${ this.className }--color-${ this.color }
             ${ this.className }--shade-${ this.shade }
             ${ this.className }--size-${ this.size }
+            ${ this.className }--type-${ this.getButtonType() }
             ${ this.className }--variant-${ this.variant }
             ${ this.isDisabled ? `${ this.className }--is-disabled` : '' }
             ${ this.isLoading ? `${ this.className }--is-loading` : '' }

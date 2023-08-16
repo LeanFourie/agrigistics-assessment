@@ -1,3 +1,6 @@
+// Definition Imports
+import type { BreakpointBoxModelInterface } from './interfaces'
+
 // Types
 type ThemeColorType = 'primary' | 'secondary'
 
@@ -15,9 +18,16 @@ type SizeExtendedType = 'xs' | SizeType | 'xl'
 
 type FormFieldVariantType = 'filled' | 'outlined'
 
+type BoxModelType = number |
+                    [ number, number?, number?, number? ]
+
+type BreakpointBoxModelType = BoxModelType | BreakpointBoxModelInterface
+
 // Exports
 export type {
     ColorType,
+    BoxModelType,
+    BreakpointBoxModelType,
     FormFieldVariantType,
     NeutralColorType,
     SemanticColorType,

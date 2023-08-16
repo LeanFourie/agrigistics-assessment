@@ -1,0 +1,29 @@
+<div class="header">
+    <!-- Text -->
+    <div class="header__text">
+        <!-- Heading -->
+        <div class="header__heading">
+            <base-text
+                fontWeight="medium"
+                variant="sub-heading md"
+            >
+                {{ heading }}
+            </base-text>
+        </div>
+        <!-- ./Heading -->
+        <!-- Paragraph -->
+        <div class="header__paragraph">
+            <base-text>
+                {{ paragraph }}
+            </base-text>
+        </div>
+        <!-- ./Paragraph -->
+    </div>
+    <!-- ./Text -->
+
+    <!-- Content -->
+    <div class="header__content">
+        <ng-content></ng-content>
+    </div>
+    <!-- ./Content -->
+</div>

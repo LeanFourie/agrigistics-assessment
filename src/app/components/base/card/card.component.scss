@@ -1,0 +1,59 @@
+/*** IMPORTS ***/
+// Use
+@use './../../../styles/utils/functions' as func;
+@use './../../../styles/utils/mixins' as mixin;
+
+/*** STYLES ***/
+// Host
+:host {
+    display: contents;
+}
+
+// Component
+.card {
+    &--border {
+        &-xs {
+            border-radius: func.pxToRem( 4 );
+        }
+
+        &-sm {
+            border-radius: func.pxToRem( 8 );
+        }
+
+        &-md {
+            border-radius: func.pxToRem( 12 );
+        }
+
+        &-lg {
+            border-radius: func.pxToRem( 16 );
+        }
+
+        &-xl {
+            border-radius: func.pxToRem( 20 );
+        }
+    }
+
+    &--shade {
+        &-light {
+            // Mixins
+            @include mixin.boxShadow(
+                0 func.pxToRem( 1 ) func.pxToRem( 2 )
+                func.alphaColor( invertColor-25, .16 )
+            );
+
+            // Styles
+            background: func.color( baseColor-0 );
+        }
+
+        &-dark {
+            // Mixins
+            @include mixin.boxShadow(
+                0 func.pxToRem( 1 ) func.pxToRem( 2 )
+                func.alphaColor( invertColor-25, .2 )
+            );
+
+            // Styles
+            background: func.color( baseColor-25 );
+        }
+    }
+}

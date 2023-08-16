@@ -1,0 +1,25 @@
+/*** IMPORTS ***/
+// Use
+@use './../../styles/utils/functions' as func;
+@use './../../styles/utils/mixins' as mixin;
+
+/*** STYLES ***/
+// Host
+:host {
+    display: contents;
+}
+
+// Component
+.content {
+    // Styles
+    padding: func.pxToRem( 16 ) func.pxToRem( 80 );
+
+    // Media Queries
+    @include mixin.maxWidth( lg ) {
+        padding: func.pxToRem( 12 ) func.pxToRem( 16 );
+    }
+
+    &__header {
+        margin: 0 0 func.pxToRem( 24 );
+    }
+}

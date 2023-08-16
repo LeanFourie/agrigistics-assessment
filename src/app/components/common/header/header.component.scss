@@ -1,0 +1,33 @@
+/*** IMPORTS ***/
+// Use
+@use './../../../styles/utils/functions' as func;
+@use './../../../styles/utils/mixins' as mixin;
+
+/*** STYLES ***/
+// Host
+:host {
+    display: contents;
+}
+
+// Component
+.header {
+    @include mixin.flexCenter( space-between );
+
+    &__text {}
+
+    &__heading {
+        margin: 0 0 func.pxToRem( 4 );
+        color: func.color( invertColor-25 );
+    }
+
+    &__paragraph {
+        color: func.color( greyColor-500 );
+    }
+
+    &__content {
+        display: grid;
+        grid-auto-columns: auto;
+        grid-auto-flow: column;
+        gap: func.pxToRem( 16 );
+    }
+}

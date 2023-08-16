@@ -1,56 +1,517 @@
-.button {
-    // Children
-    &__label {}
+/*** IMPORTS ***/
+// Use
+@use './../../../styles/shared/animations' as anim;
+@use './../../../styles/utils/functions' as func;
+@use './../../../styles/utils/mixins' as mixin;
 
-    &__icon {
-        &--left {}
+@mixin buttonBackgroundStyle-scoped(
+    $backgroundColor-default,
+    $backgroundColor-hover,
+    $backgroundColor-active
+) {
+    &:not( .button--is-disabled ) {
+        background: $backgroundColor-default;
 
-        &--right {}
+        // Media Queries
+        @include mixin.minWidth( md ) {
+            &:hover {
+                background: $backgroundColor-hover;
+            }
+        
+            &:active {
+                background: $backgroundColor-active;
+            }
+        }
+    }
+}
+
+@mixin buttonStrokeStyle-scoped(
+    $borderColor-default,
+    $borderColor-hover,
+    $borderColor-active
+) {
+    &:not( .button--is-disabled ) {
+        border-color: $borderColor-default;
+    
+        &:hover {
+            border-color: $borderColor-hover;
+        }
+    
+        &:active {
+            border-color: $borderColor-active;
+        }
+    }
+}
+
+@mixin buttonTextStyle-scoped(
+    $textColor-default,
+    $textColor-hover,
+    $textColor-active
+) {
+    color: $textColor-default;
+
+    &:hover {
+        color: $textColor-hover;
     }
 
-    // Variant
-    &--variant {
-        &-filled {}
+    &:active {
+        color: $textColor-active;
+    }
+}
 
-        &-outlined {}
+@mixin buttonFillStyle-scoped(
+    $backgroundStyle,
+    $textStyle
+) {
+    @include buttonBackgroundStyle-scoped( $backgroundStyle... );
+    @include buttonTextStyle-scoped( $textStyle... );
+}
 
-        &-ghost {}
+@mixin buttonOutlineStyle-scoped(
+    $backgroundStyle,
+    $strokeStyle,
+    $textStyle
+) {
+    @include buttonBackgroundStyle-scoped( $backgroundStyle... );
+    @include buttonStrokeStyle-scoped( $strokeStyle... );
+    @include buttonTextStyle-scoped( $textStyle... );
+}
+
+@mixin buttonGhostStyle-scoped(
+    $backgroundStyle,
+    $textStyle
+) {
+    @include buttonBackgroundStyle-scoped( $backgroundStyle... );
+    @include buttonTextStyle-scoped( $textStyle... );
+}
+
+@mixin buttonVariantStyle-scoped(
+    $filledStyle,
+    $outlineStyle,
+    $ghostStyle
+) {
+    &.button {
+        &--variant {
+            &-filled {
+                // Mixins
+                @include buttonFillStyle-scoped( $filledStyle... );
+
+                // Styles
+                border: func.pxToRem( 1 ) solid func.color( transparentColor );
+            }
+
+            &-outlined {
+                // Mixins
+                @include buttonOutlineStyle-scoped( $outlineStyle... );
+            }
+
+            &-ghost {
+                // Mixins
+                @include buttonGhostStyle-scoped( $ghostStyle... );
+
+                // Styles
+                border: func.pxToRem( 1 ) solid func.color( transparentColor );
+            }
+        }
+    }
+}
+
+@mixin buttonShadeStyle-scoped(
+    $lightShade,
+    $darkShade
+) {
+    &.button {
+        &--shade {
+            &-light {
+                // Mixins
+                @include buttonVariantStyle-scoped( $lightShade... );
+            }
+
+            &-dark {
+                // Mixins
+                @include buttonVariantStyle-scoped( $darkShade... );
+            }
+        }
+    }
+}
+
+@mixin buttonColorStyle-scoped( $color ) {
+    @include buttonShadeStyle-scoped(
+        // Light Shade
+        (
+            // Fill Button
+            (
+                (
+                    func.color( #{ $color }-100 ),
+                    func.alphaColor( #{ $color }-200, .7 ),
+                    func.color( #{ $color }-200 ),
+                ),
+                (
+                    func.color( #{ $color }-500 ),
+                    func.color( #{ $color }-600 ),
+                    func.color( #{ $color }-700 )
+                )
+            ),
+            // Outline Button
+            (
+                (
+                    func.color( transparentColor ),
+                    func.color( #{ $color }-50 ),
+                    func.color( #{ $color }-100 )
+                ),
+                (
+                    func.color( #{ $color }-300 ),
+                    func.color( #{ $color }-400 ),
+                    func.color( #{ $color }-500 )
+                ),
+                (
+                    func.color( #{ $color }-100 ),
+                    func.color( #{ $color }-200 ),
+                    func.color( #{ $color }-300 )
+                )
+            ),
+            // Ghost Button
+            (
+                (
+                    func.color( transparentColor ),
+                    func.color( #{ $color }-50 ),
+                    func.color( #{ $color }-100 )
+                ),
+                (
+                    func.color( #{ $color }-200 ),
+                    func.color( #{ $color }-300 ),
+                    func.color( #{ $color }-400 )
+                )
+            )
+        ),
+        // Dark Shade
+        (
+            // Fill Button
+            (
+                (
+                    func.color( #{ $color }-500 ),
+                    func.color( #{ $color }-400 ),
+                    func.color( #{ $color }-300 )
+                ),
+                (
+                    func.color( whiteColor ),
+                    func.color( whiteColor ),
+                    func.color( whiteColor )
+                )
+            ),
+            // Outline Button
+            (
+                (
+                    func.color( transparentColor ),
+                    func.color( #{ $color }-50 ),
+                    func.color( #{ $color }-100 )
+                ),
+                (
+                    func.color( #{ $color }-500 ),
+                    func.color( #{ $color }-600 ),
+                    func.color( #{ $color }-700 )
+                ),
+                (
+                    func.color( #{ $color }-500 ),
+                    func.color( #{ $color }-600 ),
+                    func.color( #{ $color }-700 )
+                )
+            ),
+            // Ghost Button
+            (
+                (
+                    func.color( transparentColor ),
+                    func.color( #{ $color }-50 ),
+                    func.color( #{ $color }-100 )
+                ),
+                (
+                    func.color( #{ $color }-500 ),
+                    func.color( #{ $color }-600 ),
+                    func.color( #{ $color }-700 )
+                )
+            )
+        )
+    );
+}
+
+@mixin buttonSizeStyle-scoped(
+    $paddingBlock,
+    $paddingInline,
+    $borderRadius,
+    $iconSize
+) {
+    .button {
+        &__label {
+            line-height: func.pxToRem( $iconSize );
+        }
+
+        &__icon {
+            &-element {
+                font-size: func.pxToRem( $iconSize );
+            }
+        }
+    }
+
+    &.button {
+        &--type {
+            &-text,
+            &-text-icon {
+                padding: func.pxToRem( $paddingBlock ) func.pxToRem( $paddingInline );
+                border-radius: func.pxToRem( $borderRadius );
+            }
+
+            &-icon {
+                @include mixin.borderRadiusRound();
+
+                padding: func.pxToRem( $paddingBlock );
+            }
+        }
+    }
+}
+
+.button {
+    // Mixins
+    @include mixin.flexCenter();
+    @include mixin.transition(
+        background func.timing( extraFast ) func.easing( easeInOutCubic ),
+        color func.timing( extraFast ) func.easing( easeInOutCubic )
+    );
+
+    // Styles
+    position: relative;
+    border: func.pxToRem( 1 ) solid;
+    cursor: pointer;
+    overflow: hidden;
+
+    // Children
+    &__icon {
+        &--is {
+            &-left {
+                & + .button__label {
+                    margin: 0 0 0 func.pxToRem( 8 );
+                }
+            }
+        }
+    }
+
+    &__label {
+        & + .button__icon--is-right {
+            margin: 0 0 0 func.pxToRem( 8 );
+        }
+    }
+
+    // States
+    &:focus {
+        outline: solid func.pxToRem( 3 );
     }
 
     // Color
     &--color {
-        &-primary {}
+        &-primary {
+            // Mixins
+            @include buttonColorStyle-scoped( primaryColor );
 
-        &-secondary {}
+            // States
+            &:focus {
+                outline-color: func.color( primaryColor-200 );
+            }
+        }
 
-        &-danger {}
+        &-secondary {
+            // Mixins
+            @include buttonColorStyle-scoped( secondaryColor );
+
+            // Styles
+            &.button {
+                &--shade {
+                    &-dark {
+                        .button {
+                            &__label {
+                                color: func.color( primaryColor-500 );
+                            }
+                        }
+                    }
+
+                    &-light {
+                        .button {
+                            &__label {
+                                color: func.color( secondaryColor-700 );
+                            }
+                        }
+
+                        &:hover {
+                            .button {
+                                &__label {
+                                    color: func.color( secondaryColor-800 );
+                                }
+                            }
+                        }
+
+                        &:active {
+                            .button {
+                                &__label {
+                                    color: func.color( secondaryColor-900 );
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // States
+            &:focus {
+                outline-color: func.color( secondaryColor-400 );
+            }
+        }
+
+        &-danger {
+            // Mixins
+            @include buttonColorStyle-scoped( dangerColor );
+
+            // States
+            &:focus {
+                outline-color: func.color( dangerColor-200 );
+            }
+        }
     }
 
-    // Shade
-    &--shade {
-        &-dark {}
-
-        &-light {}
-    }
-
-    // Size
     &--size {
-        &-sm {}
+        &-sm {
+            @include buttonSizeStyle-scoped(
+                4, // Block padding
+                12, // Inline padding
+                4, // Border radius
+                16 // Icon size
+            );
+        }
 
-        &-md {}
+        &-md {
+            @include buttonSizeStyle-scoped(
+                8, // Block padding
+                16, // Inline padding
+                4, // Border radius
+                20 // Icon size
+            );
+        }
 
-        &-lg {}
+        &-lg {
+            @include buttonSizeStyle-scoped(
+                12, // Block padding
+                20, // Inline padding
+                6, // Border radius
+                24 // Icon size
+            );
+        }
     }
 
-    // Is...
     &--is {
-        &-disabled {}
+        &-disabled {
+            background: func.color( greyColor-200 );
+            border-color: func.color( greyColor-200 );
+            pointer-events: none;
 
-        &-loading {}
-    }
+            .button {
+                &__label,
+                &__icon {
+                    color: func.color( greyColor-500 );
+                }
+            }
+        }
 
-    // Show
-    &--show {
-        &-label {}
+        &-loading {
+            &::before {
+                @include mixin.animation( 2s infinite anim.$linearLoadAnimation );
+
+                content: '';
+                width: 0;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                background: func.alphaColor( baseColor-25, .5 );
+                z-index: 2;
+            }
+        }
+
+        &-skeleton {
+            @include mixin.skeletonStatic();
+
+            pointer-events: none;
+        }
     }
 }
+
+
+
+// /*** STYLES ***/
+// // Host
+// :host {
+//     display: contents;
+// }
+
+// // Component
+// .button {
+//     border-radius: func.pxToRem( 4 );
+//     cursor: pointer;
+
+//     // Children
+//     &__label {}
+
+//     &__icon {
+//         &--left {}
+
+//         &--right {}
+//     }
+
+//     // Variant
+//     &--variant {
+//         &-filled {}
+
+//         &-outlined {}
+
+//         &-ghost {}
+//     }
+
+//     // Color
+//     &--color {
+//         &-primary {}
+
+//         &-secondary {}
+
+//         &-danger {}
+//     }
+
+//     // Shade
+//     &--shade {
+//         &-dark {}
+
+//         &-light {}
+//     }
+
+//     // Size
+//     &--size {
+//         &-sm {
+//             padding: func.pxToRem( 4 ) func.pxToRem( 12 );
+//         }
+
+//         &-md {
+//             padding: func.pxToRem( 8 ) func.pxToRem( 16 );
+//         }
+
+//         &-lg {
+//             padding: func.pxToRem( 12 ) func.pxToRem( 20 );
+//         }
+//     }
+
+//     // Is...
+//     &--is {
+//         &-disabled {}
+
+//         &-loading {}
+//     }
+
+//     // Show
+//     &--show {
+//         &-label {}
+//     }
+// }

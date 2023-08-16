@@ -1,6 +1,7 @@
 // Core Imports
 import {
     Component,
+    OnDestroy,
     OnInit
 } from '@angular/core'
 import { Subject } from 'rxjs'
@@ -19,7 +20,7 @@ import type { SizeInterface } from './../../../definitions/interfaces'
     ]
 })
 
-export class NavComponent implements OnInit {
+export class NavComponent implements OnInit, OnDestroy {
     // PRIVATE SUBJECTS
     private _destroy$ = new Subject< void >()
 
