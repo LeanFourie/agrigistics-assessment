@@ -38,38 +38,84 @@
 
     &__options {
         // Mixins
-        @include mixin.transform( translateY( func.pxToRem( 8 ) ) scale( .975 ) );
         @include mixin.transition(
-            all
-            func.duration( fast )
-            func.easing( easeOutQuint )
+            transform func.duration( fast ) func.easing( easeOutQuint ),
+            opacity func.duration( fast ) func.easing( easeOutQuint )
         );
 
         // Styles
         width: 100%;
+        height: 0;
         position: absolute;
-        top: calc( 100% + #{ func.pxToRem( 4 ) } );
         right: 0;
         transform-origin: top center;
         opacity: 0;
         pointer-events: none;
+        overflow: hidden;
         z-index: 9;
 
         &--is {
             &-visible {
-                // Mixins
-                @include mixin.transform( none );
-        
-                // Styles
+                height: auto;
                 opacity: 1;
                 pointer-events: all;
+                overflow: visible;
+            }
+        }
+    }
+
+    // Variant
+    &--variant {
+        &-outlined {
+            .dropdown {
+                &__icon {
+                    right: 0;
+                }
+            }
+        }
+    }
+
+    // Direction
+    &--direction {
+        &-down {
+            .dropdown {
+                &__options {
+                    // Mixins
+                    @include mixin.transform( translateY( func.pxToRem( 8 ) ) scale( .975 ) );
+
+                    // Styles
+                    top: calc( 100% + #{ func.pxToRem( 4 ) } );
+
+                    &--is {
+                        &-visible {
+                            @include mixin.transform( none );
+                        }
+                    }
+                }
+            }
+        }
+
+        &-up {
+            .dropdown {
+                &__options {
+                    // Mixins
+                    @include mixin.transform( translateY( func.pxToRem( -8 ) ) scale( .975 ) );
+
+                    // Styles
+                    bottom: calc( 100% + #{ func.pxToRem( 8 ) } );
+
+                    &--is {
+                        &-visible {
+                            @include mixin.transform( none );
+                        }
+                    }
+                }
             }
         }
     }
 
     // Is...
     &--is {
-        &-searchable {
-        }
+        &-searchable {}
     }
 }

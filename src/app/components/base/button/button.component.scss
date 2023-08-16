@@ -406,14 +406,14 @@
 
     &--is {
         &-disabled {
-            background: func.color( greyColor-200 );
-            border-color: func.color( greyColor-200 );
+            background: func.color( greyColor-50 );
+            border-color: func.color( greyColor-50 );
             pointer-events: none;
 
             .button {
                 &__label,
                 &__icon {
-                    color: func.color( greyColor-500 );
+                    color: func.color( greyColor-200 );
                 }
             }
         }

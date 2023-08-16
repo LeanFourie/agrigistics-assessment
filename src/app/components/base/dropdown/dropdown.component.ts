@@ -78,6 +78,13 @@ export class DropdownComponent implements OnInit {
     @Input() public isSearchable?: BaseDropdownInterface[ 'isSearchable' ] = false
 
     /**
+     * Determines whether the menu opens downwards or upwards
+     * 
+     * @default `down`
+     */
+    @Input() public menuDirection?: BaseDropdownInterface[ 'menuDirection' ] = 'down'
+
+    /**
      * Determines the placeholder text to be rendered
      * 
      * @default undefined
@@ -181,6 +188,7 @@ export class DropdownComponent implements OnInit {
         return `
             ${ this.className }
             ${ this.className }--variant-${ this.variant }
+            ${ this.className }--direction-${ this.menuDirection }
             ${ this.hasError ? `${ this.className }--has-error` : '' }
             ${ this.value !== '' ? `${ this.className }--has-value` : '' }
             ${ this.isDisabled ? `${ this.className }--is-disabled` : '' }

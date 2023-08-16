@@ -3,6 +3,17 @@
 @use './../../../styles/utils/functions' as func;
 @use './../../../styles/utils/mixins' as mixin;
 
+/*** MIXINS ***/
+@mixin removeBorderColor-scoped() {
+    .input {
+        &__element {
+            border-top-color: func.color( transparentColor );
+            border-left-color: func.color( transparentColor );
+            border-right-color: func.color( transparentColor );
+        }
+    }
+}
+
 /*** STYLES ***/
 // Host
 :host {
@@ -270,7 +281,22 @@
     &--variant {
         &-filled {}
 
-        &-outline {}
+        &-outlined {
+            // Mixins
+            @include removeBorderColor-scoped();
+
+            // Styles
+            .input {
+                &__label {
+                    display: none;
+                }
+
+                &__element {
+                    padding: 0;
+                    border-radius: func.pxToRem( 0 );
+                }
+            }
+        }
     }
 
     // Has...
@@ -308,6 +334,14 @@
                     &::before,
                     &::after {
                         border-color: func.color( primaryColor-500 );
+                    }
+                }
+            }
+
+            &.input {
+                &--variant {
+                    &-outlined {
+                        @include removeBorderColor-scoped();
                     }
                 }
             }

@@ -19,6 +19,7 @@ interface BaseDropdownInterface {
     isDisabled?: boolean
     isRequired?: boolean
     isSearchable?: boolean
+    menuDirection?: 'up' | 'down'
     placeholder?: string
     value?: string
     variant?: FormFieldVariantType
