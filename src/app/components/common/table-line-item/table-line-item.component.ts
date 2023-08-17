@@ -1,9 +1,11 @@
 // Core Imports
 import {
     Component,
+    EventEmitter,
     Input,
     OnDestroy,
-    OnInit
+    OnInit,
+    Output
 } from '@angular/core'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
@@ -58,6 +60,9 @@ export class TableLineItemComponent implements OnInit, OnDestroy {
      * @default undefined
      */
     @Input() public status?: CommonTableLineItemInterface[ 'status' ]
+
+    // REQUIRED OUTPUTS
+    @Output() public onSearchClick: EventEmitter< void > = new EventEmitter()
 
     // CONSTRUCTOR
     constructor( private _windowSizeService: WindowSizeService ) {}
@@ -128,6 +133,10 @@ export class TableLineItemComponent implements OnInit, OnDestroy {
         this.visibleTooltipCell = index
     }
 
+    public handleSearchClick = (): void => {
+        this.onSearchClick.emit()
+    }
+
     // LIFECYCLE METHODS
     public ngOnInit(): void {
         // Subscribe to the window size service observable
@@ -137,8 +146,6 @@ export class TableLineItemComponent implements OnInit, OnDestroy {
             // Update the window size value with the current window size
             this.windowSize = size
         })
-
-        console.log( this )
     }
 
     public ngOnDestroy(): void {

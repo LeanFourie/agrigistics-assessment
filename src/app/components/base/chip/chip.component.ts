@@ -55,7 +55,9 @@ export class ChipComponent {
      * Handle click events on the chip button
      */
     public handleClick = (): void => {
-        this.onClick.emit()
+        this.onClick.emit({
+            label: this.label
+        })
     }
 
     /**

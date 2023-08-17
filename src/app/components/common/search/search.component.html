@@ -3,7 +3,8 @@
     <div class="search__input">
         <!-- (onFocus)="handleFocus()" -->
         <base-input
-            (onChange)="handleChange"
+            (onChange)="handleChange( $event )"
+            (onEnter)="handleEnter( $event )"
             [placeholder]="placeholder"
             [value]="value!"
             [variant]="variant"

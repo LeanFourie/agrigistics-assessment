@@ -27,6 +27,7 @@
         top: 50%;
         right: func.pxToRem( 16 );
         color: func.color( primaryColor-500 );
+        pointer-events: none;
 
         // Is...
         &--is {

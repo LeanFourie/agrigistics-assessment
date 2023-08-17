@@ -1,9 +1,12 @@
-<div [ngClass]="returnClassNames">
+<button
+    (click)="handleClick()"
+    [ngClass]="returnClassNames()"
+>
     <!-- Label -->
     <span class="chip__label">
         <base-text
             [renderAsSpan]="true"
-            variant="label sm"
+            variant="label md"
         >
             {{ label }}
         </base-text>
@@ -11,14 +14,11 @@
     <!-- ./Label -->
 
     <!-- Remove -->
-    <button
-        (click)="handleClick"
-        class="chip__remove"
-    >
+    <span class="chip__remove" >
         <base-icon
             name="close"
         ></base-icon>
-    </button>
+    </span>
     <!-- ./Remove -->
-</div>
+</button>
 

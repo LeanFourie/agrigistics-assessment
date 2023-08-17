@@ -28,7 +28,7 @@ interface CommonTableLineItemCellInterface {
 }
 
 interface CommonTableLineItemTitleInterface extends CommonTableLineItemCellInterface {
-    // Required
+    // Optional
     isSearchable?: boolean
     isSortable?: boolean
 }

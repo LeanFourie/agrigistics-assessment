@@ -32,7 +32,10 @@
                     <!-- ./Sort -->
                     <!-- Search -->
                     <ng-container *ngIf="cellIsSearchable( cell )">
-                        <button class="row__column-action row__column-action--search">
+                        <button
+                            (click)="handleSearchClick()"
+                            class="row__column-action row__column-action--search"
+                        >
                             <base-icon
                                 name="search"
                             ></base-icon>

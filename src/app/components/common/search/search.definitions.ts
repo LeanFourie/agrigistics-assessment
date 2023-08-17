@@ -9,6 +9,7 @@ import type { FormFieldVariantType } from './../../../definitions/types'
 interface CommonSearchInterface {
     // Required
     onChange: EventEmitter<{ value: string }>
+    onEnter: EventEmitter<{ value: string }>
 
     // Optional
     placeholder?: string

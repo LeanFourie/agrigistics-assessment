@@ -110,6 +110,11 @@ export class InputComponent {
     @Output() public onBlur: BaseInputInterface[ 'onBlur' ] = new EventEmitter()
 
     /**
+     * Emits the enter keyup event form the input element
+     */
+    @Output() public onEnter: BaseInputInterface[ 'onEnter' ] = new EventEmitter()
+
+    /**
      * Emits the focus event form the input element
      */
     @Output() public onFocus: BaseInputInterface[ 'onFocus' ] = new EventEmitter()
@@ -117,6 +122,7 @@ export class InputComponent {
     // PUBLIC VARIABLES
     public className: string = 'input'
     public isInFocus: boolean = false
+    public inputElement?: HTMLInputElement
 
     // METHODS
     /**
@@ -125,6 +131,8 @@ export class InputComponent {
     public handleChange = ( event: Event ): void => {
         // Get the input HTML element
         const inputElement = event.currentTarget as HTMLInputElement
+
+        if ( !this.inputElement ) this.inputElement = inputElement
 
         // Get the value from the input element
         const inputValue = inputElement.value
@@ -183,6 +191,17 @@ export class InputComponent {
         this.onChange.emit({
             value: this.value
         })
+    }
+
+    public onEnterPressed = (): void => {
+        // Emit the value on focus
+        this.onEnter.emit({
+            value: this.value
+        })
+
+        this.value = ''
+
+        if ( this.inputElement ) this.inputElement.value = ''
     }
 
     /**

@@ -53,6 +53,11 @@ export class SearchComponent {
      */
     @Output() public onChange: CommonSearchInterface[ 'onChange' ] = new EventEmitter
 
+    /**
+     * Emits the enter keyup event form the search input
+     */
+    @Output() public onEnter: CommonSearchInterface[ 'onEnter' ] = new EventEmitter
+
     // PUBLIC VARIABLES
     public isInFocus: boolean = false
 
@@ -60,10 +65,17 @@ export class SearchComponent {
     /**
      * Handles change events on the search input
      */
-    public handleChange = (): void => {
+    public handleChange = ( text: { value: string } ): void => {
         // Emit the search value
         this.onChange.emit({
-            value: this.value!
+            value: text.value
+        })
+    }
+
+    public handleEnter = ( text: { value: string } ): void => {
+        // Emit the search value
+        this.onEnter.emit({
+            value: text.value
         })
     }
 

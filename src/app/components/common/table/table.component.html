@@ -5,6 +5,7 @@
             <!-- Titles -->
             <ng-container *ngIf="windowSize.width >= tabletBrakpoint">
                 <common-table-line-item
+                    (onSearchClick)="handleSearchClick()"
                     [cells]="titles"
                     [isTitlesRow]="true"
                 ></common-table-line-item>

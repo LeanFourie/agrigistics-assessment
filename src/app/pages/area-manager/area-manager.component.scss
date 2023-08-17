@@ -45,18 +45,47 @@
         &-config {
             // Styles
             display: grid;
-            grid-template-columns: repeat( 2, #{ func.pxToRem( 216 ) } );
+            grid-template-columns: repeat( 2, #{ func.pxToRem( 216 ) } ) auto;
             gap: func.pxToRem( 16 );
+            align-items: flex-start;
 
             // Media Queries
             @include mixin.maxWidth( lg ) {
                 width: 100%;
                 grid-template-columns: 100%;
             }
+
+            &-chips {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            &-chip {
+                // Mixins
+                @include mixin.transform( translateY( func.pxToRem( 10 ) ) );
+
+                // Styles
+                margin-bottom: func.pxToRem( 8 );
+
+                &:not( :last-child ) {
+                    margin-right: func.pxToRem( 8 );
+                }
+            }
         }
 
         &-filter {
+            // Mixins
             @include mixin.flexCenter( flex-end );
+
+            // Styles
+            align-self: flex-start;
+            margin: func.pxToRem( 12 ) 0 0;
+            white-space: nowrap;
+
+            // Media Queries
+            @include mixin.maxWidth( lg ) {
+                justify-self: flex-start;
+            }
         }
     }
 

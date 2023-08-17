@@ -12,14 +12,14 @@ import type {
 interface BaseChipInterface {
     // Required
     label: string
-    onClick: EventEmitter< void >
+    onClick: EventEmitter<{ label: string }>
 
     // Optional
-    color: ThemeColorType | Exclude<
+    color?: ThemeColorType | Exclude<
         SemanticColorType,
         'info' | 'success' | 'warning'
     >
-    shade: ShadeType
+    shade?: ShadeType
 }
 
 // Exports

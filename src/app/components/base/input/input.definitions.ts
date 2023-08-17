@@ -25,6 +25,7 @@ interface BaseInputInterface {
     isReadOnly?: boolean
     isRequired?: boolean
     onBlur: BaseInputEventType
+    onEnter: BaseInputEventType
     onFocus: BaseInputEventType
     placeholder?: string
     type?: BaseInputTypeType

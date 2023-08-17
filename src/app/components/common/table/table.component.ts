@@ -1,9 +1,11 @@
 // Core Imports
 import {
     Component,
+    EventEmitter,
     Input,
     OnDestroy,
-    OnInit
+    OnInit,
+    Output
 } from '@angular/core'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
@@ -40,6 +42,9 @@ export class TableComponent implements OnInit, OnDestroy {
      */
     @Input() public titles: CommonTableInterface[ 'titles' ] = []
 
+    // REQUIRED OUTPUTS
+    @Output() public onSearchClick: CommonTableInterface[ 'onSearchClick' ] = new EventEmitter()
+
     // CONSTRUCTOR
     constructor( private _windowSizeService: WindowSizeService ) {}
 
@@ -50,6 +55,11 @@ export class TableComponent implements OnInit, OnDestroy {
     }
 
     public tabletBrakpoint: number = this._windowSizeService.tabletSize.max
+
+    // METHODS
+    public handleSearchClick = (): void => {
+        this.onSearchClick.emit()
+    }
 
     // LIFECYCLE METHODS
     public ngOnInit(): void {

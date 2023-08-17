@@ -1,3 +1,6 @@
+// Core Imports
+import { EventEmitter } from '@angular/core'
+
 // Definition Imports
 import type {
     CommonTableLineItemTitleInterface,
@@ -6,7 +9,8 @@ import type {
 
 // Interfaces
 interface CommonTableInterface {
-    // Requires
+    // Required
+    onSearchClick: EventEmitter< void >
     rows: Array< CommonTableLineItemInterface >
     titles: Array< CommonTableLineItemTitleInterface >
 }

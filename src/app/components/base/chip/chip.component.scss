@@ -1,22 +1,220 @@
-.chip {
-    // Children
-    &__label {}
+/*** IMPORTS ***/
+// Use
+@use './../../../styles/utils/functions' as func;
+@use './../../../styles/utils/mixins' as mixin;
 
-    &__remove {}
+/*** Mixins ***/
+@mixin chipColorStyle-scoped(
+    $darkShadeBackground-resting,
+    $darkShadeBackground-hover,
+    $darkShadeBackground-active,
+    $darkShadeLabelColor,
+    $lightShadeBackground-resting,
+    $lightShadeBackground-hover,
+    $lightShadeBackground-active,
+    $lightShadeLabelColor
+) {
+    &.chip {
+        &--shade {
+            &-dark {
+                background: $darkShadeBackground-resting;
+
+                .chip {
+                    &__label {
+                        color: $darkShadeLabelColor;
+                    }
+
+                    &__remove {
+                        background: $darkShadeLabelColor;
+                        color: $darkShadeBackground-resting;
+                    }
+                }
+
+                &:hover {
+                    background: $darkShadeBackground-hover;
+
+                    .chip {
+                        &__remove {
+                            color:$darkShadeBackground-hover;
+                        }
+                    }
+                }
+
+                &:active {
+                    background: $darkShadeBackground-active;
+
+                    .chip {
+                        &__remove {
+                            color: $darkShadeBackground-active;
+                        }
+                    }
+                }
+            }
+    
+            &-light {
+                background: $lightShadeBackground-resting;
+
+                .chip {
+                    &__label {
+                        color: $lightShadeLabelColor;
+                    }
+
+                    &__remove {
+                        background: $lightShadeLabelColor;
+                        color: $lightShadeBackground-resting;
+                    }
+                }
+
+                &:hover {
+                    background: $lightShadeBackground-hover;
+
+                    .chip {
+                        &__label {
+                            filter: brightness( .8 );
+                        }
+
+                        &__remove {
+                            color: $lightShadeBackground-hover;
+                        }
+                    }
+                }
+
+                &:active {
+                    background: $lightShadeBackground-active;
+
+                    .chip {
+                        &__label {
+                            filter: brightness( .6 );
+                        }
+
+                        &__remove {
+                            color: $lightShadeBackground-active;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*** STYLES ***/
+// Host
+:host {
+    display: contents;
+}
+
+// Component
+.chip {
+    // Mixins
+    @include mixin.inlineFlexCenter();
+    @include mixin.transition(
+        all
+        func.duration( fast )
+        func.easing( easeOutQuint )
+    );
+
+    // Styles
+    height: func.pxToRem( 32 );
+    padding: 0 func.pxToRem( 10 ) 0 func.pxToRem( 12 );
+    border: none;
+    border-radius: func.pxToRem( 16 );
+    cursor: pointer;
+
+    // Children
+    &__label {
+        display: inline-block;
+        margin: 0 func.pxToRem( 12 ) 0 0;
+    }
+
+    &__remove {
+        // Mixins
+        @include mixin.borderRadiusRound();
+        @include mixin.flexCenter();
+
+        // Styles
+        width: func.pxToRem( 14 );
+        height: func.pxToRem( 14 );
+
+        ::ng-deep {
+            base-icon {
+                .icon {
+                    &__element {
+                        font-size: func.pxToRem( 12 );
+                        font-weight: 800;
+                    }
+                }
+            }
+        }
+    }
+
+    // States
+    &:focus {
+        outline: solid func.pxToRem( 3 );
+    }
 
     // Color
     &--color {
-        &-primary {}
+        &-primary {
+            @include chipColorStyle-scoped(
+                // Dark Shade
+                func.color( primaryColor-500 ),
+                func.color( primaryColor-400 ),
+                func.color( primaryColor-300 ),
+                func.color( baseColor-0 ),
 
-        &-secondary {}
+                // Light Shade
+                func.color( primaryColor-50 ),
+                func.color( primaryColor-100 ),
+                func.color( primaryColor-200 ),
+                func.color( primaryColor-500 )
+            );
 
-        &-danger {}
-    }
+            // States
+            &:focus {
+                outline-color: func.color( primaryColor-200 );
+            }
+        }
 
-    // Shade
-    &--shade {
-        &-dark {}
+        &-secondary {
+            @include chipColorStyle-scoped(
+                // Dark Shade
+                func.color( secondaryColor-500 ),
+                func.color( secondaryColor-400 ),
+                func.color( secondaryColor-300 ),
+                func.color( primaryColor-500 ),
 
-        &-light {}
+                // Light Shade
+                func.color( secondaryColor-50 ),
+                func.color( secondaryColor-100 ),
+                func.color( secondaryColor-200 ),
+                func.color( secondaryColor-700 )
+            );
+
+            // States
+            &:focus {
+                outline-color: func.color( secondaryColor-400 );
+            }
+        }
+
+        &-danger {
+            @include chipColorStyle-scoped(
+                // Dark Shade
+                func.color( dangerColor-500 ),
+                func.color( dangerColor-400 ),
+                func.color( dangerColor-300 ),
+                func.color( baseColor-0 ),
+
+                // Light Shade
+                func.color( dangerColor-50 ),
+                func.color( dangerColor-100 ),
+                func.color( dangerColor-200 ),
+                func.color( dangerColor-500 )
+            );
+
+            // States
+            &:focus {
+                outline-color: func.color( dangerColor-200 );
+            }
+        }
     }
 }
