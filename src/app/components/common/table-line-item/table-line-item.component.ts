@@ -63,6 +63,7 @@ export class TableLineItemComponent implements OnInit, OnDestroy {
 
     // REQUIRED OUTPUTS
     @Output() public onSearchClick: EventEmitter< void > = new EventEmitter()
+    @Output() public onSortClick: EventEmitter< string > = new EventEmitter()
 
     // CONSTRUCTOR
     constructor( private _windowSizeService: WindowSizeService ) {}
@@ -94,7 +95,7 @@ export class TableLineItemComponent implements OnInit, OnDestroy {
     }
 
     public cellIsSortable( cell: CommonTableLineItemCellInterface | CommonTableLineItemTitleInterface ): boolean {
-        return ('isSortable' in cell) && cell.isSortable!
+        return ( 'isSortable' in cell ) && cell.isSortable!
     }
 
     public cellIsSearchable( cell: CommonTableLineItemCellInterface | CommonTableLineItemTitleInterface ): boolean {
@@ -135,6 +136,14 @@ export class TableLineItemComponent implements OnInit, OnDestroy {
 
     public handleSearchClick = (): void => {
         this.onSearchClick.emit()
+    }
+
+    public handleSortClick = ( sortLabel: string): void => {
+        this.onSortClick.emit( sortLabel )
+    }
+
+    public checkIfSortIsActive = ( cell: CommonTableLineItemTitleInterface ): string => {
+        return cell.sortedBy!
     }
 
     // LIFECYCLE METHODS

@@ -23,6 +23,8 @@ type BoxModelType = number |
 
 type BreakpointBoxModelType = BoxModelType | BreakpointBoxModelInterface
 
+type SortOrderType = 'asc' | 'desc' | 'unset'
+
 // Exports
 export type {
     ColorType,
@@ -34,5 +36,6 @@ export type {
     ShadeType,
     SizeExtendedType,
     SizeType,
+    SortOrderType,
     ThemeColorType
 }

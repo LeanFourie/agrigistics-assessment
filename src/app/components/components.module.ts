@@ -1,5 +1,6 @@
 // Module Imports
 import { CommonModule } from '@angular/common'
+import { ObserversModule } from '@angular/cdk/observers'
 import { NgModule } from '@angular/core'
 
 // Component Imports
@@ -59,7 +60,8 @@ import { OverflowMenuComponent } from './common/overflow-menu/overflow-menu.comp
         NavComponent
     ],
     imports: [
-        CommonModule
+        CommonModule,
+        ObserversModule
     ],
     exports: [
         // Base

@@ -23,7 +23,11 @@
                     <!-- ./Value -->
                     <!-- Sort -->
                     <ng-container *ngIf="cellIsSortable( cell )">
-                        <button class="row__column-action row__column-action--sort">
+                        <button
+                            (click)="handleSortClick( cell.value )"
+                            [class]="'row__column-action--sort-' + checkIfSortIsActive( cell )"
+                            class="row__column-action row__column-action--sort"
+                        >
                             <base-icon
                                 name="arrow_upward"
                             ></base-icon>

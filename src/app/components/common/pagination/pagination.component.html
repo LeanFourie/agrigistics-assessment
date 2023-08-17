@@ -12,7 +12,7 @@
         </div>
         <div class="pagination__per-page-dropdown">
             <base-dropdown
-                (onChange)="setItemsPerPage"
+                (onChange)="setItemsPerPage()"
                 [options]="itemsPerPageOptions"
                 [value]="itemsPerPage.toString()"
                 label="Items per page"
@@ -30,7 +30,7 @@
             fontWeight="light"
             variant="paragraph xs"
         >
-            <ng-container *ngIf="visibleItems <= 0">1 -</ng-container> {{ visibleItems }} of {{ itemsCount }}
+            <ng-container *ngIf="visibleItems < 0">1 -</ng-container> {{ visibleItems }} of {{ itemsCount }}
         </base-text>
     </div>
     <!-- ./Current Page -->

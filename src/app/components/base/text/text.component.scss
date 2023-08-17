@@ -43,102 +43,98 @@
 
 // Component
 .text {
-    display: contents;
+    margin: 0;
 
-    &__element {
-        margin: 0;
-
-        // Variant
-        &--variant {
-            &-heading {
-                @include fontSizes-scoped(
-                    24,
-                    28,
-                    36,
-                    48,
-                    1.2
-                )
-            }
-    
-            &-sub-heading {
-                @include fontSizes-scoped(
-                    16,
-                    18,
-                    20,
-                    24,
-                    1.2
-                )
-            }
-    
-            &-paragraph {
-                @include fontSizes-scoped(
-                    12,
-                    14,
-                    16,
-                    18,
-                    1.6
-                )
-            }
-    
-            &-label {
-                @include fontSizes-scoped(
-                    10,
-                    12,
-                    14,
-                    16,
-                    1
-                )
-            }
+    // Variant
+    &--variant {
+        &-heading {
+            @include fontSizes-scoped(
+                24,
+                28,
+                36,
+                48,
+                1.2
+            )
         }
 
-        // Weight
-        &--weight {
-            &-thin {
-                font-weight: 100;
-            }
-
-            &-extra-light {
-                font-weight: 200;
-            }
-
-            &-light {
-                font-weight: 300;
-            }
-
-            &-regular {
-                font-weight: 400;
-            }
-
-            &-medium {
-                font-weight: 500;
-            }
-
-            &-semi-bold {
-                font-weight: 600;
-            }
-
-            &-bold {
-                font-weight: 700;
-            }
-
-            &-extra-bold {
-                font-weight: 800;
-            }
-
-            &-black {
-                font-weight: 900;
-            }
+        &-sub-heading {
+            @include fontSizes-scoped(
+                16,
+                18,
+                20,
+                24,
+                1.2
+            )
         }
 
-        // Style
-        &--style {
-            &-regular {
-                font-style: normal;
-            }
+        &-paragraph {
+            @include fontSizes-scoped(
+                12,
+                14,
+                16,
+                18,
+                1.6
+            )
+        }
 
-            &-italic {
-                font-style: italic;
-            }
+        &-label {
+            @include fontSizes-scoped(
+                10,
+                12,
+                14,
+                16,
+                1
+            )
+        }
+    }
+
+    // Weight
+    &--weight {
+        &-thin {
+            font-weight: 100;
+        }
+
+        &-extra-light {
+            font-weight: 200;
+        }
+
+        &-light {
+            font-weight: 300;
+        }
+
+        &-regular {
+            font-weight: 400;
+        }
+
+        &-medium {
+            font-weight: 500;
+        }
+
+        &-semi-bold {
+            font-weight: 600;
+        }
+
+        &-bold {
+            font-weight: 700;
+        }
+
+        &-extra-bold {
+            font-weight: 800;
+        }
+
+        &-black {
+            font-weight: 900;
+        }
+    }
+
+    // Style
+    &--style {
+        &-regular {
+            font-style: normal;
+        }
+
+        &-italic {
+            font-style: italic;
         }
     }
 }

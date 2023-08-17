@@ -6,6 +6,7 @@
             <ng-container *ngIf="windowSize.width >= tabletBrakpoint">
                 <common-table-line-item
                     (onSearchClick)="handleSearchClick()"
+                    (onSortClick)="handleSortClick( $event )"
                     [cells]="titles"
                     [isTitlesRow]="true"
                 ></common-table-line-item>
@@ -25,7 +26,13 @@
 
     <!-- Pagination -->
     <div class="table__pagination">
-        <common-pagination></common-pagination>
+        <common-pagination
+            [currentPage]="pagination.currentPage"
+            [itemsCount]="pagination.itemsCount"
+            [itemsPerPage]="pagination.itemsPerPage"
+            [pagesCount]="pagination.pagesCount"
+            [visibleItems]="pagination.visibleItems"
+        ></common-pagination>
     </div>
     <!-- ./Pagination -->
 </div>

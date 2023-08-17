@@ -3,6 +3,7 @@ import {
     Component,
     Input
 } from '@angular/core'
+import { defaultPaginationConfig } from './../../../utils/utils'
 
 // Definition Imports
 import type { CommonPaginationInterface } from './pagination.definitions'
@@ -22,35 +23,35 @@ export class PaginationComponent {
      * 
      * @default 1
      */
-    @Input() public currentPage: CommonPaginationInterface[ 'currentPage' ] = 1
+    @Input() public currentPage: CommonPaginationInterface[ 'currentPage' ] = defaultPaginationConfig.currentPage
 
     /**
      * Determines the total amount of items in the dataset
      * 
      * @default 0
      */
-    @Input() public itemsCount: CommonPaginationInterface[ 'itemsCount' ] = 0
+    @Input() public itemsCount: CommonPaginationInterface[ 'itemsCount' ] = defaultPaginationConfig.itemsCount
 
     /**
      * Determines the amount of items to show per page
      * 
      * @default 50
      */
-    @Input() public itemsPerPage: CommonPaginationInterface[ 'itemsPerPage' ] = 50
+    @Input() public itemsPerPage: CommonPaginationInterface[ 'itemsPerPage' ] = defaultPaginationConfig.itemsPerPage
 
     /**
      * Determines the amount of pages the user can page through
      * 
      * @default 1
      */
-    @Input() public pagesCount: CommonPaginationInterface[ 'pagesCount' ] = 1
+    @Input() public pagesCount: CommonPaginationInterface[ 'pagesCount' ] = defaultPaginationConfig.pagesCount
 
     /**
      * Determines the amount of items currently visible
      * 
      * @default 0
      */
-    @Input() public visibleItems: CommonPaginationInterface[ 'visibleItems' ] = 0
+    @Input() public visibleItems: CommonPaginationInterface[ 'visibleItems' ] = defaultPaginationConfig.visibleItems
 
     // PUBLIC VARIABLES
     public itemsPerPageOptions: Array<{ label: string }> = [

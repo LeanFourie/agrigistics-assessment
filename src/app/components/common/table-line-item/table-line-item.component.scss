@@ -75,6 +75,14 @@
             // Styles
             position: relative;
 
+            // Media Queries
+            @include mixin.maxWidth( lg ) {
+                &::before {
+                    font-size: func.pxToRem( 14 );
+                    content: attr( data-title );
+                }
+            }
+
             // Variants
             &--icon {
                 ::ng-deep {
@@ -94,11 +102,16 @@
                 }
             }
 
-            // Media Queries
-            @include mixin.maxWidth( lg ) {
-                &::before {
-                    font-size: func.pxToRem( 14 );
-                    content: attr( data-title );
+            // States
+            &:hover {
+                .row {
+                    &__column {
+                        &-action {
+                            &--sort {
+                                opacity: 1;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -107,6 +120,7 @@
             // Mixins
             @include mixin.borderRadiusRound();
             @include mixin.flexCenter();
+            @include mixin.transform( translateY( func.pxToRem( -2 ) ) );
             @include mixin.transition(
                 all
                 func.duration( fast )
@@ -144,6 +158,52 @@
 
             &--sort {
                 margin: 0 auto 0 func.pxToRem( 4 );
+                opacity: 0;
+            }
+
+            &--is {
+                &-visible {
+                    &.row {
+                        &__column {
+                            &-action {
+                                &--sort {
+                                    opacity: 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            &--sort {
+                &-asc,
+                &-desc {
+                    &.row {
+                        &__column {
+                            &-action {
+                                &--sort {
+                                    opacity: 1;
+
+                                    &:not( :hover ) {
+                                        color: func.color( greyColor-500 );
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &-desc {
+                    &.row {
+                        &__column {
+                            &-action {
+                                &--sort {
+                                    @include mixin.transform( rotate( 180deg ) );
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

@@ -1,6 +1,62 @@
-<div
-    #textContainer
-    class="text"
->
+<!-- Heading -->
+<ng-container *ngIf="variant === 'heading lg'">
+    <h1 [ngClass]="returnClassNames()">
+        <ng-container [ngTemplateOutlet]="content"></ng-container>
+    </h1>
+</ng-container>
+
+<ng-container *ngIf="variant === 'heading md'">
+    <h2 [ngClass]="returnClassNames()">
+        <ng-container [ngTemplateOutlet]="content"></ng-container>
+    </h2>
+</ng-container>
+
+<ng-container *ngIf="variant === 'heading sm' ||variant ===  'heading xs'">
+    <h3 [ngClass]="returnClassNames()">
+        <ng-container [ngTemplateOutlet]="content"></ng-container>
+    </h3>
+</ng-container>
+<!-- ./Heading -->
+
+<!-- Sub Heading -->
+<ng-container *ngIf="variant === 'sub-heading lg'">
+    <h4 [ngClass]="returnClassNames()">
+        <ng-container [ngTemplateOutlet]="content"></ng-container>
+    </h4>
+</ng-container>
+
+<ng-container *ngIf="variant === 'sub-heading md'">
+    <h5 [ngClass]="returnClassNames()">
+        <ng-container [ngTemplateOutlet]="content"></ng-container>
+    </h5>
+</ng-container>
+
+<ng-container *ngIf="variant === 'sub-heading sm' ||variant ===  'sub-heading xs'">
+    <h6 [ngClass]="returnClassNames()">
+        <ng-container [ngTemplateOutlet]="content"></ng-container>
+    </h6>
+</ng-container>
+<!-- ./Sub Heading -->
+
+<!-- Paragraph -->
+<ng-container *ngIf="variant === 'paragraph lg' || variant ===  'paragraph md' || variant ===  'paragraph sm' || variant ===  'paragraph xs'">
+    <p [ngClass]="returnClassNames()">
+        <ng-container [ngTemplateOutlet]="content"></ng-container>
+    </p>
+</ng-container>
+<!-- ./Paragraph -->
+
+<!-- Label -->
+<ng-container *ngIf="variant === 'label lg' || variant ===  'label md' || variant ===  'label sm' || variant ===  'label xs'">
+    <label [ngClass]="returnClassNames()">
+        <ng-container [ngTemplateOutlet]="content"></ng-container>
+    </label>
+</ng-container>
+<!-- ./Label -->
+
+<!-- Content -->
+<ng-template #content>
     <ng-content></ng-content>
-</div>
+</ng-template>
+<!-- ./Content -->
+

@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs'
 
 // Definition Imports
 import type { FarmBlockInterface } from './../definitions/interfaces'
+import type { SortOrderType } from './../definitions/types'
 import type { CommonTableInterface } from './../components/common/table/table.defnitions'
 
 @Injectable({
@@ -15,7 +16,8 @@ export class FarmBlocksService {
     public selectedFarm$: BehaviorSubject< string > = new BehaviorSubject( '' )
     public searchFilters$: BehaviorSubject< string[] > = new BehaviorSubject( [ '' ] )
     public showOnlyRemovedBlocks$: BehaviorSubject< boolean > = new BehaviorSubject( false )
-    public workingData$: BehaviorSubject< any > =  new BehaviorSubject( [] )
+    public sortOrder$: BehaviorSubject< SortOrderType > = new BehaviorSubject< SortOrderType >( 'unset' )
+    public workingData$: BehaviorSubject< CommonTableInterface[ 'rows' ] > =  new BehaviorSubject< CommonTableInterface[ 'rows' ] >( [] )
 
     constructor( private _http: HttpClient ) {}
 
@@ -23,40 +25,50 @@ export class FarmBlocksService {
 
     public blocksData: CommonTableInterface[ 'rows' ] = []
 
+    public sortBy: string = ''
+
     public tableTitles: CommonTableInterface[ 'titles' ] = [
         {
             value: 'Status',
-            isSortable: true
+            isSortable: true,
+            sortedBy: undefined
         },
         {
             value: 'Block',
             isSearchable: true,
-            isSortable: true
+            isSortable: true,
+            sortedBy: undefined
         },
         {
             value: 'Farm',
             isSearchable: true,
-            isSortable: true
+            isSortable: true,
+            sortedBy: undefined
         },
         {
             value: 'Variant',
             isSearchable: true,
-            isSortable: true
+            isSortable: true,
+            sortedBy: undefined
         },
         {
             value: 'Ha',
             isSearchable: true,
-            isSortable: true
+            isSortable: true,
+            sortedBy: undefined
         },
         {
             value: 'Created',
-            isSortable: true
+            isSortable: true,
+            sortedBy: undefined
         },
         {
             value: 'Removed',
-            isSortable: true
+            isSortable: true,
+            sortedBy: undefined
         }
     ]
+
     public emptyStateData: CommonTableInterface[ 'rows' ] = [
         {
             titles: this.tableTitles.map( _ => '' ),

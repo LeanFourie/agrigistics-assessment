@@ -72,7 +72,9 @@
             <!-- Table -->
             <div class="content__table">
                 <common-table
-                    (onSearchClick)="hanldeTableSearchClick()"
+                    (onSearchClick)="handleTableSearchClick()"
+                    (onSortClick)="handleTableSortClick( $event )"
+                    [pagination]="pagination"
                     [rows]="tableRows"
                     [titles]="tableTitles"
                 ></common-table>

@@ -31,6 +31,7 @@ interface CommonTableLineItemTitleInterface extends CommonTableLineItemCellInter
     // Optional
     isSearchable?: boolean
     isSortable?: boolean
+    sortedBy?: 'asc' | 'desc'
 }
 
 // Exports

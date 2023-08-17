@@ -1,9 +1,7 @@
 // Core Imports
 import {
-    AfterViewInit,
     Component,
     Input,
-    ViewChild,
     ViewEncapsulation
 } from '@angular/core'
 import { generateSnakeCase } from './../../../utils/utils'
@@ -19,13 +17,7 @@ import type { BaseTextInterface } from './text.definitions'
     ],
     encapsulation: ViewEncapsulation.None
 })
-export class TextComponent implements AfterViewInit {
-    // VIEW CHILD
-    @ViewChild(
-        'textContainer',
-        { static: true }
-    ) public textContainer: any
-
+export class TextComponent {
     // REQUIRED INPUTS
     /**
      * Determines the variant of text to render
@@ -51,89 +43,20 @@ export class TextComponent implements AfterViewInit {
     @Input() public renderAsSpan?: BaseTextInterface[ 'renderAsSpan' ] = false
 
     // PUBLIC VARIABLES
-    public defaultTag: string = 'p'
-    public innerText: string = ''
+    public className: string = 'text'
 
     // METHODS
     /**
-     * Determines the HTML tag to render for the text component
+     * Generates the required class names for the component
      * 
-     * @returns A string value for the HTML element tag
+     * @returns A string with relevant class names
      */
-    private generateHtmlTag = (): string => {
-        // Create a variable to store the tag value
-        let htmlTag: string = this.defaultTag
-
-        // Update the variable value base on specific conditions
-        switch ( true ) {
-            case this.renderAsSpan:
-                htmlTag = 'span'
-                break
-            case this.variant === 'heading lg':
-                htmlTag = 'h1'
-                break
-            case this.variant === 'heading md':
-                htmlTag = 'h2'
-                break
-            case this.variant === 'heading sm' ||
-                 this.variant === 'heading xs':
-                htmlTag = 'h3'
-                break
-            case this.variant === 'sub-heading lg':
-                htmlTag = 'h4'
-                break
-            case this.variant === 'sub-heading md':
-                htmlTag = 'h5'
-                break
-            case this.variant === 'sub-heading sm' ||
-                 this.variant === 'sub-heading xs':
-                htmlTag = 'h6'
-                break
-            case this.variant === 'label lg' ||
-                 this.variant === 'label md' ||
-                 this.variant === 'label sm' ||
-                 this.variant === 'label xs':
-                htmlTag = 'label'
-                break
-            default:
-                htmlTag = this.defaultTag
-                break
-        }
-
-        // Return the tag element as a string
-        return htmlTag
-    }
-
-    /**
-     * Generates the HTML content for the text element
-     */
-    private generateInnerHtml = (): void => {
-        // Get the HTML Tag to render
-        const tag = this.generateHtmlTag()
-
-        // Get the text container native element
-        const element: HTMLElement = this.textContainer.nativeElement
-
-        // Get the content of the text element
-        this.innerText = element.innerText
-
-        // Create the text element to render
-        element.innerHTML = `
-            <${ tag }
-                class="
-                    text__element
-                    text__element--style-${ generateSnakeCase( this.fontStyle! ) }
-                    text__element--variant-${ generateSnakeCase( this.variant ) }
-                    text__element--weight-${ generateSnakeCase( this.fontWeight! ) }
-                "
-            >
-                ${ this.innerText }
-            </${ tag }>
+    public returnClassNames = (): string => {
+        return `
+            ${ this.className }
+            ${ this.className }--style-${ generateSnakeCase( this.fontStyle! ) }
+            ${ this.className }--variant-${ generateSnakeCase( this.variant ) }
+            ${ this.className }--weight-${ generateSnakeCase( this.fontWeight! ) }
         `
-    }
-
-    // LIFECYLE METHODS
-    public ngAfterViewInit(): void {
-        this.generateInnerHtml()
     }
 }

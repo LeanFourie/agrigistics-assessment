@@ -6,18 +6,32 @@ import {
     OnInit,
     ViewChild
 } from '@angular/core'
-import { Subject } from 'rxjs'
-import { switchMap, takeUntil } from 'rxjs/operators'
+import {
+    Subject,
+    combineLatest
+} from 'rxjs'
+import {
+    switchMap,
+    takeUntil
+} from 'rxjs/operators'
 import { FarmBlocksService } from './../../services/farm-blocks.service'
 import { WindowSizeService } from './../../services/window-size.service'
-import { formatTableData } from './../../utils/utils'
+import {
+    defaultPaginationConfig,
+    formatTableData
+} from './../../utils/utils'
 
 // Definition Imports
 import type { BaseActionsListItemInterface } from './../../components/base/actions-list-item/actions-list-item.definitions'
 import type { BaseToggleStateType } from './../../components/base/toggle/toggle.definitions'
+import type { CommonPaginationInterface } from './../../components/common/pagination/pagination.definitions'
+import type { CommonTableLineItemTitleInterface } from './../../components/common/table-line-item/table-line-item.definitions'
 import type { CommonTableInterface } from './../../components/common/table/table.defnitions'
 import { FarmBlockStatusEnum } from './../../definitions/enums'
-import type { SizeInterface } from './../../definitions/interfaces'
+import type {
+    FarmBlockInterface,
+    SizeInterface
+} from './../../definitions/interfaces'
 
 @Component({
     selector: 'page-area-manager',
@@ -52,16 +66,7 @@ export class AreaManagerComponent implements OnInit, OnDestroy {
             BaseActionsListItemInterface,
             'onClick'
         >
-    > = [
-        { label: 'Farm 1' },
-        { label: 'Farm 2' },
-        { label: 'Farm 3' },
-        { label: 'Farm 4' },
-        { label: 'Farm 1' },
-        { label: 'Farm 2' },
-        { label: 'Farm 3' },
-        { label: 'Farm 4' }
-    ]
+    > = []
 
     public selectedFarm: string = ''
 
@@ -72,6 +77,8 @@ export class AreaManagerComponent implements OnInit, OnDestroy {
     public tableTitles: CommonTableInterface[ 'titles' ] = this._farmBlocksService.tableTitles
 
     public tableRows: CommonTableInterface[ 'rows' ] = []
+
+    public pagination: CommonPaginationInterface = defaultPaginationConfig
 
     // METHODS
     /**
@@ -110,7 +117,7 @@ export class AreaManagerComponent implements OnInit, OnDestroy {
         )
     }
 
-    public hanldeTableSearchClick = (): void => {
+    public handleTableSearchClick = (): void => {
         const configContainerElement: HTMLElement = this.configContainerRef.nativeElement
 
         const searchContainerElement = configContainerElement.children[ 1 ] as HTMLElement
@@ -118,6 +125,34 @@ export class AreaManagerComponent implements OnInit, OnDestroy {
         const inputElement = searchContainerElement.getElementsByTagName( 'input' )[ 0 ]
 
         inputElement.focus()
+    }
+
+    public handleTableSortClick = ( sortLabel: string ): void => {
+        const label: string = sortLabel.toLowerCase()
+
+        this._farmBlocksService.sortBy = label
+
+        const selectedTitle: CommonTableLineItemTitleInterface = this._farmBlocksService.tableTitles.find( title => title.value === sortLabel )!
+        this._farmBlocksService.tableTitles.forEach( title => {
+            if ( title.isSortable ) title.sortedBy = undefined
+        })
+
+        if ( label !== this._farmBlocksService.sortBy ) return
+
+        switch ( true ) {
+            case this._farmBlocksService.sortOrder$.value === 'unset':
+                this._farmBlocksService.sortOrder$.next( 'asc' )
+                selectedTitle.sortedBy = 'asc'
+                break
+            case this._farmBlocksService.sortOrder$.value === 'asc':
+                this._farmBlocksService.sortOrder$.next( 'desc' )
+                selectedTitle.sortedBy = 'desc'
+                break
+            default:
+                this._farmBlocksService.sortOrder$.next( 'unset' )
+                this._farmBlocksService.sortBy = ''
+                break
+        }
     }
 
     // LIFECYCLE METHODS
@@ -149,6 +184,13 @@ export class AreaManagerComponent implements OnInit, OnDestroy {
         
             this.farms = this._farmBlocksService.availableFarms
         })
+
+        const combinedStream$ = combineLatest([
+            this._farmBlocksService.showOnlyRemovedBlocks$,
+            this._farmBlocksService.searchFilters$,
+            this._farmBlocksService.sortOrder$,
+            this._farmBlocksService.getData()
+        ])
         
 
         this._farmBlocksService.selectedFarm$.pipe(
@@ -162,118 +204,78 @@ export class AreaManagerComponent implements OnInit, OnDestroy {
             
                 this.selectedFarm = farm
 
-                return this._farmBlocksService.getData()
+                return combinedStream$
             }),
-        ).subscribe( data => {
+        ).subscribe(([ showOnlyRemovedBlocks, searchFilters, sortOrder, blocksData ]) => {
+            let renderData: Array< FarmBlockInterface > = blocksData
+
+            if ( showOnlyRemovedBlocks ) {
+                renderData = renderData.filter( entry => entry.status === FarmBlockStatusEnum.Complete )
+            }
+
+            this.searchTerms = searchFilters.filter( term => term !== '' )
+
+            if ( this.searchTerms.length > 0 ) {
+                renderData = renderData.filter( entry => {
+                    return Object.values( entry ).some( value => {
+                        if ( value !== null ) {
+                            return this.searchTerms.some( term => value.toString().toLowerCase().includes( term.toLowerCase() ) )
+                        }
+
+                        return false
+                    })
+                })
+            }
+
             let tableData: CommonTableInterface[ 'rows' ] = formatTableData(
-                data.filter( entry => entry.farmName === this.selectedFarm ),
+                renderData.filter( entry => entry.farmName === this.selectedFarm ),
                 this.tableTitles
             )
 
             let blocksTotalSize: number = 0
 
-            data.forEach( entry => { blocksTotalSize += entry.size })
+            renderData.forEach( entry => {
+                if ( entry.farmName === this.selectedFarm ) {
+                    blocksTotalSize += entry.size
+                }
+            })
+            
+            if ( sortOrder !== 'unset' ) {
+                const titleIndex = tableData[ 0 ].titles.findIndex( title => title.toLowerCase() === this._farmBlocksService.sortBy )
+
+                tableData = [ ...tableData ].sort(( a, b ) => {
+                    const objectA = a.cells[ titleIndex ]?.value || ''
+                    const objectB = b.cells[ titleIndex ]?.value || ''
+                    
+                    const sortOrder = this._farmBlocksService.sortOrder$.value
+                    return sortOrder === 'asc'
+                            ? objectA.localeCompare( objectB )
+                            : objectB.localeCompare( objectA )
+                })
+            }
+
+
+            this.pagination.itemsCount = tableData.length
+            this.pagination.visibleItems = tableData.length
 
             tableData.push({
                 titles: this.tableTitles.map( title => title.value ),
-                cells: [
-                    { value: '' },
-                    { value: '' },
-                    { value: '' },
-                    { value: '' },
-                    { value: blocksTotalSize.toFixed( 2 ).toString() },
-                    { value: '' },
-                    { value: '' }
-                ]
+                cells: [ ...Array( 7 ) ].map(( _, index ) => {
+                    if ( index === 4 ) return { value: blocksTotalSize.toFixed( 2 ).toString() }
+
+                    return { value: '' }
+                })
             })
 
             this._farmBlocksService.blocksData = tableData
 
-            if ( this._farmBlocksService.showOnlyRemovedBlocks$.value ) {
-                tableData = tableData.filter( entry => entry.status === FarmBlockStatusEnum.Complete )
-            }
-
-            if ( this.searchTerms.length > 0 ) {
-                tableData = tableData.filter( obj =>
-                    obj.cells.some( cell => {
-                        if ( !cell.value ) return false
-                
-                        return this.searchTerms.some( searchTerm =>
-                            cell.value.toLowerCase().includes( searchTerm.toLowerCase() )
-                        )
-                    })
-                )
-            }
-
             this._farmBlocksService.workingData$.next( tableData )
-        })
-
-        this._farmBlocksService.showOnlyRemovedBlocks$.pipe(
-            takeUntil( this._destroy$ )
-        ).subscribe( value => {
-            if ( !value ) {
-                if ( this.searchTerms.length <= 0 ) {
-                    this._farmBlocksService.workingData$.next( this._farmBlocksService.blocksData )
-    
-                    return
-                }
-
-                this._farmBlocksService.workingData$.next(
-                    this._farmBlocksService.blocksData.filter( obj =>
-                        obj.cells.some( cell => {
-                            if ( !cell.value ) return false
-                    
-                            return this.searchTerms.some( searchTerm =>
-                                cell.value.toLowerCase().includes( searchTerm.toLowerCase() )
-                            )
-                        })
-                    )
-                )
-
-                return
-            }
-
-            this._farmBlocksService.workingData$.next(
-                this.tableRows.filter( entry => entry.status === FarmBlockStatusEnum.Complete )
-            )
         })
 
         this._farmBlocksService.workingData$.pipe(
             takeUntil( this._destroy$ )
         ).subscribe( data => {
             if ( this.selectedFarm ) this.tableRows = data
-        })
-
-        this._farmBlocksService.searchFilters$.pipe(
-            takeUntil( this._destroy$ )
-        ).subscribe( terms => {
-            this.searchTerms = terms.filter( term => term !== '' )
-
-            if ( this.searchTerms.length <= 0 ) {
-                if ( !this._farmBlocksService.showOnlyRemovedBlocks$.value ) {
-                    this._farmBlocksService.workingData$.next( this._farmBlocksService.blocksData )
-    
-                    return
-                }
-
-                this._farmBlocksService.workingData$.next(
-                    this._farmBlocksService.blocksData.filter( entry => entry.status === FarmBlockStatusEnum.Complete )
-                )
-
-                return
-            }
-
-            this._farmBlocksService.workingData$.next(
-                this._farmBlocksService.blocksData.filter( obj =>
-                    obj.cells.some( cell => {
-                        if ( !cell.value ) return false
-                
-                        return this.searchTerms.some( searchTerm =>
-                            cell.value.toLowerCase().includes( searchTerm.toLowerCase() )
-                        )
-                    })
-                )
-            )
         })
     }
 

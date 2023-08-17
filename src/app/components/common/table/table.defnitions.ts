@@ -2,6 +2,7 @@
 import { EventEmitter } from '@angular/core'
 
 // Definition Imports
+import type { CommonPaginationInterface } from './../pagination/pagination.definitions'
 import type {
     CommonTableLineItemTitleInterface,
     CommonTableLineItemInterface
@@ -11,6 +12,8 @@ import type {
 interface CommonTableInterface {
     // Required
     onSearchClick: EventEmitter< void >
+    onSortClick: EventEmitter< string >
+    pagination: CommonPaginationInterface
     rows: Array< CommonTableLineItemInterface >
     titles: Array< CommonTableLineItemTitleInterface >
 }

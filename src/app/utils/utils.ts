@@ -3,7 +3,17 @@
 import { FarmBlockStatusEnum } from './../definitions/enums'
 import type { FarmBlockInterface } from './../definitions/interfaces'
 import type { BoxModelType } from './../definitions/types'
+import type { CommonPaginationInterface } from './../components/common/pagination/pagination.definitions'
 import type { CommonTableInterface } from './../components/common/table/table.defnitions'
+
+// VARIABLES
+const defaultPaginationConfig: CommonPaginationInterface = {
+    currentPage: 1,
+    itemsCount: 0,
+    itemsPerPage: 50,
+    pagesCount: 1,
+    visibleItems: 0
+}
 
 // METHODS
 /**
@@ -89,6 +99,10 @@ const formatTableData = (
 
 // EXPORTS
 export {
+    // VARIABLES
+    defaultPaginationConfig,
+
+    // METHODS
     calculateRemValue,
     formatDates,
     formatTableData,

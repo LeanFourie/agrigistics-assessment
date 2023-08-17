@@ -10,6 +10,7 @@ import {
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 import { WindowSizeService } from './../../../services/window-size.service'
+import { defaultPaginationConfig } from './../../../utils/utils'
 
 // Deinfition Imports
 import type { CommonTableInterface } from './table.defnitions'
@@ -29,6 +30,13 @@ export class TableComponent implements OnInit, OnDestroy {
 
     // REQUIRED INPUTS
     /**
+     * Sets the pagination component properties
+     * 
+     * @default []
+     */
+    @Input() public pagination: CommonTableInterface[ 'pagination' ] = defaultPaginationConfig
+
+    /**
      * Determines the rows to be rendered inside the table
      * 
      * @default []
@@ -44,6 +52,7 @@ export class TableComponent implements OnInit, OnDestroy {
 
     // REQUIRED OUTPUTS
     @Output() public onSearchClick: CommonTableInterface[ 'onSearchClick' ] = new EventEmitter()
+    @Output() public onSortClick: CommonTableInterface[ 'onSortClick' ] = new EventEmitter()
 
     // CONSTRUCTOR
     constructor( private _windowSizeService: WindowSizeService ) {}
@@ -59,6 +68,10 @@ export class TableComponent implements OnInit, OnDestroy {
     // METHODS
     public handleSearchClick = (): void => {
         this.onSearchClick.emit()
+    }
+
+    public handleSortClick = ( sortLabel: string ): void => {
+        this.onSortClick.emit( sortLabel )
     }
 
     // LIFECYCLE METHODS
