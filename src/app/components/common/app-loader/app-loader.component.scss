@@ -71,6 +71,7 @@
             color: func.color( baseColor-0 );
             overflow: hidden;
 
+            // Children
             &-element {
                 // Number
                 @include mixin.transition(
@@ -83,6 +84,7 @@
                 height: func.pxToRem( 56 );
             }
 
+            // Variants
             &--md {
                 .loader {
                     &__count {

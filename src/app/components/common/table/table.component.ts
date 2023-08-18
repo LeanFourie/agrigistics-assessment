@@ -51,7 +51,14 @@ export class TableComponent implements OnInit, OnDestroy {
     @Input() public titles: CommonTableInterface[ 'titles' ] = []
 
     // REQUIRED OUTPUTS
+    /**
+     * Emits the click event on the search button
+     */
     @Output() public onSearchClick: CommonTableInterface[ 'onSearchClick' ] = new EventEmitter()
+
+    /**
+     * Emits the click event on the sort button
+     */
     @Output() public onSortClick: CommonTableInterface[ 'onSortClick' ] = new EventEmitter()
 
     // CONSTRUCTOR
@@ -66,11 +73,19 @@ export class TableComponent implements OnInit, OnDestroy {
     public tabletBrakpoint: number = this._windowSizeService.tabletSize.max
 
     // METHODS
+    /**
+     * Handle click events on the search button
+     */
     public handleSearchClick = (): void => {
+        // Emit the click event
         this.onSearchClick.emit()
     }
 
+    /**
+     * Handle click events on the sort button
+     */
     public handleSortClick = ( sortLabel: string ): void => {
+        // Emit the cell label with the click event
         this.onSortClick.emit( sortLabel )
     }
 

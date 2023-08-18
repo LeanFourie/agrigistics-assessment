@@ -31,6 +31,7 @@
             <div class="content__actions">
                 <!-- Config -->
                 <div class="content__actions-config" #configContainer>
+                    <!-- Farm Selection Dropdown -->
                     <base-dropdown
                         (onChange)="handleFarmSelection( $event )"
                         [isSearchable]="true"
@@ -39,12 +40,16 @@
                         label="Farm"
                         placeholder="Select or type a farm"
                     ></base-dropdown>
+                    <!-- ./Farm Selection Dropdown -->
+                    <!-- Search Input -->
                     <common-search
                         (onChange)="handleSearchValueChange( $event )"
                         (onEnter)="handleSearchEnter( $event )"
                         [value]="searchTerm"
                         placeholder="Search Columns"
                     ></common-search>
+                    <!-- ./Search Input -->
+                    <!-- Search Filters -->
                     <ng-container *ngIf="searchTerms.length > 0">
                         <div class="content__actions-config-chips">
                             <div
@@ -58,10 +63,11 @@
                             </div>
                         </div>
                     </ng-container>
+                    <!-- ./Search Filters -->
                 </div>
                 <!-- ./Config -->
 
-                <!-- Filter -->
+                <!-- Toggle Filter -->
                 <div class="content__actions-filter">
                     <base-toggle
                         (onClick)="handleToggleChange( $event )"
@@ -69,7 +75,7 @@
                         label="Removed blocks"
                     ></base-toggle>
                 </div>
-                <!-- ./Filter -->
+                <!-- ./ToggleFilter -->
             </div>
             <!-- ./Actions -->
 

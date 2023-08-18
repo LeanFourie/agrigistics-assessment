@@ -71,7 +71,7 @@
                         <ng-container *ngIf="windowSize.width >= tabletBrakpoint">
                             <div class="row__column-tooltip">
                                 <base-tooltip
-                                    [isVisible]="visibleTooltipCell === i"
+                                    [isVisible]="visibleTooltipCell === i && getTooltipLabel() !== ''"
                                     [label]="getTooltipLabel()"
                                 ></base-tooltip>
                             </div>

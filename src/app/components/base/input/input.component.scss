@@ -275,12 +275,8 @@
         }
     }
 
-    &__helper {}
-
     // Variant
     &--variant {
-        &-filled {}
-
         &-outlined {
             // Mixins
             @include removeBorderColor-scoped();
@@ -301,8 +297,6 @@
 
     // Has...
     &--has {
-        &-error {}
-
         &-icon {
             .input {
                 &__element {
@@ -346,14 +340,5 @@
                 }
             }
         }
-    }
-
-    // Is...
-    &--is {
-        &-disabled {}
-
-        &-focussed {}
-
-        &-readOnly {}
     }
 }

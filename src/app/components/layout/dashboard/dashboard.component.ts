@@ -18,12 +18,18 @@ export class DashboardComponent {
     public lastScrollTop = 0
   
     // HOST LISTENERS
+    /**
+     * Handle scroll events on the window
+     */
     @HostListener( 'window:scroll', [ '$event' ] )
     onScroll() {
-        const scrollTop = window.scrollY || document.documentElement.scrollTop
+        // Get the cirrent scroll position
+        const scrollTop = window.scrollY
     
+        // Hide the navbar if the user scrolls down
         this.navIsHidden = scrollTop > this.lastScrollTop
     
+        // Update the value of the last scroll top
         this.lastScrollTop = scrollTop <= 0 ? 0 : scrollTop
     }
 }

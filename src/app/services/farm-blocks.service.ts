@@ -13,14 +13,36 @@ import type { CommonTableInterface } from './../components/common/table/table.de
 })
 
 export class FarmBlocksService {
+    // PUBLIC SUBJECTS
+    /**
+     * Saves the selected farm
+     */
     public selectedFarm$: BehaviorSubject< string > = new BehaviorSubject( '' )
+
+    /**
+     * Saves the search keyword filters
+     */
     public searchFilters$: BehaviorSubject< string[] > = new BehaviorSubject( [ '' ] )
+
+    /**
+     * Saves the toggle value to show only removed blocks
+     */
     public showOnlyRemovedBlocks$: BehaviorSubject< boolean > = new BehaviorSubject( false )
+    
+    /**
+     * Saves the sort order
+     */
     public sortOrder$: BehaviorSubject< SortOrderType > = new BehaviorSubject< SortOrderType >( 'unset' )
+
+    /**
+     * Saves the block values to render
+     */
     public workingData$: BehaviorSubject< CommonTableInterface[ 'rows' ] > =  new BehaviorSubject< CommonTableInterface[ 'rows' ] >( [] )
 
+    // CONSTRUCTOR
     constructor( private _http: HttpClient ) {}
 
+    // PUBLIC VARIABLES
     public availableFarms: Array<{ label: string }> = []
 
     public blocksData: CommonTableInterface[ 'rows' ] = []
@@ -96,7 +118,14 @@ export class FarmBlocksService {
         }
     ]
 
-    getData() {
+    // METHODS
+    /**
+     * Fetches the data from the JSON file
+     * 
+     * @returns 
+     */
+    public getData() {
+        // Return the data as a subscription
         return this._http.get< Array< FarmBlockInterface > >( '/assets/data/blocks.json' )
     }
 }

@@ -1,7 +1,6 @@
 <div class="search">
     <!-- Input -->
     <div class="search__input">
-        <!-- (onFocus)="handleFocus()" -->
         <base-input
             (onChange)="handleChange( $event )"
             (onEnter)="handleEnter( $event )"
@@ -18,9 +17,7 @@
     <!-- Options -->
     <ng-container *ngIf="searchResults">
         <div class="search__options">
-            <common-actions-list
-                [actions]="searchResults"
-            ></common-actions-list>
+            <common-actions-list [actions]="searchResults"></common-actions-list>
         </div>
     </ng-container>
     <!-- ./Options -->

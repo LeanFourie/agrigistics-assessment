@@ -102,24 +102,39 @@ export class ButtonComponent {
         this.onClick.emit()
     }
 
+    /**
+     * Checks which type of button to render based on the `showLabel` and `icons` inputs
+     * 
+     * @returns A string to determine the type
+     */
     public getButtonType = (): string => {
+        // Create a variable to store the button type
         let buttonType: string
 
+        // Create a switch statement to get the correct type
         switch ( true ) {
+            // If the label is visible and no icons are set
             case this.showLabel && ( !this.icons || this.icons && this.icons.length < 1 ):
+                // Set the type to `text`
                 buttonType = 'text'
                 break
+            // If the label is visible and some icons are set
             case this.showLabel && this.icons && this.icons.length >= 1:
+                // Set the type to `text-icon`
                 buttonType = 'text-icon'
                 break
+            // If no label is visible and some icons are set
             case !this.showLabel && this.icons && this.icons.length >= 1:
+                // Set the type to `icon`
                 buttonType = 'icon'
                 break
             default:
+                // Set the default type to `text`
                 buttonType = 'text'
                 break
         }
 
+        // Return the button type
         return buttonType
     }
 

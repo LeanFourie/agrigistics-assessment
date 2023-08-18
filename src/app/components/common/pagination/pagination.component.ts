@@ -65,7 +65,7 @@ export class PaginationComponent {
      * Sets the new items per page value
      */
     public setItemsPerPage = (): void => {
-
+        // TODO: Did not complete as it wasn't required
     }
 
     /**

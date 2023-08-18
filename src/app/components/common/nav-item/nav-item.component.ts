@@ -48,7 +48,7 @@ export class NavItemComponent implements OnInit, OnDestroy {
      * 
      * @default ``
      */
-    @Input() public filledIcon: CommonNavItemInterface[ 'filledIcon' ] = false
+    @Input() public filledIcon?: CommonNavItemInterface[ 'filledIcon' ] = false
 
     // REQUIRED OUTPUTS
     /**

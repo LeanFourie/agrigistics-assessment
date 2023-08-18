@@ -66,8 +66,6 @@
         color: func.color( whiteColor );
     }
 
-    &__right {}
-
     &__items {
         @include mixin.flexCenter();
 

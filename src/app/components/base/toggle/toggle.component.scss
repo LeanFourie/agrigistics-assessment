@@ -11,6 +11,7 @@
 
 // Component
 .toggle {
+    // Mixins
     @include mixin.inlineFlexCenter();
 
     // Children
@@ -143,12 +144,5 @@
                 }
             }
         }
-
-        &-off {}
-    }
-
-    // Is...
-    &--is {
-        &-disabled {}
     }
 }

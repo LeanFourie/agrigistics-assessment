@@ -27,8 +27,25 @@ export class CardComponent implements OnInit, OnDestroy {
     private _destroy$ = new Subject< void >()
 
     // OPTIONAL INPUTS
+    /**
+     * Determines the border radius size
+     * 
+     * @default `xs`
+     */
     @Input() public borderRadius?: BaseCardInterface[ 'borderRadius' ] = 'xs'
+
+    /**
+     * Determines the padding size inside the card
+     * 
+     * @default [ 16, 24 ]
+     */
     @Input() public padding?: BaseCardInterface[ 'padding' ] = [ 16, 24 ]
+
+    /**
+     * Determines the color of the card
+     * 
+     * @default `light`
+     */
     @Input() public shade?: BaseCardInterface[ 'shade' ] = 'light'
 
     // CONSTRUCTOR

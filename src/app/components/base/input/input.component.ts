@@ -132,6 +132,8 @@ export class InputComponent {
         // Get the input HTML element
         const inputElement = event.currentTarget as HTMLInputElement
 
+        // Check if the input element variable is not defined THEN
+        // define the input element
         if ( !this.inputElement ) this.inputElement = inputElement
 
         // Get the value from the input element
@@ -199,8 +201,10 @@ export class InputComponent {
             value: this.value
         })
 
+        // Clear the value
         this.value = ''
 
+        // Empty the input element value
         if ( this.inputElement ) this.inputElement.value = ''
     }
 

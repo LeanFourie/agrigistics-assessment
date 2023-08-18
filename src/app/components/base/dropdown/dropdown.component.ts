@@ -168,7 +168,13 @@ export class DropdownComponent implements OnInit {
         this.isInFocus = true
     }
 
+    /**
+     * Handle click events on the option items
+     * 
+     * @param option - The selected option label
+     */
     public handleOptionSelect = ( option: { selectedAction: string } ): void => {
+        // Set the value of the dropdown to the value of the selected option
         this.value = option.selectedAction
 
         // Emit the new value of the dropdown on change
@@ -176,6 +182,7 @@ export class DropdownComponent implements OnInit {
             value: this.value!
         })
 
+        // Remove the focus from the input
         this.isInFocus = false
     }
 

@@ -20,6 +20,7 @@
         }"
         class="loader__count"
     >
+        <!-- Large Numbers -->
         <div class="loader__count-number loader__count-number--lg">
             <ng-container *ngFor="let number of numbersLarge.reverse()">
                 <div 
@@ -37,6 +38,8 @@
                 </div>
             </ng-container>
         </div>
+        <!-- ./Large Numbers -->
+        <!-- Medium Numbers -->
         <div class="loader__count-number loader__count-number--md">
             <ng-container *ngFor="let number of numbersMedium.reverse()">
                 <div 
@@ -54,6 +57,8 @@
                 </div>
             </ng-container>
         </div>
+        <!-- ./Medium Numbers -->
+        <!-- Small Numbers -->
         <div class="loader__count-number loader__count-number--sm">
             <ng-container *ngFor="let number of numbersSmall.reverse()">
                 <div 
@@ -71,6 +76,7 @@
                 </div>
             </ng-container>
         </div>
+        <!-- ./Small Numbers -->
     </div>
     <!-- ./Count -->
 </div>

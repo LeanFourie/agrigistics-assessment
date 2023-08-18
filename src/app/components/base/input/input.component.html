@@ -2,9 +2,7 @@
     <!-- Icon -->
     <ng-container *ngIf="icon">
         <span class="input__icon">
-            <base-icon
-                [name]="icon"
-            ></base-icon>
+            <base-icon [name]="icon"></base-icon>
         </span>
     </ng-container>
     <!-- ./Icon -->
@@ -44,9 +42,7 @@
             (click)="handleValueClear()"
             class="input__clear"
         >
-            <base-icon
-                name="close"
-            ></base-icon>
+            <base-icon name="close"></base-icon>
         </span>
     </ng-container>
     <!-- ./Clear Search Value -->

@@ -14,17 +14,22 @@
     width: 100%;
     height: 100%;
 
-    // Children
-    &__element {}
-
     // Fit
     &--fit {
         &-contain {
-            @include mixin.fitImage( contain );
+            .image {
+                &__element {
+                    @include mixin.fitImage( contain );
+                }
+            }
         }
 
         &-cover {
-            @include mixin.fitImage( cover );
+            .image {
+                &__element {
+                    @include mixin.fitImage( cover );
+                }
+            }
         }
     }
 }

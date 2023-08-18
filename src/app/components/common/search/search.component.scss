@@ -14,6 +14,7 @@
     display: inline-block;
     position: relative;
 
+    // Children
     &__input {
         @include mixin.flexCenter();
     }
@@ -35,6 +36,7 @@
         opacity: 0;
         pointer-events: none;
 
+        // Is...
         &--is {
             &-visible {
                 // Mixins

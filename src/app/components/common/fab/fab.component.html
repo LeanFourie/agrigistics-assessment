@@ -7,9 +7,7 @@
     >
         <!-- Icon -->
         <span class="fab__trigger-icon">
-            <base-icon
-                [name]="icon"
-            ></base-icon>
+            <base-icon [name]="icon"></base-icon>
         </span>
         <!-- ./Icon -->
         <!-- Label -->
@@ -32,9 +30,7 @@
             [ngClass]="{ 'fab__options--is-visible': showOptions }"
             class="fab__options"
         >
-            <common-actions-list
-                [actions]="actions"
-            ></common-actions-list>
+            <common-actions-list [actions]="actions"></common-actions-list>
         </div>
     </ng-container>
     <!-- ./Options -->

@@ -61,19 +61,24 @@ export class FabComponent {
     /**
      * Emits the click event form the FAB
      */
-    @Output() public onClick?: CommonFabInterface[ 'onClick' ] = new EventEmitter()
+    @Output() public onClick: CommonFabInterface[ 'onClick' ] = new EventEmitter()
 
     // CONSTRUCTOR
     constructor( private elementRef: ElementRef ) {}
 
     // HOST LISTENERS
+    /**
+     * Handle scroll events on the windo
+     */
     @HostListener( 'window:scroll', [ '$event' ] )
     onWindowScroll() {
-        const scrollY = window.scrollY
-
-        this.hideLabel = scrollY > 20
+        // Hide the label if the window scrollY is bigger than 20px
+        this.hideLabel = window.scrollY > 20
     }
 
+    /**
+     * Handle click events on the document
+     */
     @HostListener( 'document:click', [ '$event' ] )
     public handleDocumentClick( event: Event ): void {
         // Detect whether the click event is inside the overflow component
@@ -93,12 +98,16 @@ export class FabComponent {
      * Handle click events on the FAB button element
      */
     public handleClick = (): void => {
+        // Check if we have actions to render THEN...
         if ( this.actions && this.actions.length > 0 ) {
+            // Toggle the options list visibility
             this.showOptions = !this.showOptions
 
+            // End the function
             return
         }
 
+        // Emit the click event
         this.onClick!.emit()
     }
 

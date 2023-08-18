@@ -58,6 +58,7 @@
 
     // Children
     &__column {
+        // Styles
         padding: func.pxToRem( 16 );
         border-bottom: func.pxToRem( 1 ) solid func.color( greyColor-100 );
 
@@ -136,6 +137,15 @@
             color: func.color( greyColor-200 );
             cursor: pointer;
     
+            // Children
+            ::ng-deep {
+                .icon {
+                    &__element {
+                        font-size: func.pxToRem( 20 );
+                    }
+                }
+            }
+    
             // States
             &:hover {
                 background: func.alphaColor( primaryColor-500, .1 );
@@ -146,21 +156,8 @@
                 background: func.alphaColor( primaryColor-500, .15 );
                 color: func.color( primaryColor-600 );
             }
-    
-            ::ng-deep {
-                .icon {
 
-                    &__element {
-                        font-size: func.pxToRem( 20 );
-                    }
-                }
-            }
-
-            &--sort {
-                margin: 0 auto 0 func.pxToRem( 4 );
-                opacity: 0;
-            }
-
+            // Is...
             &--is {
                 &-visible {
                     &.row {
@@ -175,7 +172,11 @@
                 }
             }
 
+            // Sort...
             &--sort {
+                margin: 0 auto 0 func.pxToRem( 4 );
+                opacity: 0;
+
                 &-asc,
                 &-desc {
                     &.row {
