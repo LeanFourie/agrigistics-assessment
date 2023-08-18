@@ -284,6 +284,11 @@
     overflow: hidden;
 
     // Children
+    &__icon,
+    &__label {
+        pointer-events: none;
+    }
+
     &__icon {
         &--is {
             &-left {

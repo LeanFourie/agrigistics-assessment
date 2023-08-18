@@ -49,7 +49,7 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        border-radius: func.pxToRem( 6 );
+        border-radius: func.pxToRem( 4 );
         background: func.color( baseColor-50 );
         opacity: 0;
         z-index: -1;
@@ -93,6 +93,7 @@
         width: func.pxToRem( 20 );
         height: func.pxToRem( 20 );
         margin: 0 func.pxToRem( 16 ) 0 0;
+        color: func.color( secondaryColor-700 );
     }
 
     &__label {}

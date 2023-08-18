@@ -1,7 +1,9 @@
 // Core Imports
 import {
     Component,
+    ElementRef,
     EventEmitter,
+    HostListener,
     Input,
     Output
 } from '@angular/core'
@@ -61,20 +63,43 @@ export class FabComponent {
      */
     @Output() public onClick?: CommonFabInterface[ 'onClick' ] = new EventEmitter()
 
+    // CONSTRUCTOR
+    constructor( private elementRef: ElementRef ) {}
+
+    // HOST LISTENERS
+    @HostListener( 'window:scroll', [ '$event' ] )
+    onWindowScroll() {
+        const scrollY = window.scrollY
+
+        this.hideLabel = scrollY > 20
+    }
+
+    @HostListener( 'document:click', [ '$event' ] )
+    public handleDocumentClick( event: Event ): void {
+        // Detect whether the click event is inside the overflow component
+        const clickedInside: boolean = this.elementRef.nativeElement.contains( event.target )
+
+        // If the click event is outside of the component hide the menu
+        if ( !clickedInside && this.showOptions ) this.showOptions = false
+    }
+
     // PUBLIC VARIABLES
     public className: string = 'fab'
+    public hideLabel: boolean = false
+    public showOptions: boolean = false
 
     // METHODS
     /**
      * Handle click events on the FAB button element
      */
     public handleClick = (): void => {
-        // Check if click events should NOT be emitted THEN...
-        // end the function
-        if ( !this.onClick ) return
+        if ( this.actions && this.actions.length > 0 ) {
+            this.showOptions = !this.showOptions
 
-        // Emit the click event
-        this.onClick.emit()
+            return
+        }
+
+        this.onClick!.emit()
     }
 
     /**

@@ -1,9 +1,234 @@
-.fab {
-    &__trigger {
-        &-icon {}
+/*** IMPORTS ***/
+// Use
+@use './../../../styles/utils/functions' as func;
+@use './../../../styles/utils/mixins' as mixin;
 
-        &-label {}
+/*** MIXINS ***/
+@mixin fabColorStyle-scoped(
+    $darkShadeBackground-resting,
+    $darkShadeBackground-hover,
+    $darkShadeBackground-active,
+    $darkShadeLabelColor,
+    $lightShadeBackground-resting,
+    $lightShadeBackground-hover,
+    $lightShadeBackground-active,
+    $lightShadeLabelColor
+) {
+    &.fab {
+        &--shade {
+            &-dark {
+                .fab {
+                    &__trigger {
+                        background: $darkShadeBackground-resting;
+
+                        &-label,
+                        &-icon {
+                            color: $darkShadeLabelColor;
+                        }
+
+                        &:hover {
+                            background: $darkShadeBackground-hover;
+                        }
+        
+                        &:active {
+                            background: $darkShadeBackground-active;
+                        }
+                    }
+                }
+            }
+    
+            &-light {
+                .fab {
+                    &__trigger {
+                        background: $lightShadeBackground-resting;
+
+                        &-label,
+                        &-icon {
+                            color: $lightShadeLabelColor;
+                        }
+
+                        &:hover {
+                            background: $lightShadeBackground-hover;
+
+                            .fab {
+                                &__trigger {
+                                    &-label,
+                                    &-icon {
+                                        filter: brightness( .8 );
+                                    }
+                                }
+                            }
+                        }
+        
+                        &:active {
+                            background: $lightShadeBackground-active;
+
+                            .fab {
+                                &__trigger {
+                                    &-label,
+                                    &-icon {
+                                        filter: brightness( .6 );
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*** STYLES ***/
+// Host
+:host {
+    display: contents;
+}
+
+// Component
+.fab {
+    position: fixed;
+    bottom: func.pxToRem( 20 );
+    right: func.pxToRem( 16 );
+
+    &__trigger {
+        // Mixins
+        @include mixin.transition(
+            all
+            func.duration( fast )
+            func.easing( easeOutQuint )
+        );
+
+        // Styles
+        height: func.pxToRem( 56 );
+        display: grid;
+        grid-template-columns: func.pxToRem( 24 ) auto;
+        gap: func.pxToRem( 8 );
+        align-items: center;
+        padding: 0 func.pxToRem( 20 ) 0 func.pxToRem( 16 );
+        border: none;
+        border-radius: func.pxToRem( 28 );
+
+        &-icon {
+            width: func.pxToRem( 24 );
+            height: func.pxToRem( 24 );
+        }
+
+        &-label {
+            // Mixins
+            @include mixin.transition(
+                all
+                func.duration( fast )
+                func.easing( easeOutQuint )
+            );
+
+            // Styles
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        // Has... {
+            &--has {
+                &-label-hidden {
+                    grid-template-columns: func.pxToRem( 24 ) 0;
+                    gap: 0;
+                    padding: 0 func.pxToRem( 16 );
+                }
+            }
     }
 
-    &__options {}
+    &__options {
+        // Mixins
+        @include mixin.transform( translateY( func.pxToRem( -8 ) ) scale( .95 ) );
+        @include mixin.transition(
+            all
+            func.duration( fast )
+            func.easing( easeOutQuint )
+        );
+
+        // Styles
+        position: absolute;
+        bottom: calc( 100% + #{ func.pxToRem( 8 ) } );
+        right: 0;
+        transform-origin: bottom right;
+        opacity: 0;
+        pointer-events: none;
+
+        &--is {
+            &-visible {
+                // Mixins
+                @include mixin.transform( none );
+        
+                // Styles
+                opacity: 1;
+                pointer-events: all;
+            }
+        }
+    }
+
+    // Color
+    &--color {
+        &-primary {
+            @include fabColorStyle-scoped(
+                // Dark Shade
+                func.color( primaryColor-500 ),
+                func.color( primaryColor-400 ),
+                func.color( primaryColor-300 ),
+                func.color( baseColor-0 ),
+
+                // Light Shade
+                func.color( primaryColor-50 ),
+                func.color( primaryColor-100 ),
+                func.color( primaryColor-200 ),
+                func.color( primaryColor-500 )
+            );
+
+            // States
+            &:focus {
+                outline-color: func.color( primaryColor-200 );
+            }
+        }
+
+        &-secondary {
+            @include fabColorStyle-scoped(
+                // Dark Shade
+                func.color( secondaryColor-500 ),
+                func.color( secondaryColor-400 ),
+                func.color( secondaryColor-300 ),
+                func.color( primaryColor-500 ),
+
+                // Light Shade
+                func.color( secondaryColor-50 ),
+                func.color( secondaryColor-100 ),
+                func.color( secondaryColor-200 ),
+                func.color( secondaryColor-700 )
+            );
+
+            // States
+            &:focus {
+                outline-color: func.color( secondaryColor-400 );
+            }
+        }
+
+        &-danger {
+            @include fabColorStyle-scoped(
+                // Dark Shade
+                func.color( dangerColor-500 ),
+                func.color( dangerColor-400 ),
+                func.color( dangerColor-300 ),
+                func.color( baseColor-0 ),
+
+                // Light Shade
+                func.color( dangerColor-50 ),
+                func.color( dangerColor-100 ),
+                func.color( dangerColor-200 ),
+                func.color( dangerColor-500 )
+            );
+
+            // States
+            &:focus {
+                outline-color: func.color( dangerColor-200 );
+            }
+        }
+    }
 }

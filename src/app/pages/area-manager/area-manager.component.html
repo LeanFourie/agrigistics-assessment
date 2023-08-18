@@ -1,7 +1,11 @@
 <layout-dashboard>
     <!-- Content -->
     <section class="content">
-        <base-card>
+        <base-card [padding]="{
+            desktop: [ 16, 24 ],
+            tablet: [ 16, 24 ],
+            mobile: 16
+        }">
             <!-- Header -->
             <div class="content__header">
                 <common-header
@@ -81,6 +85,15 @@
             </div>
             <!-- ./Table -->
         </base-card>
+
+        <!-- FAB -->
+        <common-fab
+            [actions]="fabActions"
+            icon="add"
+            label="Add"
+            color="secondary"
+        ></common-fab>
+        <!-- ./FAB -->
     </section>
     <!-- ./Content -->
 </layout-dashboard>

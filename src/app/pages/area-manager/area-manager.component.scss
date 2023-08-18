@@ -12,11 +12,11 @@
 // Component
 .content {
     // Styles
-    padding: func.pxToRem( 16 ) func.pxToRem( 80 );
+    padding: func.pxToRem( 16 ) func.pxToRem( 80 ) func.pxToRem( 40 );
 
     // Media Queries
     @include mixin.maxWidth( lg ) {
-        padding: func.pxToRem( 12 ) func.pxToRem( 16 );
+        padding: func.pxToRem( 12 ) func.pxToRem( 16 ) func.pxToRem( 100 );
     }
 
     &__header {

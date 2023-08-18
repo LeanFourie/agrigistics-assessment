@@ -1,7 +1,8 @@
-<div [ngClass]="returnClassNames">
+<div [ngClass]="returnClassNames()">
     <!-- Trigger -->
     <button
-        (click)="handleClick"
+        (click)="handleClick()"
+        [ngClass]="{ 'fab__trigger--has-label-hidden': hideLabel }"
         class="fab__trigger"
     >
         <!-- Icon -->
@@ -15,6 +16,7 @@
         <span class="fab__trigger-label">
             <base-text
                 [renderAsSpan]="true"
+                fontWeight="medium"
                 variant="label lg"
             >
                 {{ label }}
@@ -26,7 +28,10 @@
 
     <!-- Options -->
     <ng-container *ngIf="actions && actions.length > 0">
-        <div class="fab__options">
+        <div
+            [ngClass]="{ 'fab__options--is-visible': showOptions }"
+            class="fab__options"
+        >
             <common-actions-list
                 [actions]="actions"
             ></common-actions-list>

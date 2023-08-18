@@ -1,6 +1,7 @@
 /*** IMPORTS ***/
 // Use
 @use './../../../styles/utils/functions' as func;
+@use './../../../styles/utils/mixins' as mixin;
 
 /*** MIXINS ***/
 // Font size and line height
@@ -54,7 +55,7 @@
                 36,
                 48,
                 1.2
-            )
+            );
         }
 
         &-sub-heading {
@@ -64,7 +65,7 @@
                 20,
                 24,
                 1.2
-            )
+            );
         }
 
         &-paragraph {
@@ -74,7 +75,7 @@
                 16,
                 18,
                 1.6
-            )
+            );
         }
 
         &-label {
@@ -84,7 +85,7 @@
                 14,
                 16,
                 1
-            )
+            );
         }
     }
 

@@ -24,11 +24,13 @@ import {
 // Definition Imports
 import type { BaseActionsListItemInterface } from './../../components/base/actions-list-item/actions-list-item.definitions'
 import type { BaseToggleStateType } from './../../components/base/toggle/toggle.definitions'
+import type { CommonActionsListInterface } from './../../components/common/actions-list/actions-list.definitions'
 import type { CommonPaginationInterface } from './../../components/common/pagination/pagination.definitions'
 import type { CommonTableLineItemTitleInterface } from './../../components/common/table-line-item/table-line-item.definitions'
 import type { CommonTableInterface } from './../../components/common/table/table.defnitions'
 import { FarmBlockStatusEnum } from './../../definitions/enums'
 import type {
+    BreakpointBoxModelInterface,
     FarmBlockInterface,
     SizeInterface
 } from './../../definitions/interfaces'
@@ -80,6 +82,11 @@ export class AreaManagerComponent implements OnInit, OnDestroy {
 
     public pagination: CommonPaginationInterface = defaultPaginationConfig
 
+    public fabActions: CommonActionsListInterface[ 'actions' ] = [
+        { label: 'Add Farm' },
+        { label: 'Add Block' }
+    ]
+
     // METHODS
     /**
      * Handle generic click events
@@ -98,10 +105,12 @@ export class AreaManagerComponent implements OnInit, OnDestroy {
 
     public handleSearchEnter = ( term: { value: string } ): void => {
         if ( !this.searchTerms.includes( term.value ) ) {
-            this._farmBlocksService.searchFilters$.next([
-                ...this.searchTerms,
-                term.value
-            ])
+            this.searchTerms.push( term.value )
+            this._farmBlocksService.searchFilters$.next( this.searchTerms )
+            // this._farmBlocksService.searchFilters$.next([
+            //     ...this.searchTerms,
+            //     term.value
+            // ])
         }
     }
 
@@ -112,9 +121,9 @@ export class AreaManagerComponent implements OnInit, OnDestroy {
     }
 
     public handleChipClick = ( value: { label: string }): void => {
-        this._farmBlocksService.searchFilters$.next(
-            this.searchTerms.filter( term => term !== value.label )
-        )
+        this.searchTerms = this.searchTerms.filter( term => term !== value.label )
+
+        this._farmBlocksService.searchFilters$.next( this.searchTerms )
     }
 
     public handleTableSearchClick = (): void => {
@@ -215,6 +224,8 @@ export class AreaManagerComponent implements OnInit, OnDestroy {
 
             this.searchTerms = searchFilters.filter( term => term !== '' )
 
+            // console.log( searchFilters )
+
             if ( this.searchTerms.length > 0 ) {
                 renderData = renderData.filter( entry => {
                     return Object.values( entry ).some( value => {
@@ -263,7 +274,10 @@ export class AreaManagerComponent implements OnInit, OnDestroy {
                 cells: [ ...Array( 7 ) ].map(( _, index ) => {
                     if ( index === 4 ) return { value: blocksTotalSize.toFixed( 2 ).toString() }
 
-                    return { value: '' }
+                    return {
+                        value: '',
+                        hideOnMobile: true
+                    }
                 })
             })
 

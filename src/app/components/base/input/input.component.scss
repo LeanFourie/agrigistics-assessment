@@ -100,7 +100,7 @@
                 );
     
                 // Children
-                .text__element {
+                .text {
                     // Mixins
                     @include mixin.transition(
                         all
@@ -230,7 +230,7 @@
                             transition-delay: .1s;
                 
                             // Children
-                            .text__element {
+                            .text {
                                 color: func.color( greyColor-500 );
                                 font-size: func.pxToRem( 14 );
                                 transition-delay: .1s;
@@ -266,7 +266,7 @@
 
                 ::ng-deep {
                     base-text {
-                        .text__element {
+                        .text {
                             color: func.color( primaryColor-500 );
                         }
                     }

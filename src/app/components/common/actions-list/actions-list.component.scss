@@ -21,7 +21,7 @@
     width: func.pxToRem( 240 );
     padding: func.pxToRem( 4 );
     background: func.color( baseColor-25 );
-    border-radius: func.pxToRem( 8 );
+    border-radius: func.pxToRem( 6 );
 
     // Children
     &__items {
