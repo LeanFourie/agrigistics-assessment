@@ -69,12 +69,12 @@ ng build
 ```
 
 ### Time and Effort
-Components: ~18h
-Responsiveness: ~1h
-Data and Filters: ~3h
-Code Refactoring: ~2h
+- Components: ~18h
+- Responsiveness: ~1h
+- Data and Filters: ~3h
+- Code Refactoring: ~2h
 ---
-Total: ~24h
+- Total: ~24h
 
 Most of my time was spent on building the components themselves rather than adding and filtering data. I can see that Angular Material was used as the library in the designs, however I chose to build the components myself for the following reasons:
 - Building the components gave me a chance to showcase more of my skillset
