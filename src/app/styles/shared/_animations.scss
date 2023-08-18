@@ -81,3 +81,17 @@ $linearLoadAnimation: linearLoadAnimation;
         left: 100%;
     }
 }
+
+/*
+*   appLoaderBackground
+**  Transitions from one color to another
+*/
+$appLoaderBackground: appLoaderBackground;
+@keyframes #{ appLoaderBackground } {
+    0% {
+      background-color: func.color( secondaryColor-500 );
+    }
+    100% {
+      background-color: func.color( primaryColor-500 );
+    }
+}

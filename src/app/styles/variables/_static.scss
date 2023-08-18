@@ -60,6 +60,7 @@ $transition-easing: (
     easeInOutCubic:         cubic-bezier( .65, 0, .35, 1 ),
     easeOutQuint:           cubic-bezier( .22, 1, .36, 1 ),
     easeInOutCirc:          cubic-bezier( .85, 0, .15, 1 ),
+    easeOutCubic:           cubic-bezier( .62, .05, .01, .99 ),
     linear:                 linear
 );
 

@@ -87,12 +87,14 @@
         </base-card>
 
         <!-- FAB -->
-        <common-fab
-            [actions]="fabActions"
-            icon="add"
-            label="Add"
-            color="secondary"
-        ></common-fab>
+        <ng-container *ngIf="windowSize.width < tabletBrakpoint">
+            <common-fab
+                [actions]="fabActions"
+                icon="add"
+                label="Add"
+                color="secondary"
+            ></common-fab>
+        </ng-container>
         <!-- ./FAB -->
     </section>
     <!-- ./Content -->

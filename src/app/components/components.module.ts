@@ -27,6 +27,7 @@ import { TableLineItemComponent } from './common/table-line-item/table-line-item
 import { DashboardComponent } from './layout/dashboard/dashboard.component'
 import { NavComponent } from './layout/nav/nav.component';
 import { OverflowMenuComponent } from './common/overflow-menu/overflow-menu.component';
+import { AppLoaderComponent } from './common/app-loader/app-loader.component';
 
 @NgModule({
     declarations: [
@@ -57,7 +58,8 @@ import { OverflowMenuComponent } from './common/overflow-menu/overflow-menu.comp
 
         // Layout
         DashboardComponent,
-        NavComponent
+        NavComponent,
+        AppLoaderComponent
     ],
     imports: [
         CommonModule,

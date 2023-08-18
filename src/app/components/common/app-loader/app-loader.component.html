@@ -1,0 +1,76 @@
+<div
+    [ngStyle]="{
+        height: transitionEnded ? '0vh' : '100vh'
+    }"
+    class="loader"
+>
+    <!-- Logo -->
+    <div class="loader__logo">
+        <base-image
+            [src]="logoUri"
+            alt="Agrigistics logo"
+        ></base-image>
+    </div>
+    <!-- ./Logo -->
+
+    <!-- Count -->
+    <div
+        [ngStyle]="{
+            transform: countTranslateY
+        }"
+        class="loader__count"
+    >
+        <div class="loader__count-number loader__count-number--lg">
+            <ng-container *ngFor="let number of numbersLarge.reverse()">
+                <div 
+                    [ngStyle]="{
+                        transform: 'translateY( -' + currentLoadPercentage + '% )'
+                    }"
+                    class="loader__count-number-element"
+                >
+                    <base-text
+                        fontWeight="light"
+                        variant="heading lg"
+                    >
+                        {{ number }}
+                    </base-text>
+                </div>
+            </ng-container>
+        </div>
+        <div class="loader__count-number loader__count-number--md">
+            <ng-container *ngFor="let number of numbersMedium.reverse()">
+                <div 
+                    [ngStyle]="{
+                        transform: 'translateY( -' + currentLoadPercentage + '% )'
+                    }"
+                    class="loader__count-number-element"
+                >
+                    <base-text
+                        fontWeight="light"
+                        variant="heading lg"
+                    >
+                        {{ number }}
+                    </base-text>
+                </div>
+            </ng-container>
+        </div>
+        <div class="loader__count-number loader__count-number--sm">
+            <ng-container *ngFor="let number of numbersSmall.reverse()">
+                <div 
+                    [ngStyle]="{
+                        transform: 'translateY( -' + currentLoadPercentage + '% )'
+                    }"
+                    class="loader__count-number-element"
+                >
+                    <base-text
+                        fontWeight="light"
+                        variant="heading lg"
+                    >
+                        {{ number }}
+                    </base-text>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <!-- ./Count -->
+</div>

@@ -1,0 +1,111 @@
+/*** IMPORTS ***/
+// Use
+@use './../../../styles/shared/animations' as anim;
+@use './../../../styles/utils/functions' as func;
+@use './../../../styles/utils/mixins' as mixin;
+
+/*** STYLES ***/
+// Host
+:host {
+    display: contents;
+}
+
+// Component
+.loader {
+    // Mixins
+    @include mixin.animation( anim.$appLoaderBackground 5s );
+    @include mixin.fullWidth();
+    @include mixin.transition(
+        height
+        func.duration( extraSlow )
+        func.easing( easeOutQuint )
+    );
+
+    // Styles
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 99999;
+
+    // Children
+    &__logo {
+        height: func.pxToRem( 32 );
+        position: absolute;
+        top: func.pxToRem( 16 );
+        left: func.pxToRem( 144 );
+
+        // Media Queries
+        @include mixin.maxWidth( lg ) {
+            top: func.pxToRem( 16 );
+            left: func.pxToRem( 16 );
+        }
+    }
+
+    &__count {
+        // Mixins
+        @include mixin.inlineFlexCenter( flex-end );
+        @include mixin.transition(
+            all
+            func.duration( slow )
+            func.easing( easeOutCubic )
+        );
+
+        // Styles
+        position: absolute;
+        bottom: 0;
+        right: func.pxToRem( 144 );
+
+        // Media Queries
+        @include mixin.maxWidth( lg ) {
+            right: func.pxToRem( 16 );
+        }
+
+        // Children
+        &-number {
+            height: func.pxToRem( 56 );
+            display: grid;
+            align-items: flex-end;
+            justify-content: flex-end;
+            color: func.color( baseColor-0 );
+            overflow: hidden;
+
+            &-element {
+                // Number
+                @include mixin.transition(
+                    all
+                    func.duration( extraSlow )
+                    func.easing( easeOutCubic )
+                );
+
+                // Styles
+                height: func.pxToRem( 56 );
+            }
+
+            &--md {
+                .loader {
+                    &__count {
+                        &-number {
+                            &-element {
+                                transition-delay: .1s;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &--sm {
+                .loader {
+                    &__count {
+                        &-number {
+                            &-element {
+                                transition-delay: .2s;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
