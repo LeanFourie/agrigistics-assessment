@@ -294,8 +294,10 @@ export class AreaManagerComponent implements OnInit, OnDestroy {
             if ( this.searchTerms.length > 0 ) {
                 // Filter out the data to show only ones matching the search terms
                 renderData = renderData.filter( entry => {
-                    return Object.values( entry ).some( value => {
-                        if ( value !== null ) {
+                    return Object.keys( entry ).some( key => {
+                        const value: string | number = entry[ key as keyof FarmBlockInterface ]
+
+                        if ( ( key === 'name' || key === 'variant' ) && value !== null ) {
                             return this.searchTerms.some( term => value.toString().toLowerCase().includes( term.toLowerCase() ) )
                         }
 

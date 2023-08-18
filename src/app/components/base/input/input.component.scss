@@ -30,6 +30,11 @@
     overflow: hidden;
 
     // Children
+    &__label,
+    &__icon {
+        pointer-events: none
+    }
+
     &__label {
         // Mixins
         @include mixin.transition(
